@@ -1,0 +1,114 @@
+[info] python: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
+[info] exe: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
+[info] nibabel: 5.1.0
+[info] preprocessing Dataset101_PM into /gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm
+/gpfs/home6/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/monai/utils/module.py:395: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  pkg = __import__(module)  # top level module
+started preprocessing Dataset101_PM...
+using 8 worker processes
+target spacing: (2.0, 2.0, 2.0) mm  |  target shape: (192, 192, 256)
+preprocess:   0%|          | 0/62 [00:00<?, ?it/s]preprocess:   2%|▏         | 1/62 [00:03<03:27,  3.41s/it]preprocess:   3%|▎         | 2/62 [00:04<02:12,  2.20s/it]preprocess:   5%|▍         | 3/62 [00:05<01:40,  1.71s/it]preprocess:   6%|▋         | 4/62 [00:07<01:29,  1.54s/it]preprocess:   8%|▊         | 5/62 [00:08<01:19,  1.40s/it]preprocess:  10%|▉         | 6/62 [00:08<00:54,  1.02it/s]preprocess:  11%|█▏        | 7/62 [00:09<00:57,  1.04s/it]preprocess:  13%|█▎        | 8/62 [00:10<00:53,  1.01it/s]preprocess:  15%|█▍        | 9/62 [00:11<00:52,  1.02it/s]preprocess:  16%|█▌        | 10/62 [00:12<00:49,  1.04it/s]preprocess:  18%|█▊        | 11/62 [00:14<01:00,  1.19s/it]preprocess:  19%|█▉        | 12/62 [00:14<00:47,  1.06it/s]preprocess:  21%|██        | 13/62 [00:15<00:40,  1.21it/s]preprocess:  23%|██▎       | 14/62 [00:15<00:32,  1.46it/s]preprocess:  24%|██▍       | 15/62 [00:15<00:29,  1.59it/s]preprocess:  26%|██▌       | 16/62 [00:18<01:02,  1.35s/it]preprocess:  27%|██▋       | 17/62 [00:19<00:47,  1.06s/it]preprocess:  31%|███       | 19/62 [00:20<00:39,  1.10it/s]preprocess:  32%|███▏      | 20/62 [00:20<00:30,  1.37it/s]preprocess:  34%|███▍      | 21/62 [00:21<00:26,  1.57it/s]preprocess:  35%|███▌      | 22/62 [00:22<00:35,  1.14it/s]preprocess:  37%|███▋      | 23/62 [00:24<00:42,  1.09s/it]preprocess:  39%|███▊      | 24/62 [00:24<00:32,  1.18it/s]preprocess:  40%|████      | 25/62 [00:25<00:29,  1.23it/s]preprocess:  42%|████▏     | 26/62 [00:25<00:23,  1.51it/s]preprocess:  44%|████▎     | 27/62 [00:27<00:36,  1.05s/it]preprocess:  45%|████▌     | 28/62 [00:28<00:33,  1.00it/s]preprocess:  47%|████▋     | 29/62 [00:29<00:29,  1.11it/s]preprocess:  48%|████▊     | 30/62 [00:29<00:21,  1.48it/s]preprocess:  50%|█████     | 31/62 [00:30<00:24,  1.26it/s]preprocess:  52%|█████▏    | 32/62 [00:30<00:18,  1.64it/s]preprocess:  53%|█████▎    | 33/62 [00:30<00:14,  2.07it/s]preprocess:  55%|█████▍    | 34/62 [00:32<00:22,  1.27it/s]preprocess:  56%|█████▋    | 35/62 [00:33<00:27,  1.03s/it]preprocess:  60%|█████▉    | 37/62 [00:34<00:15,  1.59it/s]preprocess:  61%|██████▏   | 38/62 [00:37<00:32,  1.35s/it]preprocess:  63%|██████▎   | 39/62 [00:38<00:25,  1.10s/it]preprocess:  65%|██████▍   | 40/62 [00:38<00:19,  1.15it/s]preprocess:  66%|██████▌   | 41/62 [00:40<00:22,  1.09s/it]preprocess:  68%|██████▊   | 42/62 [00:40<00:18,  1.05it/s]preprocess:  69%|██████▉   | 43/62 [00:41<00:15,  1.22it/s]preprocess:  71%|███████   | 44/62 [00:43<00:19,  1.11s/it]preprocess:  74%|███████▍  | 46/62 [00:43<00:11,  1.42it/s]preprocess:  76%|███████▌  | 47/62 [00:45<00:14,  1.07it/s]preprocess:  77%|███████▋  | 48/62 [00:47<00:17,  1.28s/it]preprocess:  81%|████████  | 50/62 [00:48<00:10,  1.13it/s]preprocess:  82%|████████▏ | 51/62 [00:49<00:11,  1.07s/it]preprocess:  84%|████████▍ | 52/62 [00:49<00:08,  1.20it/s]preprocess:  85%|████████▌ | 53/62 [00:50<00:06,  1.49it/s]preprocess:  89%|████████▊ | 55/62 [00:51<00:04,  1.44it/s]preprocess:  90%|█████████ | 56/62 [00:53<00:05,  1.04it/s]preprocess:  92%|█████████▏| 57/62 [00:55<00:06,  1.28s/it]preprocess:  94%|█████████▎| 58/62 [00:55<00:03,  1.01it/s]preprocess:  95%|█████████▌| 59/62 [00:56<00:02,  1.23it/s]preprocess:  97%|█████████▋| 60/62 [00:56<00:01,  1.45it/s]preprocess:  98%|█████████▊| 61/62 [00:57<00:00,  1.42it/s]preprocess: 100%|██████████| 62/62 [00:57<00:00,  1.71it/s]preprocess: 100%|██████████| 62/62 [00:57<00:00,  1.08it/s]
+finished preprocessing Dataset101_PM...
+[info] generating train/validation CSV splits in /gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm
+[info] checkpoint dir: model_checkpoints/best_dice_checkpoint_21916451
+[info] config: /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/config_21916451.yaml
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/monai/utils/module.py:395: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  pkg = __import__(module)  # top level module
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+wandb: Currently logged in as: pcgort. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.26.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/wandb/run-20260416_093656-miq0jnf9
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run segformer3d_dataset101_pm
+wandb: ⭐️ View project at https://wandb.ai/pcgort/segformer3d
+wandb: 🚀 View run at https://wandb.ai/pcgort/segformer3d/runs/miq0jnf9
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+-------------------------------------------------------
+[info]: Experiment Info
+[info] ----- Project: segformer3d
+[info] ----- Group: dataset101_pm
+[info] ----- Name: segformer3d_dataset101_pm
+[info] ----- Batch Size: 2
+[info] ----- Num Epochs: 800
+[info] ----- Loss: dice
+[info] ----- Optimizer: adamw
+[info] ----- Train Dataset Size: 49
+[info] ----- Test Dataset Size: 13
+[info] ----- Distributed Training: False
+[info] ----- Num Clases: 14
+[info] ----- EMA: False
+[info] ----- Load From Checkpoint: False
+[info] ----- Params: 4495150
+-------------------------------------------------------
+  0%|          | 0/800 [00:00<?, ?it/s]
+[info] -- warming up learning rate 
+
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/conv.py:605: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv3d(
+epoch: 0000 -- train loss: 0.95649 -- lr: 1.6666666666666667e-06
+  0%|          | 0/800 [00:20<?, ?it/s]
+Traceback (most recent call last):
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/run_experiment.py", line 240, in <module>
+    launch_experiment(args.config)
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/run_experiment.py", line 140, in launch_experiment
+    trainer.train()
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../train_scripts/trainer_ddp.py", line 436, in train
+    self._run_train_val()
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../train_scripts/trainer_ddp.py", line 255, in _run_train_val
+    val_loss = self._val_step(use_ema=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../train_scripts/trainer_ddp.py", line 207, in _val_step
+    predicted = self.model.forward(data)
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../architectures/segformer3d.py", line 113, in forward
+    x = self.segformer_encoder(x)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1568, in _call_impl
+    result = forward_call(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../architectures/segformer3d.py", line 425, in forward
+    x = blk(x)
+        ^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../architectures/segformer3d.py", line 291, in forward
+    x = x + self.attention(self.norm1(x))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/../../../architectures/segformer3d.py", line 211, in forward
+    x_ = x.permute(0, 2, 1).reshape(B, C, n, n, n).contiguous()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: shape '[1, 32, 53, 53, 53]' is invalid for input of size 4718592
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: - 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: \ 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: | 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: / 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: - 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: \ 0.025 MB of 0.025 MB uploaded (0.000 MB deduped)wandb: 🚀 View run segformer3d_dataset101_pm at: https://wandb.ai/pcgort/segformer3d/runs/miq0jnf9
+wandb: ️⚡ View job at https://wandb.ai/pcgort/segformer3d/jobs/QXJ0aWZhY3RDb2xsZWN0aW9uOjEwMTAzNTQ2MTg=/version_details/v0
+wandb: Synced 6 W&B file(s), 1 media file(s), 2 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./wandb/run-20260416_093656-miq0jnf9/logs
+Traceback (most recent call last):
+  File "/gpfs/home6/pgort1/.conda/envs/segformer3d/bin/accelerate", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/accelerate/commands/accelerate_cli.py", line 47, in main
+    args.func(args)
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/accelerate/commands/launch.py", line 986, in launch_command
+    simple_launcher(args)
+  File "/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/accelerate/commands/launch.py", line 628, in simple_launcher
+    raise subprocess.CalledProcessError(returncode=process.returncode, cmd=cmd)
+subprocess.CalledProcessError: Command '['/home/pgort1/.conda/envs/segformer3d/bin/python3.11', 'run_experiment.py', '--config', '/gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/config_21916451.yaml']' returned non-zero exit status 1.

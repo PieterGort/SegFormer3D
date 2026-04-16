@@ -115,13 +115,24 @@ def build_augmentations(
 
     if train:
         train_transform = [
-            # Random spatial cropping - generates 4 crops per volume for data efficiency
+            # Trim zero-padded borders so patch sampling targets actual anatomy.
+            # For one-hot labels the bounding box is wherever any channel > 0.
+            transforms.CropForegroundd(
+                keys=["image", "label"],
+                source_key="label",
+            ),
+            # Ensure volume is at least roi_size so the crop below never fails.
+            transforms.SpatialPadd(
+                keys=["image", "label"],
+                spatial_size=roi_size,
+            ),
+            # Random spatial cropping - generates num_samples crops per volume.
             transforms.RandSpatialCropSamplesd(
-                keys=["image", "label"], 
-                roi_size=(96, 96, 96), 
-                num_samples=4, 
-                random_center=True, 
-                random_size=False
+                keys=["image", "label"],
+                roi_size=roi_size,
+                num_samples=num_samples,
+                random_center=True,
+                random_size=False,
             ),
             # Random horizontal flip for geometric augmentation
             transforms.RandFlipd(
@@ -137,9 +148,9 @@ def build_augmentations(
                 range_y=0.0, 
                 range_z=0.0
             ),
-            # Coarse dropout for robustness
+            # Coarse dropout on image only for robustness
             transforms.RandCoarseDropoutd(
-                keys=["image", "label"], 
+                keys=["image"],
                 holes=20, 
                 spatial_size=(-1, 7, 7), 
                 fill_value=0, 
@@ -155,7 +166,8 @@ def build_augmentations(
         ]
         return transforms.Compose(train_transform)
     else:
-        # Minimal validation transforms - only ensure type consistency
+        # Minimal validation transforms - only ensure type consistency.
+        # Full volumes are passed directly to sliding-window inference.
         val_transform = [
             transforms.EnsureTyped(
                 keys=["image", "label"], 

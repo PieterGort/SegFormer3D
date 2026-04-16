@@ -79,6 +79,7 @@ training_parameters:
   load_optimizer: False
   print_every: 200
   calculate_metrics: True
+  val_every: 5
   grad_accumulate_steps: 1
   checkpoint_save_dir: "model_checkpoints/best_dice_checkpoint"
   load_checkpoint:
@@ -90,23 +91,27 @@ training_parameters:
 dataset_parameters:
   dataset_type: "brats2017_seg"
   train_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm"
     train: True
     fold_id: null
+    roi_size: [128, 128, 128]
+    num_samples: 6
 
   val_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm"
     train: False
     fold_id: null
 
   train_dataloader_args:
-    batch_size: 2
+    batch_size: 4
     shuffle: True
-    num_workers: 12
+    num_workers: 16
     drop_last: True
+    prefetch_factor: 3
 
   val_dataloader_args:
     batch_size: 1
     shuffle: False
     num_workers: 6
     drop_last: False
+    prefetch_factor: 2

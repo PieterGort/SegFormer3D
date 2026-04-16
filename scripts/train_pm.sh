@@ -21,7 +21,7 @@ export WANDB_MODE="online"
 unset WANDB_API_KEY
 export SEGFORMER3D_HOME="/gpfs/home6/pgort1/projects/SegFormer3D"
 export PM_RAW_DATASET_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM"
-export PM_PREPROCESSED_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed"
+export PM_PREPROCESSED_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm"
 export PM_PREPROCESS_SCRIPT="${SEGFORMER3D_HOME}/data/dataset101_pm/dataset101_pm_raw_data/dataset101_pm_preprocess.py"
 export PM_SPLIT_SCRIPT="${SEGFORMER3D_HOME}/data/dataset101_pm/dataset101_pm_raw_data/datameta_generator/create_train_val_test_csv.py"
 export EXPERIMENT_DIR="${SEGFORMER3D_HOME}/experiments/dataset101_pm/default_experiment"

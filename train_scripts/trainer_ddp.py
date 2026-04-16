@@ -62,6 +62,8 @@ class Segmentation_Trainer:
         self.best_val_loss = 100.0  # best validation loss
         self.epoch_val_dice = 0.0  # epoch validation accuracy
         self.best_val_dice = 0.0  # best validation accuracy
+        self.num_classes = config["model_parameters"]["num_classes"]
+        self.epoch_val_per_class_dice: list = [0.0] * self.num_classes
 
         # external metric functions we can add
         self.sliding_window_inference = SlidingWindowInference(
@@ -91,6 +93,7 @@ class Segmentation_Trainer:
         """
         self.num_epochs = self.config["training_parameters"]["num_epochs"]
         self.print_every = self.config["training_parameters"]["print_every"]
+        self.val_every = self.config["training_parameters"].get("val_every", 1)
         self.ema_enabled = self.config["ema"]["enabled"]
         self.val_ema_every = self.config["ema"]["val_ema_every"]
         self.warmup_enabled = self.config["warmup_scheduler"]["enabled"]
@@ -179,84 +182,56 @@ class Segmentation_Trainer:
     def _val_step(self, use_ema: bool = False) -> float:
         """Run validation step.
 
-        Args:
-            use_ema (bool, optional): if use_ema runs validation with ema_model. Defaults to False.
+        The model's EfficientSelfAttention requires cubic (n×n×n) input because it
+        calls cube_root(N) to recover spatial dimensions from the token sequence.
+        Full validation volumes are non-cubic after 2 mm resampling (e.g. 256×192×192),
+        which would cause a reshape error on a direct forward pass.
 
-        Returns:
-            float: average validation loss
+        Fix: always use sliding-window inference so the model only ever receives
+        128×128×128 cubic patches.  The assembled logits are then used for *both*
+        the loss and the Dice metric in a single inference pass.
         """
-        # Initialize the training loss for the current Epoch
         epoch_avg_loss = 0.0
         total_dice = 0.0
+        total_per_class_dice = [0.0] * self.num_classes
 
-        # set model to eval mode
-        self.model.eval()
-        if use_ema:
-            self.val_ema_model.eval()
+        model = self.val_ema_model if use_ema else self.model
+        model.eval()
 
-        # set epoch to shift data order each epoch
-        # self.val_dataloader.sampler.set_epoch(self.current_epoch)
         with torch.no_grad():
-            for index, (raw_data) in enumerate(self.val_dataloader):
-                # get data ex: (data, target)
-                data, labels = (
-                    raw_data["image"],
-                    raw_data["label"],
-                )
-                # forward pass
-                if use_ema:
-                    predicted = self.ema_model.forward(data)
-                else:
-                    predicted = self.model.forward(data)
+            for index, raw_data in enumerate(self.val_dataloader):
+                data, labels = raw_data["image"], raw_data["label"]
 
-                # calculate loss (detach to avoid memory accumulation)
-                loss = self.criterion(predicted, labels)
+                # Sliding window: only 128³ cubic patches reach the model.
+                logits = self.sliding_window_inference.predict_logits(data, model)
 
-                # calculate metrics
-                if self.calculate_metrics:
-                    mean_dice = self._calc_dice_metric(data, labels, use_ema)
-                    # keep track of number of total correct
-                    total_dice += mean_dice
-
-                # update loss for the current batch
+                loss = self.criterion(logits, labels)
                 epoch_avg_loss += loss.detach().item()
 
-                # Free up memory periodically during validation
+                if self.calculate_metrics:
+                    mean_dice, per_class_dice = self.sliding_window_inference.compute_dice(
+                        logits, labels
+                    )
+                    total_dice += mean_dice
+                    total_per_class_dice = [
+                        a + b for a, b in zip(total_per_class_dice, per_class_dice)
+                    ]
+
                 if index % 10 == 0 and torch.cuda.is_available():
                     torch.cuda.empty_cache()
 
+        n = float(index + 1)
         if use_ema:
-            self.epoch_val_ema_dice = total_dice / float(index + 1)
+            self.epoch_val_ema_dice = total_dice / n
         else:
-            self.epoch_val_dice = total_dice / float(index + 1)
+            self.epoch_val_dice = total_dice / n
+            self.epoch_val_per_class_dice = [v / n for v in total_per_class_dice]
 
-        epoch_avg_loss = epoch_avg_loss / float(index + 1)
+        return epoch_avg_loss / n
 
-        return epoch_avg_loss
-
-    def _calc_dice_metric(self, data, labels, use_ema: bool) -> float:
-        """_summary_
-
-        Args:
-            predicted (_type_): _description_
-            labels (_type_): _description_
-
-        Returns:
-            float: _description_
-        """
-        if use_ema:
-            avg_dice_score = self.sliding_window_inference(
-                data,
-                labels,
-                self.ema_model,
-            )
-        else:
-            avg_dice_score = self.sliding_window_inference(
-                data,
-                labels,
-                self.model,
-            )
-        return avg_dice_score
+    def _calc_dice_metric(self, data, labels, use_ema: bool):
+        model = self.ema_model if use_ema else self.model
+        return self.sliding_window_inference(data, labels, model)
 
     def _run_train_val(self) -> None:
         """Run full training and validation loop with memory optimization."""
@@ -276,21 +251,29 @@ class Segmentation_Trainer:
             train_loss = self._train_step()
             self.epoch_train_loss = train_loss
 
-            # run a single validation step
-            val_loss = self._val_step(use_ema=False)
-            self.epoch_val_loss = val_loss
+            # run validation every val_every epochs (default: every epoch)
+            if epoch % self.val_every == 0:
+                val_loss = self._val_step(use_ema=False)
+                self.epoch_val_loss = val_loss
 
-            # if enabled run ema every x steps
-            self._val_ema_model()
+                # if enabled run ema every x steps
+                self._val_ema_model()
 
-            # update metrics
-            self._update_metrics()
+                # update metrics
+                self._update_metrics()
 
-            # log metrics
-            self._log_metrics()
+                # log metrics
+                self._log_metrics()
 
-            # save and print
-            self._save_and_print()
+                # save and print
+                self._save_and_print()
+            else:
+                # still log train loss on skipped val epochs so W&B curve is continuous
+                self.accelerator.log({
+                    "epoch": self.current_epoch,
+                    "train_loss": self.epoch_train_loss,
+                    "lr": self.optimizer.param_groups[0]["lr"],
+                })
 
             # update schduler
             self.scheduler.step()
@@ -339,31 +322,25 @@ class Segmentation_Trainer:
                 self.best_val_dice = self.epoch_val_dice
 
     def _log_metrics(self) -> None:
-        """_summary_"""
-        # data to be logged
         log_data = {
             "epoch": self.current_epoch,
             "train_loss": self.epoch_train_loss,
             "val_loss": self.epoch_val_loss,
             "mean_dice": self.epoch_val_dice,
+            "lr": self.optimizer.param_groups[0]["lr"],
         }
-        # log the data
+        # Log per-class Dice to W&B every epoch (cheap; W&B handles it efficiently).
+        for i, d in enumerate(self.epoch_val_per_class_dice):
+            log_data[f"val_dice_class_{i}"] = d
         self.accelerator.log(log_data)
 
     def _save_and_print(self) -> None:
-        """_summary_"""
-        # print only on the first gpu
         if self.epoch_val_dice >= self.best_val_dice:
-            # change path name based on cutoff epoch
-            if self.current_epoch <= self.cutoff_epoch:
-                save_path = self.checkpoint_save_dir
-            else:
-                save_path = os.path.join(
-                    self.checkpoint_save_dir,
-                    "best_dice_model_post_cutoff",
-                )
-
-            # save checkpoint and log
+            save_path = (
+                self.checkpoint_save_dir
+                if self.current_epoch <= self.cutoff_epoch
+                else os.path.join(self.checkpoint_save_dir, "best_dice_model_post_cutoff")
+            )
             self._save_checkpoint(save_path)
 
             self.accelerator.print(
@@ -381,6 +358,13 @@ class Segmentation_Trainer:
                 f"lr -- {self.scheduler.get_last_lr()[0]:.8f} || "
                 f"val mean_dice -- {self.epoch_val_dice:.5f}"
             )
+
+        # Print per-class breakdown every 50 epochs to console (not every step).
+        if self.current_epoch % 50 == 0 and self.calculate_metrics:
+            class_lines = "  ".join(
+                f"C{i}:{d:.1f}%" for i, d in enumerate(self.epoch_val_per_class_dice)
+            )
+            self.accelerator.print(f"[per-class dice ep {self.current_epoch}] {class_lines}")
 
     def _save_checkpoint(self, filename: str) -> None:
         """_summary_
@@ -761,6 +745,7 @@ class AutoEncoder_Trainer:
             "train_loss": self.epoch_train_loss,
             "val_loss": self.epoch_val_loss,
             "mean_iou": self.epoch_val_iou,
+            "lr": self.optimizer.param_groups[0]["lr"],
         }
         # log the data
         self.accelerator.log(log_data)

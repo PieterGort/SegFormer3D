@@ -8,7 +8,7 @@ import nibabel
 import numpy as np
 import torch
 from monai.data import MetaTensor
-from monai.transforms import EnsureType, Orientation
+from monai.transforms import EnsureType, Orientation, Spacing
 from sklearn.preprocessing import MinMaxScaler
 from tqdm import tqdm
 
@@ -35,7 +35,8 @@ class Dataset101PMPreprocess:
         image_dir: str = "imagesTr",
         label_dir: str = "labelsTr",
         dataset_json: str = "dataset.json",
-        target_shape: Tuple[int, int, int] = (128, 128, 128),
+        target_shape: Tuple[int, int, int] = (192, 192, 256),
+        target_spacing: Tuple[float, float, float] = (2.0, 2.0, 2.0),
     ) -> None:
         self.dataset_root = os.path.abspath(dataset_root)
         self.image_dir = os.path.join(self.dataset_root, image_dir)
@@ -46,6 +47,7 @@ class Dataset101PMPreprocess:
         self.label_values = self._get_label_values(self.dataset_meta)
         self.label_converter = ConvertToMultiChannelBasedOnLabelMap(self.label_values)
         self.target_shape = tuple(int(dim) for dim in target_shape)
+        self.target_spacing = tuple(float(s) for s in target_spacing)
         self.save_dir = os.path.abspath(save_dir)
 
         assert os.path.exists(self.image_dir), f"Image directory not found: {self.image_dir}"
@@ -91,6 +93,9 @@ class Dataset101PMPreprocess:
     @staticmethod
     def orient(x: MetaTensor) -> MetaTensor:
         return Orientation(axcodes="RAS")(x)
+
+    def resample(self, x: MetaTensor, mode: str = "bilinear") -> MetaTensor:
+        return Spacing(pixdim=self.target_spacing, mode=mode)(x)
 
     @staticmethod
     def detach_meta(x: MetaTensor) -> np.ndarray:
@@ -159,15 +164,23 @@ class Dataset101PMPreprocess:
         data = data[np.newaxis, ...]
         data = MetaTensor(x=data, affine=affine)
         data = self.orient(data)
+        data = self.resample(data, mode="bilinear")
         return self.detach_meta(data)
 
     def preprocess_label(self, data_fp: str) -> np.ndarray:
         data, affine = self.load_nifti(data_fp)
-        data = np.rint(data).astype(np.uint8, copy=False)
-        data = self.label_converter(data)
+        # Keep as float32 for MONAI transform compatibility; round to recover integer classes.
+        data = np.rint(data).astype(np.float32, copy=False)
+        data = data[np.newaxis, ...]  # (1, D, H, W)
         data = MetaTensor(x=data, affine=affine)
         data = self.orient(data)
-        return self.detach_meta(data).astype(np.float32, copy=False)
+        # Resample the integer label map with nearest-neighbour before one-hot conversion so
+        # that class boundaries are not blurred by interpolation.
+        data = self.resample(data, mode="nearest")
+        data = self.detach_meta(data)          # (1, D, H, W) numpy float32
+        data = np.rint(data).astype(np.uint8, copy=False)  # restore integer class ids
+        data = self.label_converter(data)      # (1, D, H, W) → (C, D, H, W) one-hot
+        return data.astype(np.uint8, copy=False)  # uint8 to keep .pt files small
 
     def __getitem__(self, idx: int):
         case_name = self.case_names[idx]
@@ -186,14 +199,16 @@ class Dataset101PMPreprocess:
         modalities = self._center_crop_or_pad(modalities)
         label = self._center_crop_or_pad(label)
 
+        # swapaxes(1, 3): (C, D, H, W) → (C, W, H, D) — transverse plane, matching BraTS convention
         modalities = modalities.swapaxes(1, 3)
         label = label.swapaxes(1, 3)
-        return modalities.astype(np.float32, copy=False), label.astype(np.float32, copy=False), case_name
+        return modalities.astype(np.float32, copy=False), label.astype(np.uint8, copy=False), case_name
 
     def __call__(self) -> None:
         num_workers = self._resolve_num_workers()
         print("started preprocessing Dataset101_PM...")
         print(f"using {num_workers} worker processes")
+        print(f"target spacing: {self.target_spacing} mm  |  target shape: {self.target_shape}")
         with Pool(processes=num_workers) as multi_p:
             for _ in tqdm(
                 multi_p.imap_unordered(self.process, range(self.__len__())),
@@ -208,8 +223,8 @@ class Dataset101PMPreprocess:
         modalities, label, case_name = self.__getitem__(idx)
         data_save_path = os.path.join(self.save_dir, case_name)
         os.makedirs(data_save_path, exist_ok=True)
-        torch.save(modalities, os.path.join(data_save_path, f"{case_name}_modalities.pt"))
-        torch.save(label, os.path.join(data_save_path, f"{case_name}_label.pt"))
+        torch.save(torch.from_numpy(modalities), os.path.join(data_save_path, f"{case_name}_modalities.pt"))
+        torch.save(torch.from_numpy(label), os.path.join(data_save_path, f"{case_name}_label.pt"))
         return case_name
 
     @staticmethod
@@ -235,16 +250,24 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--save-dir",
         type=str,
-        default="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed",
+        default="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm",
         help="Directory where preprocessed case folders will be saved.",
     )
     parser.add_argument(
         "--target-shape",
         type=int,
         nargs=3,
-        default=(128, 128, 128),
+        default=(192, 192, 256),
         metavar=("D", "H", "W"),
-        help="Final spatial shape saved for each case.",
+        help="Final spatial shape saved for each case (before axis swap).",
+    )
+    parser.add_argument(
+        "--target-spacing",
+        type=float,
+        nargs=3,
+        default=(2.0, 2.0, 2.0),
+        metavar=("X", "Y", "Z"),
+        help="Isotropic voxel spacing in mm to resample to before cropping.",
     )
     return parser
 
@@ -256,5 +279,6 @@ if __name__ == "__main__":
         dataset_root=args.dataset_root,
         save_dir=args.save_dir,
         target_shape=tuple(args.target_shape),
+        target_spacing=tuple(args.target_spacing),
     )
     preprocess()

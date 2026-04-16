@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from typing import Dict, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 from monai.metrics import DiceMetric
 from monai.transforms import Compose
 from monai.data import decollate_batch
@@ -71,7 +71,7 @@ class SlidingWindowInference:
         val_inputs: torch.Tensor, 
         val_labels: torch.Tensor, 
         model: nn.Module
-    ) -> float:
+    ) -> Tuple[float, List[float]]:
         """Compute Dice metric using sliding window inference.
         
         Args:
@@ -80,7 +80,8 @@ class SlidingWindowInference:
             model: Segmentation model
             
         Returns:
-            Average Dice score across all classes (percentage)
+            Tuple of (mean_dice_pct, per_class_dice_pct) where per_class_dice_pct
+            is a list with one value per class, all in percentage points [0, 100].
         """
         logits = self.predict_logits(val_inputs=val_inputs, model=model)
         return self.compute_dice(logits=logits, val_labels=val_labels)
@@ -103,7 +104,14 @@ class SlidingWindowInference:
         self,
         logits: torch.Tensor,
         val_labels: torch.Tensor,
-    ) -> float:
+    ) -> Tuple[float, List[float]]:
+        """Run one inference + Dice computation for the given logits and labels.
+
+        Returns:
+            (mean_dice_pct, per_class_dice_pct)
+            mean_dice_pct   – scalar mean over all classes, in percent.
+            per_class_dice_pct – list[num_classes] of per-class Dice, in percent.
+        """
         self.dice_metric.reset()
 
         # Decollate and post-process predictions
@@ -117,18 +125,13 @@ class SlidingWindowInference:
                 self.label_post_transform(val_label_tensor) for val_label_tensor in val_labels_list
             ]
         
-        # Compute Dice metric
+        # Compute Dice metric — aggregate() shape: (num_classes,) with reduction="mean_batch"
         self.dice_metric(y_pred=val_output_convert, y=val_labels_list)
-        
-        # Aggregate results - compute accuracy per channel
-        acc = self.dice_metric.aggregate().cpu()
-        avg_acc = float(acc.mean().item())
-        
-        # To access individual metric:
-        # TC acc: acc[0]
-        # WT acc: acc[1]
-        # ET acc: acc[2]
-        return avg_acc * 100.0
+        acc = self.dice_metric.aggregate().cpu()   # (num_classes,)
+
+        per_class_pct: List[float] = (acc * 100.0).tolist()
+        mean_pct: float = float(acc.mean().item()) * 100.0
+        return mean_pct, per_class_pct
 
 
 def build_metric_fn(metric_type: str, metric_arg: Dict) -> SlidingWindowInference:

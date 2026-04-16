@@ -1,0 +1,616 @@
+[info] python: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
+[info] exe: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
+[info] nibabel: 5.1.0
+[info] checkpoint dir: model_checkpoints/best_dice_checkpoint_21916679
+[info] config: /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/config_21916679.yaml
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/monai/utils/module.py:395: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  pkg = __import__(module)  # top level module
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+wandb: Currently logged in as: pcgort. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.26.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.12
+wandb: Run data is saved locally in /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/wandb/run-20260416_095237-1ubcjjmm
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run segformer3d_dataset101_pm
+wandb: ⭐️ View project at https://wandb.ai/pcgort/segformer3d
+wandb: 🚀 View run at https://wandb.ai/pcgort/segformer3d/runs/1ubcjjmm
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+-------------------------------------------------------
+[info]: Experiment Info
+[info] ----- Project: segformer3d
+[info] ----- Group: dataset101_pm
+[info] ----- Name: segformer3d_dataset101_pm
+[info] ----- Batch Size: 2
+[info] ----- Num Epochs: 800
+[info] ----- Loss: dice
+[info] ----- Optimizer: adamw
+[info] ----- Train Dataset Size: 49
+[info] ----- Test Dataset Size: 13
+[info] ----- Distributed Training: False
+[info] ----- Num Clases: 14
+[info] ----- EMA: False
+[info] ----- Load From Checkpoint: False
+[info] ----- Params: 4495150
+-------------------------------------------------------
+  0%|          | 0/800 [00:00<?, ?it/s]
+[info] -- warming up learning rate 
+
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/conv.py:605: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv3d(
+epoch: 0000 -- train loss: 0.97339 -- lr: 1.6666666666666667e-06
+  0%|          | 1/800 [00:21<4:51:32, 21.89s/it]epoch -- 0000 || train loss -- 0.91535 || val loss -- 0.95962 || lr -- 0.00000167 || val mean_dice -- 3.97864 -- saved
+[per-class dice ep 0] C0:6.3%  C1:0.0%  C2:22.8%  C3:1.1%  C4:9.9%  C5:1.9%  C6:0.0%  C7:4.9%  C8:0.2%  C9:0.1%  C10:0.0%  C11:2.6%  C12:5.9%  C13:0.0%
+epoch: 0001 -- train loss: 0.91908 -- lr: 3.3333333333333333e-06
+  0%|          | 2/800 [00:43<4:51:17, 21.90s/it]epoch -- 0001 || train loss -- 0.88598 || val loss -- 0.93518 || lr -- 0.00000333 || val mean_dice -- 6.86085 -- saved
+epoch: 0002 -- train loss: 0.87209 -- lr: 5e-06
+  0%|          | 3/800 [01:06<4:55:24, 22.24s/it]epoch -- 0002 || train loss -- 0.88255 || val loss -- 0.93263 || lr -- 0.00000500 || val mean_dice -- 7.09167 -- saved
+epoch: 0003 -- train loss: 0.86851 -- lr: 6.666666666666667e-06
+  0%|          | 4/800 [01:28<4:53:22, 22.11s/it]epoch -- 0003 || train loss -- 0.87260 || val loss -- 0.92725 || lr -- 0.00000667 || val mean_dice -- 7.61273 -- saved
+epoch: 0004 -- train loss: 0.85647 -- lr: 8.333333333333334e-06
+  1%|          | 5/800 [01:49<4:47:44, 21.72s/it]epoch -- 0004 || train loss -- 0.85929 || val loss -- 0.92300 || lr -- 0.00000833 || val mean_dice -- 8.02816 -- saved
+epoch: 0005 -- train loss: 0.83218 -- lr: 1e-05
+  1%|          | 6/800 [02:12<4:51:34, 22.03s/it]epoch -- 0005 || train loss -- 0.85767 || val loss -- 0.91176 || lr -- 0.00001000 || val mean_dice -- 9.23349 -- saved
+epoch: 0006 -- train loss: 0.88937 -- lr: 1.1666666666666668e-05
+  1%|          | 7/800 [02:34<4:51:30, 22.06s/it]epoch -- 0006 || train loss -- 0.84352 || val loss -- 0.91045 || lr -- 0.00001167 || val mean_dice -- 9.29267 -- saved
+epoch: 0007 -- train loss: 0.82009 -- lr: 1.3333333333333333e-05
+  1%|          | 8/800 [02:56<4:50:33, 22.01s/it]epoch -- 0007 || train loss -- 0.84507 || val loss -- 0.90600 || lr -- 0.00001333 || val mean_dice -- 9.68277 -- saved
+epoch: 0008 -- train loss: 0.84174 -- lr: 1.5e-05
+  1%|          | 9/800 [03:17<4:48:57, 21.92s/it]epoch -- 0008 || train loss -- 0.84370 || val loss -- 0.90916 || lr -- 0.00001500 || val mean_dice -- 9.23188
+epoch: 0009 -- train loss: 0.91243 -- lr: 1.6666666666666667e-05
+  1%|▏         | 10/800 [03:40<4:50:50, 22.09s/it]epoch -- 0009 || train loss -- 0.84028 || val loss -- 0.90633 || lr -- 0.00001667 || val mean_dice -- 9.45186
+epoch: 0010 -- train loss: 0.84958 -- lr: 1.8333333333333333e-05
+  1%|▏         | 11/800 [04:03<4:57:02, 22.59s/it]epoch -- 0010 || train loss -- 0.83447 || val loss -- 0.90123 || lr -- 0.00001833 || val mean_dice -- 10.28435 -- saved
+epoch: 0011 -- train loss: 0.87880 -- lr: 2e-05
+  2%|▏         | 12/800 [04:25<4:52:34, 22.28s/it]epoch -- 0011 || train loss -- 0.83117 || val loss -- 0.90861 || lr -- 0.00002000 || val mean_dice -- 9.17869
+epoch: 0012 -- train loss: 0.73250 -- lr: 2.1666666666666667e-05
+  2%|▏         | 13/800 [04:47<4:52:16, 22.28s/it]epoch -- 0012 || train loss -- 0.81754 || val loss -- 0.90361 || lr -- 0.00002167 || val mean_dice -- 9.70975
+epoch: 0013 -- train loss: 0.87321 -- lr: 2.3333333333333336e-05
+  2%|▏         | 14/800 [05:09<4:51:21, 22.24s/it]epoch -- 0013 || train loss -- 0.81599 || val loss -- 0.89460 || lr -- 0.00002333 || val mean_dice -- 10.92671 -- saved
+epoch: 0014 -- train loss: 0.83601 -- lr: 2.5e-05
+  2%|▏         | 15/800 [05:32<4:50:37, 22.21s/it]epoch -- 0014 || train loss -- 0.81775 || val loss -- 0.89174 || lr -- 0.00002500 || val mean_dice -- 11.19440 -- saved
+epoch: 0015 -- train loss: 0.80575 -- lr: 2.6666666666666667e-05
+  2%|▏         | 16/800 [05:54<4:50:39, 22.24s/it]epoch -- 0015 || train loss -- 0.81915 || val loss -- 0.90591 || lr -- 0.00002667 || val mean_dice -- 9.24055
+epoch: 0016 -- train loss: 0.81889 -- lr: 2.8333333333333335e-05
+  2%|▏         | 17/800 [06:16<4:48:58, 22.14s/it]epoch -- 0016 || train loss -- 0.81138 || val loss -- 0.86735 || lr -- 0.00002833 || val mean_dice -- 13.61576 -- saved
+epoch: 0017 -- train loss: 0.74816 -- lr: 3e-05
+  2%|▏         | 18/800 [06:37<4:43:34, 21.76s/it]epoch -- 0017 || train loss -- 0.80295 || val loss -- 0.88252 || lr -- 0.00003000 || val mean_dice -- 12.04611
+epoch: 0018 -- train loss: 0.82331 -- lr: 3.1666666666666666e-05
+  2%|▏         | 19/800 [06:58<4:43:13, 21.76s/it]epoch -- 0018 || train loss -- 0.80005 || val loss -- 0.91065 || lr -- 0.00003167 || val mean_dice -- 8.86569
+epoch: 0019 -- train loss: 0.76494 -- lr: 3.3333333333333335e-05
+  2%|▎         | 20/800 [07:20<4:42:10, 21.71s/it]epoch -- 0019 || train loss -- 0.78282 || val loss -- 0.91227 || lr -- 0.00003333 || val mean_dice -- 8.55313
+epoch: 0020 -- train loss: 0.81319 -- lr: 3.5e-05
+  3%|▎         | 21/800 [07:42<4:41:29, 21.68s/it]epoch -- 0020 || train loss -- 0.77875 || val loss -- 0.88156 || lr -- 0.00003500 || val mean_dice -- 12.00745
+epoch: 0021 -- train loss: 0.77988 -- lr: 3.6666666666666666e-05
+  3%|▎         | 22/800 [08:04<4:41:51, 21.74s/it]epoch -- 0021 || train loss -- 0.78200 || val loss -- 0.87506 || lr -- 0.00003667 || val mean_dice -- 12.55379
+epoch: 0022 -- train loss: 0.76227 -- lr: 3.8333333333333334e-05
+  3%|▎         | 23/800 [08:26<4:43:28, 21.89s/it]epoch -- 0022 || train loss -- 0.78210 || val loss -- 0.87470 || lr -- 0.00003833 || val mean_dice -- 12.70792
+epoch: 0023 -- train loss: 0.79894 -- lr: 4e-05
+  3%|▎         | 24/800 [08:47<4:38:37, 21.54s/it]epoch -- 0023 || train loss -- 0.77110 || val loss -- 0.82438 || lr -- 0.00004000 || val mean_dice -- 18.02625 -- saved
+epoch: 0024 -- train loss: 0.76859 -- lr: 4.166666666666667e-05
+  3%|▎         | 25/800 [09:08<4:37:28, 21.48s/it]epoch -- 0024 || train loss -- 0.76312 || val loss -- 0.84512 || lr -- 0.00004167 || val mean_dice -- 15.85955
+epoch: 0025 -- train loss: 0.76330 -- lr: 4.3333333333333334e-05
+  3%|▎         | 26/800 [09:30<4:41:10, 21.80s/it]epoch -- 0025 || train loss -- 0.76642 || val loss -- 0.86064 || lr -- 0.00004333 || val mean_dice -- 13.99414
+epoch: 0026 -- train loss: 0.84148 -- lr: 4.5e-05
+  3%|▎         | 27/800 [09:53<4:44:11, 22.06s/it]epoch -- 0026 || train loss -- 0.76555 || val loss -- 0.81908 || lr -- 0.00004500 || val mean_dice -- 18.26317 -- saved
+epoch: 0027 -- train loss: 0.72994 -- lr: 4.666666666666667e-05
+  4%|▎         | 28/800 [10:15<4:43:54, 22.07s/it]epoch -- 0027 || train loss -- 0.75174 || val loss -- 0.80955 || lr -- 0.00004667 || val mean_dice -- 19.57120 -- saved
+epoch: 0028 -- train loss: 0.77443 -- lr: 4.8333333333333334e-05
+  4%|▎         | 29/800 [10:37<4:42:32, 21.99s/it]epoch -- 0028 || train loss -- 0.74626 || val loss -- 0.78912 || lr -- 0.00004833 || val mean_dice -- 21.62253 -- saved
+epoch: 0029 -- train loss: 0.71774 -- lr: 5e-05
+  4%|▍         | 30/800 [10:58<4:38:23, 21.69s/it]epoch -- 0029 || train loss -- 0.74295 || val loss -- 0.75789 || lr -- 0.00005000 || val mean_dice -- 25.10876 -- saved
+
+[info] -- switching to learning rate decay schedule 
+
+epoch: 0030 -- train loss: 0.72429 -- lr: 4.9999999999999996e-05
+  4%|▍         | 31/800 [11:19<4:35:32, 21.50s/it]epoch -- 0030 || train loss -- 0.74528 || val loss -- 0.80858 || lr -- 0.00005000 || val mean_dice -- 19.67648
+epoch: 0031 -- train loss: 0.74230 -- lr: 4.9997285914596526e-05
+  4%|▍         | 32/800 [11:40<4:34:14, 21.43s/it]epoch -- 0031 || train loss -- 0.73093 || val loss -- 0.74991 || lr -- 0.00005000 || val mean_dice -- 26.29397 -- saved
+epoch: 0032 -- train loss: 0.70988 -- lr: 4.9989144328046095e-05
+  4%|▍         | 33/800 [12:02<4:35:03, 21.52s/it]epoch -- 0032 || train loss -- 0.72410 || val loss -- 0.88522 || lr -- 0.00004999 || val mean_dice -- 11.67345
+epoch: 0033 -- train loss: 0.71078 -- lr: 4.997557724916334e-05
+  4%|▍         | 34/800 [12:24<4:35:14, 21.56s/it]epoch -- 0033 || train loss -- 0.72247 || val loss -- 0.93462 || lr -- 0.00004998 || val mean_dice -- 6.48877
+epoch: 0034 -- train loss: 0.70691 -- lr: 4.995658802542197e-05
+  4%|▍         | 35/800 [12:45<4:33:49, 21.48s/it]epoch -- 0034 || train loss -- 0.71583 || val loss -- 0.76410 || lr -- 0.00004996 || val mean_dice -- 24.00828
+epoch: 0035 -- train loss: 0.69126 -- lr: 4.993218134212882e-05
+  4%|▍         | 36/800 [13:07<4:37:05, 21.76s/it]epoch -- 0035 || train loss -- 0.70126 || val loss -- 0.77316 || lr -- 0.00004993 || val mean_dice -- 23.15072
+epoch: 0036 -- train loss: 0.66417 -- lr: 4.990236322126776e-05
+  5%|▍         | 37/800 [13:30<4:39:09, 21.95s/it]epoch -- 0036 || train loss -- 0.70285 || val loss -- 0.78108 || lr -- 0.00004990 || val mean_dice -- 22.49095
+epoch: 0037 -- train loss: 0.66712 -- lr: 4.986714102001396e-05
+  5%|▍         | 38/800 [13:51<4:37:15, 21.83s/it]epoch -- 0037 || train loss -- 0.70378 || val loss -- 0.81372 || lr -- 0.00004987 || val mean_dice -- 18.78259
+epoch: 0038 -- train loss: 0.74344 -- lr: 4.9826523428918515e-05
+  5%|▍         | 39/800 [14:12<4:34:13, 21.62s/it]epoch -- 0038 || train loss -- 0.69915 || val loss -- 0.74640 || lr -- 0.00004983 || val mean_dice -- 26.14417
+epoch: 0039 -- train loss: 0.71317 -- lr: 4.9780520469764266e-05
+  5%|▌         | 40/800 [14:34<4:35:09, 21.72s/it]epoch -- 0039 || train loss -- 0.68842 || val loss -- 0.85897 || lr -- 0.00004978 || val mean_dice -- 14.47682
+epoch: 0040 -- train loss: 0.68157 -- lr: 4.972914349309303e-05
+  5%|▌         | 41/800 [14:56<4:32:45, 21.56s/it]epoch -- 0040 || train loss -- 0.67837 || val loss -- 0.81165 || lr -- 0.00004973 || val mean_dice -- 19.59655
+epoch: 0041 -- train loss: 0.61764 -- lr: 4.967240517540502e-05
+  5%|▌         | 42/800 [15:17<4:33:11, 21.63s/it]epoch -- 0041 || train loss -- 0.67842 || val loss -- 0.73672 || lr -- 0.00004967 || val mean_dice -- 27.71097 -- saved
+epoch: 0042 -- train loss: 0.66637 -- lr: 4.9610319516031154e-05
+  5%|▌         | 43/800 [15:38<4:29:54, 21.39s/it]epoch -- 0042 || train loss -- 0.67025 || val loss -- 0.78933 || lr -- 0.00004961 || val mean_dice -- 21.86072
+epoch: 0043 -- train loss: 0.72614 -- lr: 4.954290183367884e-05
+  6%|▌         | 44/800 [15:59<4:26:54, 21.18s/it]epoch -- 0043 || train loss -- 0.65110 || val loss -- 0.82374 || lr -- 0.00004954 || val mean_dice -- 17.99635
+epoch: 0044 -- train loss: 0.66509 -- lr: 4.947016876265244e-05
+  6%|▌         | 45/800 [16:20<4:25:41, 21.11s/it]epoch -- 0044 || train loss -- 0.65572 || val loss -- 0.77543 || lr -- 0.00004947 || val mean_dice -- 23.13459
+epoch: 0045 -- train loss: 0.71029 -- lr: 4.939213824874888e-05
+  6%|▌         | 46/800 [16:41<4:25:41, 21.14s/it]epoch -- 0045 || train loss -- 0.65413 || val loss -- 0.88870 || lr -- 0.00004939 || val mean_dice -- 11.26487
+epoch: 0046 -- train loss: 0.63130 -- lr: 4.930882954482988e-05
+  6%|▌         | 47/800 [17:02<4:24:25, 21.07s/it]epoch -- 0046 || train loss -- 0.63833 || val loss -- 0.80849 || lr -- 0.00004931 || val mean_dice -- 19.46931
+epoch: 0047 -- train loss: 0.70537 -- lr: 4.9220263206071555e-05
+  6%|▌         | 48/800 [17:24<4:26:14, 21.24s/it]epoch -- 0047 || train loss -- 0.64186 || val loss -- 0.79991 || lr -- 0.00004922 || val mean_dice -- 21.05249
+epoch: 0048 -- train loss: 0.65239 -- lr: 4.912646108489275e-05
+  6%|▌         | 49/800 [17:45<4:26:55, 21.33s/it]epoch -- 0048 || train loss -- 0.64457 || val loss -- 0.73147 || lr -- 0.00004913 || val mean_dice -- 27.67968
+epoch: 0049 -- train loss: 0.58337 -- lr: 4.902744632556326e-05
+  6%|▋         | 50/800 [18:07<4:28:05, 21.45s/it]epoch -- 0049 || train loss -- 0.63451 || val loss -- 0.75363 || lr -- 0.00004903 || val mean_dice -- 25.59441
+epoch: 0050 -- train loss: 0.61601 -- lr: 4.892324335849338e-05
+  6%|▋         | 51/800 [18:28<4:28:01, 21.47s/it]epoch -- 0050 || train loss -- 0.61943 || val loss -- 0.81853 || lr -- 0.00004892 || val mean_dice -- 18.25380
+[per-class dice ep 50] C0:29.3%  C1:17.4%  C2:55.5%  C3:23.8%  C4:37.9%  C5:0.0%  C6:1.9%  C7:20.0%  C8:3.1%  C9:11.3%  C10:9.0%  C11:13.8%  C12:13.9%  C13:18.5%
+epoch: 0051 -- train loss: 0.61500 -- lr: 4.8813877894206e-05
+  6%|▋         | 52/800 [18:50<4:28:46, 21.56s/it]epoch -- 0051 || train loss -- 0.61868 || val loss -- 0.73620 || lr -- 0.00004881 || val mean_dice -- 27.29825
+epoch: 0052 -- train loss: 0.51679 -- lr: 4.869937691699297e-05
+  7%|▋         | 53/800 [19:11<4:24:17, 21.23s/it]epoch -- 0052 || train loss -- 0.62182 || val loss -- 0.73308 || lr -- 0.00004870 || val mean_dice -- 27.49217
+epoch: 0053 -- train loss: 0.65624 -- lr: 4.857976867825708e-05
+  7%|▋         | 54/800 [19:31<4:22:38, 21.12s/it]epoch -- 0053 || train loss -- 0.61724 || val loss -- 0.87103 || lr -- 0.00004858 || val mean_dice -- 13.48018
+epoch: 0054 -- train loss: 0.64224 -- lr: 4.845508268954153e-05
+  7%|▋         | 55/800 [19:53<4:22:22, 21.13s/it]epoch -- 0054 || train loss -- 0.60411 || val loss -- 0.76792 || lr -- 0.00004846 || val mean_dice -- 24.08077
+epoch: 0055 -- train loss: 0.64510 -- lr: 4.8325349715248306e-05
+  7%|▋         | 56/800 [20:13<4:19:03, 20.89s/it]epoch -- 0055 || train loss -- 0.60812 || val loss -- 0.89876 || lr -- 0.00004833 || val mean_dice -- 10.58468
+epoch: 0056 -- train loss: 0.58869 -- lr: 4.819060176504758e-05
+  7%|▋         | 57/800 [20:34<4:19:57, 20.99s/it]epoch -- 0056 || train loss -- 0.60948 || val loss -- 0.78969 || lr -- 0.00004819 || val mean_dice -- 22.39594
+epoch: 0057 -- train loss: 0.57739 -- lr: 4.8050872085979795e-05
+  7%|▋         | 58/800 [20:55<4:19:33, 20.99s/it]epoch -- 0057 || train loss -- 0.60554 || val loss -- 0.83117 || lr -- 0.00004805 || val mean_dice -- 17.54803
+epoch: 0058 -- train loss: 0.66723 -- lr: 4.790619515425243e-05
+  7%|▋         | 59/800 [21:17<4:21:28, 21.17s/it]epoch -- 0058 || train loss -- 0.59905 || val loss -- 0.88321 || lr -- 0.00004791 || val mean_dice -- 12.45217
+epoch: 0059 -- train loss: 0.52844 -- lr: 4.775660666673354e-05
+  8%|▊         | 60/800 [21:37<4:17:34, 20.88s/it]epoch -- 0059 || train loss -- 0.59635 || val loss -- 0.68759 || lr -- 0.00004776 || val mean_dice -- 32.34863 -- saved
+epoch: 0060 -- train loss: 0.59167 -- lr: 4.760214353214409e-05
+  8%|▊         | 61/800 [21:58<4:18:50, 21.02s/it]epoch -- 0060 || train loss -- 0.59269 || val loss -- 0.70394 || lr -- 0.00004760 || val mean_dice -- 30.37897
+epoch: 0061 -- train loss: 0.54108 -- lr: 4.744284386195126e-05
+  8%|▊         | 62/800 [22:19<4:17:16, 20.92s/it]epoch -- 0061 || train loss -- 0.58879 || val loss -- 0.74924 || lr -- 0.00004744 || val mean_dice -- 25.92068
+epoch: 0062 -- train loss: 0.54482 -- lr: 4.7278746960964995e-05
+  8%|▊         | 63/800 [22:41<4:20:10, 21.18s/it]epoch -- 0062 || train loss -- 0.58052 || val loss -- 0.79009 || lr -- 0.00004728 || val mean_dice -- 21.34031
+epoch: 0063 -- train loss: 0.63271 -- lr: 4.710989331764021e-05
+  8%|▊         | 64/800 [23:01<4:16:55, 20.94s/it]epoch -- 0063 || train loss -- 0.59209 || val loss -- 0.76954 || lr -- 0.00004711 || val mean_dice -- 23.04089
+epoch: 0064 -- train loss: 0.62168 -- lr: 4.6936324594086756e-05
+  8%|▊         | 65/800 [23:22<4:16:24, 20.93s/it]epoch -- 0064 || train loss -- 0.58396 || val loss -- 0.66513 || lr -- 0.00004694 || val mean_dice -- 34.89332 -- saved
+epoch: 0065 -- train loss: 0.57893 -- lr: 4.675808361579002e-05
+  8%|▊         | 66/800 [23:43<4:17:12, 21.03s/it]epoch -- 0065 || train loss -- 0.57251 || val loss -- 0.66052 || lr -- 0.00004676 || val mean_dice -- 34.99851 -- saved
+epoch: 0066 -- train loss: 0.55201 -- lr: 4.657521436104433e-05
+  8%|▊         | 67/800 [24:06<4:21:13, 21.38s/it]epoch -- 0066 || train loss -- 0.58725 || val loss -- 0.76910 || lr -- 0.00004658 || val mean_dice -- 23.82103
+epoch: 0067 -- train loss: 0.56585 -- lr: 4.6387761950101946e-05
+  8%|▊         | 68/800 [24:26<4:16:41, 21.04s/it]epoch -- 0067 || train loss -- 0.56362 || val loss -- 0.68086 || lr -- 0.00004639 || val mean_dice -- 33.07019
+epoch: 0068 -- train loss: 0.58268 -- lr: 4.619577263404035e-05
+  9%|▊         | 69/800 [24:47<4:18:38, 21.23s/it]epoch -- 0068 || train loss -- 0.57073 || val loss -- 0.86174 || lr -- 0.00004620 || val mean_dice -- 14.82443
+epoch: 0069 -- train loss: 0.52883 -- lr: 4.5999293783350516e-05
+  9%|▉         | 70/800 [25:08<4:16:44, 21.10s/it]epoch -- 0069 || train loss -- 0.56080 || val loss -- 0.66841 || lr -- 0.00004600 || val mean_dice -- 34.22656
+epoch: 0070 -- train loss: 0.53833 -- lr: 4.5798373876248846e-05
+  9%|▉         | 71/800 [25:29<4:13:55, 20.90s/it]epoch -- 0070 || train loss -- 0.56437 || val loss -- 0.67033 || lr -- 0.00004580 || val mean_dice -- 34.39233
+epoch: 0071 -- train loss: 0.59486 -- lr: 4.559306248671599e-05
+  9%|▉         | 72/800 [25:50<4:16:05, 21.11s/it]epoch -- 0071 || train loss -- 0.56309 || val loss -- 0.69038 || lr -- 0.00004559 || val mean_dice -- 32.58589
+epoch: 0072 -- train loss: 0.62872 -- lr: 4.5383410272265186e-05
+  9%|▉         | 73/800 [26:12<4:16:55, 21.20s/it]epoch -- 0072 || train loss -- 0.56290 || val loss -- 0.74577 || lr -- 0.00004538 || val mean_dice -- 26.52876
+epoch: 0073 -- train loss: 0.60808 -- lr: 4.516946896144325e-05
+  9%|▉         | 74/800 [26:33<4:15:17, 21.10s/it]epoch -- 0073 || train loss -- 0.55078 || val loss -- 0.64065 || lr -- 0.00004517 || val mean_dice -- 37.30838 -- saved
+epoch: 0074 -- train loss: 0.52671 -- lr: 4.495129134106736e-05
+  9%|▉         | 75/800 [26:54<4:17:34, 21.32s/it]epoch -- 0074 || train loss -- 0.55898 || val loss -- 0.66419 || lr -- 0.00004495 || val mean_dice -- 34.68084
+epoch: 0075 -- train loss: 0.55958 -- lr: 4.4728931243200685e-05
+ 10%|▉         | 76/800 [27:16<4:16:48, 21.28s/it]epoch -- 0075 || train loss -- 0.55552 || val loss -- 0.64395 || lr -- 0.00004473 || val mean_dice -- 37.01494
+epoch: 0076 -- train loss: 0.49091 -- lr: 4.4502443531870114e-05
+ 10%|▉         | 77/800 [27:37<4:16:54, 21.32s/it]epoch -- 0076 || train loss -- 0.56460 || val loss -- 0.72066 || lr -- 0.00004450 || val mean_dice -- 28.94281
+epoch: 0077 -- train loss: 0.54309 -- lr: 4.4271884089529406e-05
+ 10%|▉         | 78/800 [27:58<4:14:05, 21.12s/it]epoch -- 0077 || train loss -- 0.54695 || val loss -- 0.67968 || lr -- 0.00004427 || val mean_dice -- 33.23715
+epoch: 0078 -- train loss: 0.50201 -- lr: 4.403730980327105e-05
+ 10%|▉         | 79/800 [28:19<4:13:13, 21.07s/it]epoch -- 0078 || train loss -- 0.54235 || val loss -- 0.79992 || lr -- 0.00004404 || val mean_dice -- 20.73706
+epoch: 0079 -- train loss: 0.51050 -- lr: 4.379877855079015e-05
+ 10%|█         | 80/800 [28:40<4:14:44, 21.23s/it]epoch -- 0079 || train loss -- 0.56110 || val loss -- 0.68590 || lr -- 0.00004380 || val mean_dice -- 32.78037
+epoch: 0080 -- train loss: 0.49083 -- lr: 4.355634918610404e-05
+ 10%|█         | 81/800 [29:01<4:14:29, 21.24s/it]epoch -- 0080 || train loss -- 0.54409 || val loss -- 0.66730 || lr -- 0.00004356 || val mean_dice -- 34.62149
+epoch: 0081 -- train loss: 0.59081 -- lr: 4.331008152503091e-05
+ 10%|█         | 82/800 [29:22<4:11:37, 21.03s/it]epoch -- 0081 || train loss -- 0.55316 || val loss -- 0.68238 || lr -- 0.00004331 || val mean_dice -- 33.27835
+epoch: 0082 -- train loss: 0.50206 -- lr: 4.306003633043115e-05
+ 10%|█         | 83/800 [29:43<4:11:15, 21.03s/it]epoch -- 0082 || train loss -- 0.54219 || val loss -- 0.66441 || lr -- 0.00004306 || val mean_dice -- 34.64251
+epoch: 0083 -- train loss: 0.47840 -- lr: 4.280627529721501e-05
+ 10%|█         | 84/800 [30:05<4:14:16, 21.31s/it]epoch -- 0083 || train loss -- 0.54873 || val loss -- 0.77997 || lr -- 0.00004281 || val mean_dice -- 22.84950
+epoch: 0084 -- train loss: 0.45650 -- lr: 4.254886103712033e-05
+ 11%|█         | 85/800 [30:25<4:10:05, 20.99s/it]epoch -- 0084 || train loss -- 0.55139 || val loss -- 0.65587 || lr -- 0.00004255 || val mean_dice -- 35.42591
+epoch: 0085 -- train loss: 0.50596 -- lr: 4.228785706326404e-05
+ 11%|█         | 86/800 [30:47<4:12:00, 21.18s/it]epoch -- 0085 || train loss -- 0.53810 || val loss -- 0.58351 || lr -- 0.00004229 || val mean_dice -- 43.30184 -- saved
+epoch: 0086 -- train loss: 0.60761 -- lr: 4.202332777447117e-05
+ 11%|█         | 87/800 [31:08<4:12:58, 21.29s/it]epoch -- 0086 || train loss -- 0.54017 || val loss -- 0.58233 || lr -- 0.00004202 || val mean_dice -- 43.39104 -- saved
+epoch: 0087 -- train loss: 0.61021 -- lr: 4.175533843938552e-05
+ 11%|█         | 88/800 [31:29<4:10:18, 21.09s/it]epoch -- 0087 || train loss -- 0.54685 || val loss -- 0.75620 || lr -- 0.00004176 || val mean_dice -- 25.67049
+epoch: 0088 -- train loss: 0.53112 -- lr: 4.148395518036549e-05
+ 11%|█         | 89/800 [31:50<4:09:34, 21.06s/it]epoch -- 0088 || train loss -- 0.53891 || val loss -- 0.60879 || lr -- 0.00004148 || val mean_dice -- 40.44302
+epoch: 0089 -- train loss: 0.50820 -- lr: 4.120924495716945e-05
+ 11%|█▏        | 90/800 [32:11<4:08:18, 20.98s/it]epoch -- 0089 || train loss -- 0.52767 || val loss -- 0.63435 || lr -- 0.00004121 || val mean_dice -- 38.03610
+epoch: 0090 -- train loss: 0.65881 -- lr: 4.093127555043442e-05
+ 11%|█▏        | 91/800 [32:32<4:09:18, 21.10s/it]epoch -- 0090 || train loss -- 0.53389 || val loss -- 0.66735 || lr -- 0.00004093 || val mean_dice -- 34.31908
+epoch: 0091 -- train loss: 0.49672 -- lr: 4.065011554495213e-05
+ 12%|█▏        | 92/800 [32:53<4:08:15, 21.04s/it]epoch -- 0091 || train loss -- 0.53258 || val loss -- 0.81061 || lr -- 0.00004065 || val mean_dice -- 19.20003
+epoch: 0092 -- train loss: 0.50979 -- lr: 4.036583431274687e-05
+ 12%|█▏        | 93/800 [33:15<4:09:38, 21.19s/it]epoch -- 0092 || train loss -- 0.53363 || val loss -- 0.77191 || lr -- 0.00004037 || val mean_dice -- 23.79829
+epoch: 0093 -- train loss: 0.50426 -- lr: 4.00785019959589e-05
+ 12%|█▏        | 94/800 [33:35<4:07:24, 21.03s/it]epoch -- 0093 || train loss -- 0.53013 || val loss -- 0.61193 || lr -- 0.00004008 || val mean_dice -- 40.17278
+epoch: 0094 -- train loss: 0.48021 -- lr: 3.978818948953792e-05
+ 12%|█▏        | 95/800 [33:56<4:05:40, 20.91s/it]epoch -- 0094 || train loss -- 0.53149 || val loss -- 0.67218 || lr -- 0.00003979 || val mean_dice -- 33.82822
+epoch: 0095 -- train loss: 0.57175 -- lr: 3.949496842375087e-05
+ 12%|█▏        | 96/800 [34:17<4:04:43, 20.86s/it]epoch -- 0095 || train loss -- 0.53907 || val loss -- 0.58687 || lr -- 0.00003949 || val mean_dice -- 42.85740
+epoch: 0096 -- train loss: 0.52959 -- lr: 3.9198911146508163e-05
+ 12%|█▏        | 97/800 [34:38<4:05:59, 20.99s/it]epoch -- 0096 || train loss -- 0.52466 || val loss -- 0.69581 || lr -- 0.00003920 || val mean_dice -- 31.40173
+epoch: 0097 -- train loss: 0.53800 -- lr: 3.890009070551296e-05
+ 12%|█▏        | 98/800 [34:59<4:04:56, 20.94s/it]epoch -- 0097 || train loss -- 0.51918 || val loss -- 0.66214 || lr -- 0.00003890 || val mean_dice -- 35.16463
+epoch: 0098 -- train loss: 0.45929 -- lr: 3.859858083023773e-05
+ 12%|█▏        | 99/800 [35:20<4:07:07, 21.15s/it]epoch -- 0098 || train loss -- 0.51982 || val loss -- 0.62576 || lr -- 0.00003860 || val mean_dice -- 38.78610
+epoch: 0099 -- train loss: 0.55518 -- lr: 3.829445591373261e-05
+ 12%|█▎        | 100/800 [35:42<4:06:49, 21.16s/it]epoch -- 0099 || train loss -- 0.52655 || val loss -- 0.58505 || lr -- 0.00003829 || val mean_dice -- 43.16851
+epoch: 0100 -- train loss: 0.45138 -- lr: 3.798779099427003e-05
+ 13%|█▎        | 101/800 [36:02<4:04:29, 20.99s/it]epoch -- 0100 || train loss -- 0.53047 || val loss -- 0.58607 || lr -- 0.00003799 || val mean_dice -- 42.73277
+[per-class dice ep 100] C0:41.3%  C1:25.3%  C2:76.0%  C3:59.8%  C4:55.7%  C5:37.4%  C6:40.5%  C7:35.5%  C8:34.9%  C9:35.5%  C10:43.8%  C11:38.0%  C12:33.9%  C13:40.6%
+epoch: 0101 -- train loss: 0.55152 -- lr: 3.767866173683013e-05
+ 13%|█▎        | 102/800 [36:23<4:04:58, 21.06s/it]epoch -- 0101 || train loss -- 0.52162 || val loss -- 0.56874 || lr -- 0.00003768 || val mean_dice -- 44.62582 -- saved
+epoch: 0102 -- train loss: 0.60907 -- lr: 3.7367144414431595e-05
+ 13%|█▎        | 103/800 [36:45<4:05:36, 21.14s/it]epoch -- 0102 || train loss -- 0.52691 || val loss -- 0.66808 || lr -- 0.00003737 || val mean_dice -- 34.28943
+epoch: 0103 -- train loss: 0.57652 -- lr: 3.70533158893124e-05
+ 13%|█▎        | 104/800 [37:05<4:02:04, 20.87s/it]epoch -- 0103 || train loss -- 0.50828 || val loss -- 0.61007 || lr -- 0.00003705 || val mean_dice -- 40.71939
+epoch: 0104 -- train loss: 0.48971 -- lr: 3.6737253593965174e-05
+ 13%|█▎        | 105/800 [37:25<4:00:14, 20.74s/it]epoch -- 0104 || train loss -- 0.51815 || val loss -- 0.67153 || lr -- 0.00003674 || val mean_dice -- 34.16271
+epoch: 0105 -- train loss: 0.58401 -- lr: 3.641903551203197e-05
+ 13%|█▎        | 106/800 [37:46<4:00:49, 20.82s/it]epoch -- 0105 || train loss -- 0.52983 || val loss -- 0.69463 || lr -- 0.00003642 || val mean_dice -- 31.76433
+epoch: 0106 -- train loss: 0.49218 -- lr: 3.609874015906292e-05
+ 13%|█▎        | 107/800 [38:07<4:00:25, 20.82s/it]epoch -- 0106 || train loss -- 0.51105 || val loss -- 0.55266 || lr -- 0.00003610 || val mean_dice -- 46.49618 -- saved
+epoch: 0107 -- train loss: 0.46768 -- lr: 3.577644656314366e-05
+ 14%|█▎        | 108/800 [38:29<4:04:08, 21.17s/it]epoch -- 0107 || train loss -- 0.51937 || val loss -- 0.58521 || lr -- 0.00003578 || val mean_dice -- 42.72178
+epoch: 0108 -- train loss: 0.51400 -- lr: 3.5452234245396414e-05
+ 14%|█▎        | 109/800 [38:50<4:02:36, 21.07s/it]epoch -- 0108 || train loss -- 0.51371 || val loss -- 0.54838 || lr -- 0.00003545 || val mean_dice -- 46.77236 -- saved
+epoch: 0109 -- train loss: 0.51532 -- lr: 3.512618320035929e-05
+ 14%|█▍        | 110/800 [39:11<4:02:02, 21.05s/it]epoch -- 0109 || train loss -- 0.51785 || val loss -- 0.62308 || lr -- 0.00003513 || val mean_dice -- 39.00620
+epoch: 0110 -- train loss: 0.50493 -- lr: 3.479837387624884e-05
+ 14%|█▍        | 111/800 [39:31<3:59:42, 20.87s/it]epoch -- 0110 || train loss -- 0.50857 || val loss -- 0.58724 || lr -- 0.00003480 || val mean_dice -- 42.59142
+epoch: 0111 -- train loss: 0.46142 -- lr: 3.446888715511069e-05
+ 14%|█▍        | 112/800 [39:52<3:59:08, 20.86s/it]epoch -- 0111 || train loss -- 0.51910 || val loss -- 0.57996 || lr -- 0.00003447 || val mean_dice -- 43.38247
+epoch: 0112 -- train loss: 0.53638 -- lr: 3.4137804332863045e-05
+ 14%|█▍        | 113/800 [40:14<4:01:00, 21.05s/it]epoch -- 0112 || train loss -- 0.50647 || val loss -- 0.56089 || lr -- 0.00003414 || val mean_dice -- 45.38306
+epoch: 0113 -- train loss: 0.48207 -- lr: 3.3805207099238196e-05
+ 14%|█▍        | 114/800 [40:34<3:57:12, 20.75s/it]epoch -- 0113 || train loss -- 0.50728 || val loss -- 0.52631 || lr -- 0.00003381 || val mean_dice -- 48.88781 -- saved
+epoch: 0114 -- train loss: 0.52744 -- lr: 3.34711775176268e-05
+ 14%|█▍        | 115/800 [40:56<4:00:05, 21.03s/it]epoch -- 0114 || train loss -- 0.50689 || val loss -- 0.71352 || lr -- 0.00003347 || val mean_dice -- 30.01396
+epoch: 0115 -- train loss: 0.45005 -- lr: 3.313579800482992e-05
+ 14%|█▍        | 116/800 [41:16<3:59:23, 21.00s/it]epoch -- 0115 || train loss -- 0.51141 || val loss -- 0.63457 || lr -- 0.00003314 || val mean_dice -- 37.94539
+epoch: 0116 -- train loss: 0.52477 -- lr: 3.279915131072394e-05
+ 15%|█▍        | 117/800 [41:37<3:58:25, 20.95s/it]epoch -- 0116 || train loss -- 0.51703 || val loss -- 0.61777 || lr -- 0.00003280 || val mean_dice -- 39.63864
+epoch: 0117 -- train loss: 0.49905 -- lr: 3.246132049784328e-05
+ 15%|█▍        | 118/800 [41:58<3:57:42, 20.91s/it]epoch -- 0117 || train loss -- 0.51252 || val loss -- 0.66010 || lr -- 0.00003246 || val mean_dice -- 35.47027
+epoch: 0118 -- train loss: 0.54399 -- lr: 3.212238892088595e-05
+ 15%|█▍        | 119/800 [42:19<3:58:43, 21.03s/it]epoch -- 0118 || train loss -- 0.51032 || val loss -- 0.63832 || lr -- 0.00003212 || val mean_dice -- 37.35534
+epoch: 0119 -- train loss: 0.44309 -- lr: 3.178244020614701e-05
+ 15%|█▌        | 120/800 [42:42<4:02:42, 21.42s/it]epoch -- 0119 || train loss -- 0.50343 || val loss -- 0.70171 || lr -- 0.00003178 || val mean_dice -- 31.48577
+epoch: 0120 -- train loss: 0.50168 -- lr: 3.144155823088508e-05
+ 15%|█▌        | 121/800 [43:03<4:02:24, 21.42s/it]epoch -- 0120 || train loss -- 0.50551 || val loss -- 0.54952 || lr -- 0.00003144 || val mean_dice -- 46.73270
+epoch: 0121 -- train loss: 0.52884 -- lr: 3.109982710262682e-05
+ 15%|█▌        | 122/800 [43:24<4:01:28, 21.37s/it]epoch -- 0121 || train loss -- 0.49963 || val loss -- 0.58884 || lr -- 0.00003110 || val mean_dice -- 42.36900
+epoch: 0122 -- train loss: 0.53307 -- lr: 3.075733113841469e-05
+ 15%|█▌        | 123/800 [43:46<4:00:50, 21.35s/it]epoch -- 0122 || train loss -- 0.49341 || val loss -- 0.62472 || lr -- 0.00003076 || val mean_dice -- 39.02101
+epoch: 0123 -- train loss: 0.51771 -- lr: 3.0414154844002997e-05
+ 16%|█▌        | 124/800 [44:07<3:59:34, 21.26s/it]epoch -- 0123 || train loss -- 0.49018 || val loss -- 0.55632 || lr -- 0.00003041 || val mean_dice -- 45.79492
+epoch: 0124 -- train loss: 0.46586 -- lr: 3.0070382893007314e-05
+ 16%|█▌        | 125/800 [44:28<3:58:06, 21.17s/it]epoch -- 0124 || train loss -- 0.50716 || val loss -- 0.56304 || lr -- 0.00003007 || val mean_dice -- 45.22662
+epoch: 0125 -- train loss: 0.53752 -- lr: 2.972610010601259e-05
+ 16%|█▌        | 126/800 [44:48<3:54:56, 20.91s/it]epoch -- 0125 || train loss -- 0.50425 || val loss -- 0.61959 || lr -- 0.00002973 || val mean_dice -- 39.23882
+epoch: 0126 -- train loss: 0.60603 -- lr: 2.9381391429644898e-05
+ 16%|█▌        | 127/800 [45:09<3:54:56, 20.95s/it]epoch -- 0126 || train loss -- 0.50724 || val loss -- 0.63770 || lr -- 0.00002938 || val mean_dice -- 37.32849
+epoch: 0127 -- train loss: 0.53244 -- lr: 2.9036341915612137e-05
+ 16%|█▌        | 128/800 [45:31<3:56:26, 21.11s/it]epoch -- 0127 || train loss -- 0.50283 || val loss -- 0.60068 || lr -- 0.00002904 || val mean_dice -- 41.47204
+epoch: 0128 -- train loss: 0.54026 -- lr: 2.8691036699718822e-05
+ 16%|█▌        | 129/800 [45:52<3:56:10, 21.12s/it]epoch -- 0128 || train loss -- 0.50995 || val loss -- 0.56940 || lr -- 0.00002869 || val mean_dice -- 44.65742
+epoch: 0129 -- train loss: 0.45029 -- lr: 2.8345560980860056e-05
+ 16%|█▋        | 130/800 [46:13<3:56:20, 21.16s/it]epoch -- 0129 || train loss -- 0.49029 || val loss -- 0.59191 || lr -- 0.00002835 || val mean_dice -- 42.26991
+epoch: 0130 -- train loss: 0.49382 -- lr: 2.8e-05
+ 16%|█▋        | 131/800 [46:35<3:59:29, 21.48s/it]epoch -- 0130 || train loss -- 0.49403 || val loss -- 0.59276 || lr -- 0.00002800 || val mean_dice -- 42.15809
+epoch: 0131 -- train loss: 0.49684 -- lr: 2.7654439019139947e-05
+ 16%|█▋        | 132/800 [46:56<3:57:37, 21.34s/it]epoch -- 0131 || train loss -- 0.49727 || val loss -- 0.59740 || lr -- 0.00002765 || val mean_dice -- 41.54890
+epoch: 0132 -- train loss: 0.46730 -- lr: 2.7308963300281177e-05
+ 17%|█▋        | 133/800 [47:17<3:55:45, 21.21s/it]epoch -- 0132 || train loss -- 0.49667 || val loss -- 0.53173 || lr -- 0.00002731 || val mean_dice -- 48.55468
+epoch: 0133 -- train loss: 0.47790 -- lr: 2.6963658084387862e-05
+ 17%|█▋        | 134/800 [47:38<3:54:32, 21.13s/it]epoch -- 0133 || train loss -- 0.49996 || val loss -- 0.61310 || lr -- 0.00002696 || val mean_dice -- 39.85261
+epoch: 0134 -- train loss: 0.45498 -- lr: 2.6618608570355105e-05
+ 17%|█▋        | 135/800 [47:58<3:51:50, 20.92s/it]epoch -- 0134 || train loss -- 0.50140 || val loss -- 0.68322 || lr -- 0.00002662 || val mean_dice -- 32.86052
+epoch: 0135 -- train loss: 0.45741 -- lr: 2.6273899893987412e-05
+ 17%|█▋        | 136/800 [48:19<3:51:39, 20.93s/it]epoch -- 0135 || train loss -- 0.49135 || val loss -- 0.54739 || lr -- 0.00002627 || val mean_dice -- 46.83197
+epoch: 0136 -- train loss: 0.45753 -- lr: 2.5929617106992685e-05
+ 17%|█▋        | 137/800 [48:41<3:53:45, 21.15s/it]epoch -- 0136 || train loss -- 0.48281 || val loss -- 0.66321 || lr -- 0.00002593 || val mean_dice -- 34.78147
+epoch: 0137 -- train loss: 0.48293 -- lr: 2.5585845155997006e-05
+ 17%|█▋        | 138/800 [49:03<3:54:12, 21.23s/it]epoch -- 0137 || train loss -- 0.49733 || val loss -- 0.58087 || lr -- 0.00002559 || val mean_dice -- 43.50817
+epoch: 0138 -- train loss: 0.47815 -- lr: 2.524266886158531e-05
+ 17%|█▋        | 139/800 [49:24<3:54:24, 21.28s/it]epoch -- 0138 || train loss -- 0.49054 || val loss -- 0.54634 || lr -- 0.00002524 || val mean_dice -- 47.15762
+epoch: 0139 -- train loss: 0.51697 -- lr: 2.4900172897373185e-05
+ 18%|█▊        | 140/800 [49:46<3:56:26, 21.50s/it]epoch -- 0139 || train loss -- 0.48862 || val loss -- 0.54117 || lr -- 0.00002490 || val mean_dice -- 47.32100
+epoch: 0140 -- train loss: 0.38636 -- lr: 2.4558441769114922e-05
+ 18%|█▊        | 141/800 [50:08<3:56:36, 21.54s/it]epoch -- 0140 || train loss -- 0.49574 || val loss -- 0.52036 || lr -- 0.00002456 || val mean_dice -- 49.70992 -- saved
+epoch: 0141 -- train loss: 0.49184 -- lr: 2.4217559793852988e-05
+ 18%|█▊        | 142/800 [50:29<3:54:59, 21.43s/it]epoch -- 0141 || train loss -- 0.48797 || val loss -- 0.59359 || lr -- 0.00002422 || val mean_dice -- 42.08930
+epoch: 0142 -- train loss: 0.47086 -- lr: 2.387761107911406e-05
+ 18%|█▊        | 143/800 [50:50<3:54:33, 21.42s/it]epoch -- 0142 || train loss -- 0.49379 || val loss -- 0.59768 || lr -- 0.00002388 || val mean_dice -- 41.78446
+epoch: 0143 -- train loss: 0.47911 -- lr: 2.3538679502156728e-05
+ 18%|█▊        | 144/800 [51:11<3:51:00, 21.13s/it]epoch -- 0143 || train loss -- 0.48468 || val loss -- 0.52646 || lr -- 0.00002354 || val mean_dice -- 49.00285
+epoch: 0144 -- train loss: 0.44827 -- lr: 2.320084868927607e-05
+ 18%|█▊        | 145/800 [51:32<3:50:02, 21.07s/it]epoch -- 0144 || train loss -- 0.48240 || val loss -- 0.54036 || lr -- 0.00002320 || val mean_dice -- 47.59693
+epoch: 0145 -- train loss: 0.48413 -- lr: 2.286420199517008e-05
+ 18%|█▊        | 146/800 [51:53<3:49:42, 21.07s/it]epoch -- 0145 || train loss -- 0.48014 || val loss -- 0.52571 || lr -- 0.00002286 || val mean_dice -- 49.04581
+epoch: 0146 -- train loss: 0.40295 -- lr: 2.2528822482373192e-05
+ 18%|█▊        | 147/800 [52:14<3:49:46, 21.11s/it]epoch -- 0146 || train loss -- 0.48083 || val loss -- 0.57768 || lr -- 0.00002253 || val mean_dice -- 43.61148
+epoch: 0147 -- train loss: 0.49571 -- lr: 2.2194792900761797e-05
+ 18%|█▊        | 148/800 [52:35<3:50:34, 21.22s/it]epoch -- 0147 || train loss -- 0.48050 || val loss -- 0.63294 || lr -- 0.00002219 || val mean_dice -- 37.87891
+epoch: 0148 -- train loss: 0.49551 -- lr: 2.1862195667136958e-05
+ 19%|█▊        | 149/800 [52:57<3:52:04, 21.39s/it]epoch -- 0148 || train loss -- 0.48140 || val loss -- 0.56076 || lr -- 0.00002186 || val mean_dice -- 45.52573
+epoch: 0149 -- train loss: 0.46883 -- lr: 2.1531112844889314e-05
+ 19%|█▉        | 150/800 [53:18<3:49:44, 21.21s/it]epoch -- 0149 || train loss -- 0.48515 || val loss -- 0.53244 || lr -- 0.00002153 || val mean_dice -- 48.24671
+epoch: 0150 -- train loss: 0.45963 -- lr: 2.1201626123751163e-05
+ 19%|█▉        | 151/800 [53:39<3:49:32, 21.22s/it]epoch -- 0150 || train loss -- 0.47717 || val loss -- 0.53316 || lr -- 0.00002120 || val mean_dice -- 48.59752
+[per-class dice ep 150] C0:44.7%  C1:31.6%  C2:74.8%  C3:58.1%  C4:59.8%  C5:33.5%  C6:54.1%  C7:68.9%  C8:48.9%  C9:39.2%  C10:38.9%  C11:42.1%  C12:42.0%  C13:43.7%
+epoch: 0151 -- train loss: 0.48040 -- lr: 2.0873816799640712e-05
+ 19%|█▉        | 152/800 [54:00<3:49:03, 21.21s/it]epoch -- 0151 || train loss -- 0.48047 || val loss -- 0.64195 || lr -- 0.00002087 || val mean_dice -- 37.09059
+epoch: 0152 -- train loss: 0.48317 -- lr: 2.054776575460359e-05
+ 19%|█▉        | 153/800 [54:21<3:47:53, 21.13s/it]epoch -- 0152 || train loss -- 0.48150 || val loss -- 0.53333 || lr -- 0.00002055 || val mean_dice -- 48.66342
+epoch: 0153 -- train loss: 0.45835 -- lr: 2.0223553436856347e-05
+ 19%|█▉        | 154/800 [54:43<3:50:31, 21.41s/it]epoch -- 0153 || train loss -- 0.48685 || val loss -- 0.51410 || lr -- 0.00002022 || val mean_dice -- 50.15801 -- saved
+epoch: 0154 -- train loss: 0.48972 -- lr: 1.9901259840937088e-05
+ 19%|█▉        | 155/800 [55:05<3:51:02, 21.49s/it]epoch -- 0154 || train loss -- 0.47416 || val loss -- 0.52814 || lr -- 0.00001990 || val mean_dice -- 48.63471
+epoch: 0155 -- train loss: 0.40501 -- lr: 1.9580964487968033e-05
+ 20%|█▉        | 156/800 [55:27<3:51:56, 21.61s/it]epoch -- 0155 || train loss -- 0.47578 || val loss -- 0.55888 || lr -- 0.00001958 || val mean_dice -- 45.45729
+epoch: 0156 -- train loss: 0.45079 -- lr: 1.9262746406034825e-05
+ 20%|█▉        | 157/800 [55:49<3:52:13, 21.67s/it]epoch -- 0156 || train loss -- 0.49403 || val loss -- 0.50617 || lr -- 0.00001926 || val mean_dice -- 50.86257 -- saved
+epoch: 0157 -- train loss: 0.50452 -- lr: 1.8946684110687605e-05
+ 20%|█▉        | 158/800 [56:10<3:52:15, 21.71s/it]epoch -- 0157 || train loss -- 0.48754 || val loss -- 0.57448 || lr -- 0.00001895 || val mean_dice -- 43.93011
+epoch: 0158 -- train loss: 0.40273 -- lr: 1.86328555855684e-05
+ 20%|█▉        | 159/800 [56:32<3:51:42, 21.69s/it]epoch -- 0158 || train loss -- 0.47664 || val loss -- 0.55515 || lr -- 0.00001863 || val mean_dice -- 46.09441
+epoch: 0159 -- train loss: 0.48447 -- lr: 1.8321338263169865e-05
+ 20%|██        | 160/800 [56:54<3:50:41, 21.63s/it]epoch -- 0159 || train loss -- 0.48029 || val loss -- 0.55712 || lr -- 0.00001832 || val mean_dice -- 45.95092
+epoch: 0160 -- train loss: 0.46004 -- lr: 1.801220900572997e-05
+ 20%|██        | 161/800 [57:15<3:49:00, 21.50s/it]epoch -- 0160 || train loss -- 0.46782 || val loss -- 0.58195 || lr -- 0.00001801 || val mean_dice -- 43.61362
+epoch: 0161 -- train loss: 0.56412 -- lr: 1.7705544086267387e-05
+ 20%|██        | 162/800 [57:36<3:48:40, 21.51s/it]epoch -- 0161 || train loss -- 0.47995 || val loss -- 0.54462 || lr -- 0.00001771 || val mean_dice -- 47.12858
+epoch: 0162 -- train loss: 0.53847 -- lr: 1.740141916976226e-05
+ 20%|██        | 163/800 [57:58<3:48:40, 21.54s/it]epoch -- 0162 || train loss -- 0.47455 || val loss -- 0.57553 || lr -- 0.00001740 || val mean_dice -- 43.96562
+epoch: 0163 -- train loss: 0.55344 -- lr: 1.7099909294487033e-05
+ 20%|██        | 164/800 [58:19<3:46:10, 21.34s/it]epoch -- 0163 || train loss -- 0.47858 || val loss -- 0.52453 || lr -- 0.00001710 || val mean_dice -- 49.14227
+epoch: 0164 -- train loss: 0.40975 -- lr: 1.680108885349183e-05
+ 21%|██        | 165/800 [58:40<3:44:12, 21.19s/it]epoch -- 0164 || train loss -- 0.46202 || val loss -- 0.54944 || lr -- 0.00001680 || val mean_dice -- 46.51488
+epoch: 0165 -- train loss: 0.45444 -- lr: 1.6505031576249128e-05
+ 21%|██        | 166/800 [59:00<3:41:20, 20.95s/it]epoch -- 0165 || train loss -- 0.47966 || val loss -- 0.52194 || lr -- 0.00001651 || val mean_dice -- 49.32615
+epoch: 0166 -- train loss: 0.54196 -- lr: 1.6211810510462068e-05
+ 21%|██        | 167/800 [59:20<3:39:20, 20.79s/it]epoch -- 0166 || train loss -- 0.47016 || val loss -- 0.55184 || lr -- 0.00001621 || val mean_dice -- 46.37349
+epoch: 0167 -- train loss: 0.53891 -- lr: 1.59214980040411e-05
+ 21%|██        | 168/800 [59:41<3:39:41, 20.86s/it]epoch -- 0167 || train loss -- 0.48284 || val loss -- 0.56437 || lr -- 0.00001592 || val mean_dice -- 44.92241
+epoch: 0168 -- train loss: 0.48334 -- lr: 1.5634165687253122e-05
+ 21%|██        | 169/800 [1:00:03<3:41:19, 21.05s/it]epoch -- 0168 || train loss -- 0.47367 || val loss -- 0.56036 || lr -- 0.00001563 || val mean_dice -- 45.41848
+epoch: 0169 -- train loss: 0.50291 -- lr: 1.534988445504787e-05
+ 21%|██▏       | 170/800 [1:00:25<3:43:43, 21.31s/it]epoch -- 0169 || train loss -- 0.46690 || val loss -- 0.63991 || lr -- 0.00001535 || val mean_dice -- 37.40399
+epoch: 0170 -- train loss: 0.41787 -- lr: 1.5068724449565594e-05
+ 21%|██▏       | 171/800 [1:00:46<3:42:38, 21.24s/it]epoch -- 0170 || train loss -- 0.46786 || val loss -- 0.51797 || lr -- 0.00001507 || val mean_dice -- 49.70530
+epoch: 0171 -- train loss: 0.42039 -- lr: 1.4790755042830554e-05
+ 22%|██▏       | 172/800 [1:01:07<3:43:01, 21.31s/it]epoch -- 0171 || train loss -- 0.47147 || val loss -- 0.51552 || lr -- 0.00001479 || val mean_dice -- 50.01261
+epoch: 0172 -- train loss: 0.47198 -- lr: 1.4516044819634515e-05
+ 22%|██▏       | 173/800 [1:01:29<3:42:30, 21.29s/it]epoch -- 0172 || train loss -- 0.47032 || val loss -- 0.56873 || lr -- 0.00001452 || val mean_dice -- 44.67633
+epoch: 0173 -- train loss: 0.45326 -- lr: 1.4244661560614486e-05
+ 22%|██▏       | 174/800 [1:01:50<3:42:07, 21.29s/it]epoch -- 0173 || train loss -- 0.46425 || val loss -- 0.50815 || lr -- 0.00001424 || val mean_dice -- 50.77875
+epoch: 0174 -- train loss: 0.50291 -- lr: 1.3976672225528825e-05
+ 22%|██▏       | 175/800 [1:02:12<3:43:40, 21.47s/it]epoch -- 0174 || train loss -- 0.47182 || val loss -- 0.54965 || lr -- 0.00001398 || val mean_dice -- 46.54284
+epoch: 0175 -- train loss: 0.48681 -- lr: 1.3712142936735963e-05
+ 22%|██▏       | 176/800 [1:02:33<3:43:26, 21.48s/it]epoch -- 0175 || train loss -- 0.47619 || val loss -- 0.52763 || lr -- 0.00001371 || val mean_dice -- 48.70200
+epoch: 0176 -- train loss: 0.54125 -- lr: 1.3451138962879663e-05
+ 22%|██▏       | 177/800 [1:02:55<3:43:07, 21.49s/it]epoch -- 0176 || train loss -- 0.47084 || val loss -- 0.54442 || lr -- 0.00001345 || val mean_dice -- 47.23422
+epoch: 0177 -- train loss: 0.50514 -- lr: 1.3193724702784986e-05
+ 22%|██▏       | 178/800 [1:03:17<3:44:24, 21.65s/it]epoch -- 0177 || train loss -- 0.47084 || val loss -- 0.51957 || lr -- 0.00001319 || val mean_dice -- 49.71563
+epoch: 0178 -- train loss: 0.47444 -- lr: 1.2939963669568849e-05
+ 22%|██▏       | 179/800 [1:03:38<3:41:35, 21.41s/it]epoch -- 0178 || train loss -- 0.45977 || val loss -- 0.53094 || lr -- 0.00001294 || val mean_dice -- 48.58557
+epoch: 0179 -- train loss: 0.42959 -- lr: 1.2689918474969085e-05
+ 22%|██▎       | 180/800 [1:03:59<3:40:30, 21.34s/it]epoch -- 0179 || train loss -- 0.45905 || val loss -- 0.52273 || lr -- 0.00001269 || val mean_dice -- 49.28736
+epoch: 0180 -- train loss: 0.42707 -- lr: 1.2443650813895955e-05
+ 23%|██▎       | 181/800 [1:04:20<3:38:40, 21.20s/it]epoch -- 0180 || train loss -- 0.46609 || val loss -- 0.53136 || lr -- 0.00001244 || val mean_dice -- 48.47519
+epoch: 0181 -- train loss: 0.40925 -- lr: 1.2201221449209848e-05
+ 23%|██▎       | 182/800 [1:04:42<3:41:47, 21.53s/it]epoch -- 0181 || train loss -- 0.46349 || val loss -- 0.52679 || lr -- 0.00001220 || val mean_dice -- 49.24818
+epoch: 0182 -- train loss: 0.39024 -- lr: 1.1962690196728951e-05
+ 23%|██▎       | 183/800 [1:05:03<3:38:28, 21.24s/it]epoch -- 0182 || train loss -- 0.46451 || val loss -- 0.53578 || lr -- 0.00001196 || val mean_dice -- 48.05061
+epoch: 0183 -- train loss: 0.47544 -- lr: 1.1728115910470583e-05
+ 23%|██▎       | 184/800 [1:05:24<3:37:23, 21.17s/it]epoch -- 0183 || train loss -- 0.46957 || val loss -- 0.52512 || lr -- 0.00001173 || val mean_dice -- 49.02507
+epoch: 0184 -- train loss: 0.35858 -- lr: 1.1497556468129888e-05
+ 23%|██▎       | 185/800 [1:05:44<3:34:52, 20.96s/it]epoch -- 0184 || train loss -- 0.46674 || val loss -- 0.52168 || lr -- 0.00001150 || val mean_dice -- 49.56440
+epoch: 0185 -- train loss: 0.44983 -- lr: 1.127106875679932e-05
+ 23%|██▎       | 186/800 [1:06:06<3:35:59, 21.11s/it]epoch -- 0185 || train loss -- 0.46887 || val loss -- 0.52460 || lr -- 0.00001127 || val mean_dice -- 49.11815
+epoch: 0186 -- train loss: 0.51253 -- lr: 1.1048708658932639e-05
+ 23%|██▎       | 187/800 [1:06:26<3:34:12, 20.97s/it]epoch -- 0186 || train loss -- 0.46609 || val loss -- 0.51145 || lr -- 0.00001105 || val mean_dice -- 50.50267
+epoch: 0187 -- train loss: 0.46074 -- lr: 1.0830531038556749e-05
+ 24%|██▎       | 188/800 [1:06:48<3:35:48, 21.16s/it]epoch -- 0187 || train loss -- 0.47493 || val loss -- 0.50007 || lr -- 0.00001083 || val mean_dice -- 51.52644 -- saved
+epoch: 0188 -- train loss: 0.49117 -- lr: 1.061658972773481e-05
+ 24%|██▎       | 189/800 [1:07:09<3:35:19, 21.14s/it]epoch -- 0188 || train loss -- 0.46864 || val loss -- 0.50507 || lr -- 0.00001062 || val mean_dice -- 50.97540
+epoch: 0189 -- train loss: 0.51934 -- lr: 1.0406937513284007e-05
+ 24%|██▍       | 190/800 [1:07:30<3:35:19, 21.18s/it]epoch -- 0189 || train loss -- 0.46032 || val loss -- 0.52329 || lr -- 0.00001041 || val mean_dice -- 49.22602
+epoch: 0190 -- train loss: 0.42900 -- lr: 1.020162612375116e-05
+ 24%|██▍       | 191/800 [1:07:52<3:36:19, 21.31s/it]epoch -- 0190 || train loss -- 0.46384 || val loss -- 0.50880 || lr -- 0.00001020 || val mean_dice -- 50.79825
+epoch: 0191 -- train loss: 0.41830 -- lr: 1.0000706216649487e-05
+ 24%|██▍       | 192/800 [1:08:13<3:35:44, 21.29s/it]epoch -- 0191 || train loss -- 0.45496 || val loss -- 0.54737 || lr -- 0.00001000 || val mean_dice -- 46.70840
+epoch: 0192 -- train loss: 0.44143 -- lr: 9.804227365959642e-06
+ 24%|██▍       | 193/800 [1:08:34<3:35:41, 21.32s/it]epoch -- 0192 || train loss -- 0.46373 || val loss -- 0.50119 || lr -- 0.00000980 || val mean_dice -- 51.50255
+epoch: 0193 -- train loss: 0.43972 -- lr: 9.612238049898059e-06
+ 24%|██▍       | 194/800 [1:08:56<3:36:50, 21.47s/it]epoch -- 0193 || train loss -- 0.46482 || val loss -- 0.54161 || lr -- 0.00000961 || val mean_dice -- 47.36023
+epoch: 0194 -- train loss: 0.39663 -- lr: 9.424785638955672e-06
+ 24%|██▍       | 195/800 [1:09:17<3:35:49, 21.40s/it]epoch -- 0194 || train loss -- 0.45662 || val loss -- 0.52134 || lr -- 0.00000942 || val mean_dice -- 49.33272
+epoch: 0195 -- train loss: 0.45377 -- lr: 9.241916384209977e-06
+ 24%|██▍       | 196/800 [1:09:39<3:36:32, 21.51s/it]epoch -- 0195 || train loss -- 0.45625 || val loss -- 0.53732 || lr -- 0.00000924 || val mean_dice -- 47.78092
+epoch: 0196 -- train loss: 0.48123 -- lr: 9.063675405913238e-06
+ 25%|██▍       | 197/800 [1:10:00<3:34:30, 21.34s/it]epoch -- 0196 || train loss -- 0.45911 || val loss -- 0.50305 || lr -- 0.00000906 || val mean_dice -- 51.30170
+epoch: 0197 -- train loss: 0.45587 -- lr: 8.890106682359791e-06
+ 25%|██▍       | 198/800 [1:10:22<3:35:48, 21.51s/it]epoch -- 0197 || train loss -- 0.47178 || val loss -- 0.51200 || lr -- 0.00000889 || val mean_dice -- 50.27148
+epoch: 0198 -- train loss: 0.40486 -- lr: 8.721253039035e-06
+ 25%|██▍       | 199/800 [1:10:43<3:35:01, 21.47s/it]epoch -- 0198 || train loss -- 0.45509 || val loss -- 0.49268 || lr -- 0.00000872 || val mean_dice -- 52.29862 -- saved
+epoch: 0199 -- train loss: 0.35124 -- lr: 8.557156138048743e-06
+ 25%|██▌       | 200/800 [1:11:05<3:35:39, 21.57s/it]epoch -- 0199 || train loss -- 0.45628 || val loss -- 0.49984 || lr -- 0.00000856 || val mean_dice -- 51.57668
+epoch: 0200 -- train loss: 0.36024 -- lr: 8.397856467855908e-06
+ 25%|██▌       | 201/800 [1:11:27<3:35:45, 21.61s/it]epoch -- 0200 || train loss -- 0.45723 || val loss -- 0.51349 || lr -- 0.00000840 || val mean_dice -- 50.18245
+[per-class dice ep 200] C0:45.6%  C1:38.3%  C2:78.4%  C3:59.0%  C4:60.5%  C5:30.3%  C6:50.3%  C7:71.6%  C8:48.2%  C9:41.3%  C10:45.1%  C11:44.8%  C12:44.0%  C13:45.0%
+epoch: 0201 -- train loss: 0.39864 -- lr: 8.243393333266459e-06
+ 25%|██▌       | 202/800 [1:11:48<3:34:04, 21.48s/it]epoch -- 0201 || train loss -- 0.45177 || val loss -- 0.51772 || lr -- 0.00000824 || val mean_dice -- 49.76295
+epoch: 0202 -- train loss: 0.60195 -- lr: 8.093804845747574e-06
+ 25%|██▌       | 203/800 [1:12:10<3:34:16, 21.54s/it]epoch -- 0202 || train loss -- 0.46680 || val loss -- 0.50581 || lr -- 0.00000809 || val mean_dice -- 50.96542
+epoch: 0203 -- train loss: 0.43519 -- lr: 7.949127914020208e-06
+ 26%|██▌       | 204/800 [1:12:31<3:33:28, 21.49s/it]epoch -- 0203 || train loss -- 0.45636 || val loss -- 0.51136 || lr -- 0.00000795 || val mean_dice -- 50.47963
+epoch: 0204 -- train loss: 0.51188 -- lr: 7.80939823495242e-06
+ 26%|██▌       | 205/800 [1:12:53<3:33:23, 21.52s/it]epoch -- 0204 || train loss -- 0.45384 || val loss -- 0.52312 || lr -- 0.00000781 || val mean_dice -- 49.36214
+epoch: 0205 -- train loss: 0.43862 -- lr: 7.674650284751697e-06
+ 26%|██▌       | 206/800 [1:13:14<3:31:12, 21.33s/it]epoch -- 0205 || train loss -- 0.46149 || val loss -- 0.50033 || lr -- 0.00000767 || val mean_dice -- 51.63710
+epoch: 0206 -- train loss: 0.50503 -- lr: 7.544917310458471e-06
+ 26%|██▌       | 207/800 [1:13:35<3:30:44, 21.32s/it]epoch -- 0206 || train loss -- 0.46610 || val loss -- 0.51562 || lr -- 0.00000754 || val mean_dice -- 50.11517
+epoch: 0207 -- train loss: 0.53356 -- lr: 7.4202313217429175e-06
+ 26%|██▌       | 208/800 [1:13:57<3:32:10, 21.50s/it]epoch -- 0207 || train loss -- 0.45049 || val loss -- 0.50732 || lr -- 0.00000742 || val mean_dice -- 50.86902
+epoch: 0208 -- train loss: 0.48834 -- lr: 7.3006230830070406e-06
+ 26%|██▌       | 209/800 [1:14:18<3:31:13, 21.44s/it]epoch -- 0208 || train loss -- 0.45536 || val loss -- 0.50736 || lr -- 0.00000730 || val mean_dice -- 50.86445
+epoch: 0209 -- train loss: 0.37624 -- lr: 7.186122105794003e-06
+ 26%|██▋       | 210/800 [1:14:40<3:31:03, 21.46s/it]epoch -- 0209 || train loss -- 0.45392 || val loss -- 0.50090 || lr -- 0.00000719 || val mean_dice -- 51.58298
+epoch: 0210 -- train loss: 0.40994 -- lr: 7.076756641506623e-06
+ 26%|██▋       | 211/800 [1:15:01<3:28:50, 21.27s/it]epoch -- 0210 || train loss -- 0.45392 || val loss -- 0.50929 || lr -- 0.00000708 || val mean_dice -- 50.71854
+epoch: 0211 -- train loss: 0.47061 -- lr: 6.972553674436737e-06
+ 26%|██▋       | 212/800 [1:15:22<3:30:21, 21.47s/it]epoch -- 0211 || train loss -- 0.45692 || val loss -- 0.50876 || lr -- 0.00000697 || val mean_dice -- 50.68381
+epoch: 0212 -- train loss: 0.51341 -- lr: 6.873538915107255e-06
+ 27%|██▋       | 213/800 [1:15:44<3:31:15, 21.59s/it]epoch -- 0212 || train loss -- 0.46752 || val loss -- 0.50474 || lr -- 0.00000687 || val mean_dice -- 51.21804
+epoch: 0213 -- train loss: 0.52468 -- lr: 6.779736793928445e-06
+ 27%|██▋       | 214/800 [1:16:06<3:30:49, 21.59s/it]epoch -- 0213 || train loss -- 0.45407 || val loss -- 0.52550 || lr -- 0.00000678 || val mean_dice -- 48.99813
+epoch: 0214 -- train loss: 0.53421 -- lr: 6.691170455170119e-06
+ 27%|██▋       | 215/800 [1:16:27<3:27:46, 21.31s/it]epoch -- 0214 || train loss -- 0.46206 || val loss -- 0.50391 || lr -- 0.00000669 || val mean_dice -- 51.17720
+epoch: 0215 -- train loss: 0.46700 -- lr: 6.607861751251116e-06
+ 27%|██▋       | 216/800 [1:16:49<3:29:27, 21.52s/it]epoch -- 0215 || train loss -- 0.45371 || val loss -- 0.50382 || lr -- 0.00000661 || val mean_dice -- 51.22384
+epoch: 0216 -- train loss: 0.38249 -- lr: 6.529831237347559e-06
+ 27%|██▋       | 217/800 [1:17:10<3:27:33, 21.36s/it]epoch -- 0216 || train loss -- 0.44697 || val loss -- 0.50361 || lr -- 0.00000653 || val mean_dice -- 51.28711
+epoch: 0217 -- train loss: 0.48028 -- lr: 6.457098166321152e-06
+ 27%|██▋       | 218/800 [1:17:30<3:25:32, 21.19s/it]epoch -- 0217 || train loss -- 0.46298 || val loss -- 0.49741 || lr -- 0.00000646 || val mean_dice -- 51.91837
+epoch: 0218 -- train loss: 0.45011 -- lr: 6.389680483968849e-06
+ 27%|██▋       | 219/800 [1:17:52<3:26:22, 21.31s/it]epoch -- 0218 || train loss -- 0.45357 || val loss -- 0.50699 || lr -- 0.00000639 || val mean_dice -- 50.93546
+epoch: 0219 -- train loss: 0.41434 -- lr: 6.3275948245949755e-06
+ 28%|██▊       | 220/800 [1:18:13<3:24:36, 21.17s/it]epoch -- 0219 || train loss -- 0.44725 || val loss -- 0.51449 || lr -- 0.00000633 || val mean_dice -- 50.18375
+epoch: 0220 -- train loss: 0.39691 -- lr: 6.2708565069069715e-06
+ 28%|██▊       | 221/800 [1:18:34<3:25:30, 21.30s/it]epoch -- 0220 || train loss -- 0.45609 || val loss -- 0.50768 || lr -- 0.00000627 || val mean_dice -- 51.00504
+epoch: 0221 -- train loss: 0.48566 -- lr: 6.219479530235735e-06
+ 28%|██▊       | 222/800 [1:18:56<3:25:06, 21.29s/it]epoch -- 0221 || train loss -- 0.46074 || val loss -- 0.53064 || lr -- 0.00000622 || val mean_dice -- 48.57647
+epoch: 0222 -- train loss: 0.47227 -- lr: 6.173476571081489e-06
+ 28%|██▊       | 223/800 [1:19:17<3:26:11, 21.44s/it]epoch -- 0222 || train loss -- 0.44266 || val loss -- 0.49578 || lr -- 0.00000617 || val mean_dice -- 52.11281
+epoch: 0223 -- train loss: 0.52116 -- lr: 6.132858979986049e-06
+ 28%|██▊       | 224/800 [1:19:38<3:24:33, 21.31s/it]epoch -- 0223 || train loss -- 0.44886 || val loss -- 0.52590 || lr -- 0.00000613 || val mean_dice -- 49.10198
+epoch: 0224 -- train loss: 0.55716 -- lr: 6.097636778732241e-06
+ 28%|██▊       | 225/800 [1:19:59<3:22:52, 21.17s/it]epoch -- 0224 || train loss -- 0.45256 || val loss -- 0.51224 || lr -- 0.00000610 || val mean_dice -- 50.30359
+epoch: 0225 -- train loss: 0.42025 -- lr: 6.067818657871185e-06
+ 28%|██▊       | 226/800 [1:20:20<3:21:57, 21.11s/it]epoch -- 0225 || train loss -- 0.45087 || val loss -- 0.49913 || lr -- 0.00000607 || val mean_dice -- 51.68992
+epoch: 0226 -- train loss: 0.47212 -- lr: 6.0434119745780255e-06
+ 28%|██▊       | 227/800 [1:20:42<3:23:47, 21.34s/it]epoch -- 0226 || train loss -- 0.45521 || val loss -- 0.50874 || lr -- 0.00000604 || val mean_dice -- 50.82717
+epoch: 0227 -- train loss: 0.36931 -- lr: 6.024422750836662e-06
+ 28%|██▊       | 228/800 [1:21:02<3:20:29, 21.03s/it]epoch -- 0227 || train loss -- 0.44256 || val loss -- 0.51876 || lr -- 0.00000602 || val mean_dice -- 49.72858
+epoch: 0228 -- train loss: 0.39053 -- lr: 6.010855671953905e-06
+ 29%|██▊       | 229/800 [1:21:24<3:22:52, 21.32s/it]epoch -- 0228 || train loss -- 0.45665 || val loss -- 0.51573 || lr -- 0.00000601 || val mean_dice -- 50.04247
+epoch: 0229 -- train loss: 0.43969 -- lr: 6.0027140854034675e-06
+ 29%|██▉       | 230/800 [1:21:46<3:22:20, 21.30s/it]epoch -- 0229 || train loss -- 0.44528 || val loss -- 0.50393 || lr -- 0.00000600 || val mean_dice -- 51.19176
+epoch: 0230 -- train loss: 0.41785 -- lr: 4.9999999999999996e-05
+ 29%|██▉       | 231/800 [1:22:08<3:23:52, 21.50s/it]epoch -- 0230 || train loss -- 0.47629 || val loss -- 0.77403 || lr -- 0.00005000 || val mean_dice -- 23.52608
+epoch: 0231 -- train loss: 0.44219 -- lr: 4.9997285914596526e-05
+ 29%|██▉       | 232/800 [1:22:29<3:22:41, 21.41s/it]epoch -- 0231 || train loss -- 0.47434 || val loss -- 0.58027 || lr -- 0.00005000 || val mean_dice -- 43.52931
+epoch: 0232 -- train loss: 0.40999 -- lr: 4.9989144328046095e-05
+ 29%|██▉       | 233/800 [1:22:50<3:20:09, 21.18s/it]epoch -- 0232 || train loss -- 0.46957 || val loss -- 0.58386 || lr -- 0.00004999 || val mean_dice -- 42.95338
+epoch: 0233 -- train loss: 0.35810 -- lr: 4.997557724916334e-05
+ 29%|██▉       | 234/800 [1:23:11<3:20:40, 21.27s/it]epoch -- 0233 || train loss -- 0.45841 || val loss -- 0.79114 || lr -- 0.00004998 || val mean_dice -- 21.21730
+epoch: 0234 -- train loss: 0.45035 -- lr: 4.995658802542197e-05
+ 29%|██▉       | 235/800 [1:23:32<3:20:09, 21.26s/it]epoch -- 0234 || train loss -- 0.46708 || val loss -- 0.60446 || lr -- 0.00004996 || val mean_dice -- 40.99092
+epoch: 0235 -- train loss: 0.47558 -- lr: 4.993218134212882e-05
+ 30%|██▉       | 236/800 [1:23:54<3:20:09, 21.29s/it]epoch -- 0235 || train loss -- 0.46681 || val loss -- 0.58086 || lr -- 0.00004993 || val mean_dice -- 43.19034
+epoch: 0236 -- train loss: 0.45934 -- lr: 4.990236322126776e-05
+ 30%|██▉       | 237/800 [1:24:15<3:20:01, 21.32s/it]epoch -- 0236 || train loss -- 0.46346 || val loss -- 0.50638 || lr -- 0.00004990 || val mean_dice -- 50.96906
+epoch: 0237 -- train loss: 0.46703 -- lr: 4.986714102001396e-05
+ 30%|██▉       | 238/800 [1:24:37<3:20:31, 21.41s/it]epoch -- 0237 || train loss -- 0.46595 || val loss -- 0.59854 || lr -- 0.00004987 || val mean_dice -- 41.52842
+epoch: 0238 -- train loss: 0.37536 -- lr: 4.9826523428918515e-05
+ 30%|██▉       | 239/800 [1:24:58<3:21:07, 21.51s/it]epoch -- 0238 || train loss -- 0.46757 || val loss -- 0.80504 || lr -- 0.00004983 || val mean_dice -- 19.73880
+epoch: 0239 -- train loss: 0.44000 -- lr: 4.9780520469764266e-05
+ 30%|███       | 240/800 [1:25:20<3:20:56, 21.53s/it]epoch -- 0239 || train loss -- 0.46390 || val loss -- 0.54825 || lr -- 0.00004978 || val mean_dice -- 46.68123
+epoch: 0240 -- train loss: 0.47528 -- lr: 4.972914349309303e-05
+ 30%|███       | 241/800 [1:25:41<3:19:32, 21.42s/it]epoch -- 0240 || train loss -- 0.46648 || val loss -- 0.62392 || lr -- 0.00004973 || val mean_dice -- 38.86183
+epoch: 0241 -- train loss: 0.40497 -- lr: 4.967240517540502e-05
+ 30%|███       | 242/800 [1:26:02<3:18:33, 21.35s/it]epoch -- 0241 || train loss -- 0.46630 || val loss -- 0.70981 || lr -- 0.00004967 || val mean_dice -- 30.08747
+epoch: 0242 -- train loss: 0.50282 -- lr: 4.9610319516031154e-05
+ 30%|███       | 243/800 [1:26:24<3:19:20, 21.47s/it]epoch -- 0242 || train loss -- 0.46846 || val loss -- 0.64260 || lr -- 0.00004961 || val mean_dice -- 36.66561
+epoch: 0243 -- train loss: 0.51422 -- lr: 4.954290183367884e-05
+ 30%|███       | 244/800 [1:26:45<3:17:45, 21.34s/it]epoch -- 0243 || train loss -- 0.46810 || val loss -- 0.54804 || lr -- 0.00004954 || val mean_dice -- 46.99340
+epoch: 0244 -- train loss: 0.43011 -- lr: 4.947016876265244e-05
+ 31%|███       | 245/800 [1:27:07<3:19:09, 21.53s/it]epoch -- 0244 || train loss -- 0.46911 || val loss -- 0.54908 || lr -- 0.00004947 || val mean_dice -- 46.61065
+epoch: 0245 -- train loss: 0.41813 -- lr: 4.939213824874888e-05
+ 31%|███       | 246/800 [1:27:28<3:18:12, 21.47s/it]epoch -- 0245 || train loss -- 0.46300 || val loss -- 0.54325 || lr -- 0.00004939 || val mean_dice -- 47.12774
+epoch: 0246 -- train loss: 0.41313 -- lr: 4.930882954482988e-05
+ 31%|███       | 247/800 [1:27:50<3:17:41, 21.45s/it]epoch -- 0246 || train loss -- 0.45154 || val loss -- 0.50616 || lr -- 0.00004931 || val mean_dice -- 50.99089
+epoch: 0247 -- train loss: 0.46875 -- lr: 4.9220263206071555e-05
+ 31%|███       | 248/800 [1:28:12<3:20:38, 21.81s/it]epoch -- 0247 || train loss -- 0.45880 || val loss -- 0.57551 || lr -- 0.00004922 || val mean_dice -- 43.65159
+epoch: 0248 -- train loss: 0.48205 -- lr: 4.912646108489275e-05
+ 31%|███       | 249/800 [1:28:35<3:22:19, 22.03s/it]epoch -- 0248 || train loss -- 0.46737 || val loss -- 0.52059 || lr -- 0.00004913 || val mean_dice -- 49.46026
+epoch: 0249 -- train loss: 0.51696 -- lr: 4.902744632556326e-05
+ 31%|███▏      | 250/800 [1:28:57<3:20:47, 21.91s/it]epoch -- 0249 || train loss -- 0.45802 || val loss -- 0.54195 || lr -- 0.00004903 || val mean_dice -- 47.24753
+epoch: 0250 -- train loss: 0.44463 -- lr: 4.892324335849338e-05
+ 31%|███▏      | 251/800 [1:29:19<3:20:42, 21.94s/it]epoch -- 0250 || train loss -- 0.46748 || val loss -- 0.53683 || lr -- 0.00004892 || val mean_dice -- 47.59987
+[per-class dice ep 250] C0:45.7%  C1:28.5%  C2:76.5%  C3:57.3%  C4:59.5%  C5:31.7%  C6:51.5%  C7:71.1%  C8:50.2%  C9:41.9%  C10:35.3%  C11:39.0%  C12:38.4%  C13:39.8%
+epoch: 0251 -- train loss: 0.51915 -- lr: 4.8813877894206e-05
+ 32%|███▏      | 252/800 [1:29:40<3:19:37, 21.86s/it]epoch -- 0251 || train loss -- 0.46643 || val loss -- 0.52687 || lr -- 0.00004881 || val mean_dice -- 48.96928
+epoch: 0252 -- train loss: 0.46912 -- lr: 4.869937691699297e-05
+ 32%|███▏      | 253/800 [1:30:03<3:20:55, 22.04s/it]epoch -- 0252 || train loss -- 0.45448 || val loss -- 0.55365 || lr -- 0.00004870 || val mean_dice -- 46.10536
+epoch: 0253 -- train loss: 0.42104 -- lr: 4.857976867825708e-05
+ 32%|███▏      | 254/800 [1:30:24<3:17:28, 21.70s/it]epoch -- 0253 || train loss -- 0.45594 || val loss -- 0.56245 || lr -- 0.00004858 || val mean_dice -- 45.44886
+epoch: 0254 -- train loss: 0.43481 -- lr: 4.845508268954153e-05
+ 32%|███▏      | 255/800 [1:30:46<3:19:39, 21.98s/it]epoch -- 0254 || train loss -- 0.45954 || val loss -- 0.49007 || lr -- 0.00004846 || val mean_dice -- 52.55252 -- saved
+epoch: 0255 -- train loss: 0.43032 -- lr: 4.8325349715248306e-05
+ 32%|███▏      | 256/800 [1:31:08<3:19:18, 21.98s/it]epoch -- 0255 || train loss -- 0.46031 || val loss -- 0.52711 || lr -- 0.00004833 || val mean_dice -- 48.55094
+epoch: 0256 -- train loss: 0.41027 -- lr: 4.819060176504758e-05
+ 32%|███▏      | 257/800 [1:31:30<3:18:25, 21.93s/it]epoch -- 0256 || train loss -- 0.45141 || val loss -- 0.51796 || lr -- 0.00004819 || val mean_dice -- 49.81169
+epoch: 0257 -- train loss: 0.49508 -- lr: 4.8050872085979795e-05
+ 32%|███▏      | 258/800 [1:31:52<3:17:03, 21.82s/it]epoch -- 0257 || train loss -- 0.46862 || val loss -- 0.60572 || lr -- 0.00004805 || val mean_dice -- 40.70984
+epoch: 0258 -- train loss: 0.42794 -- lr: 4.790619515425243e-05
+ 32%|███▏      | 259/800 [1:32:13<3:16:29, 21.79s/it]epoch -- 0258 || train loss -- 0.45046 || val loss -- 0.54804 || lr -- 0.00004791 || val mean_dice -- 46.86687
+epoch: 0259 -- train loss: 0.40953 -- lr: 4.775660666673354e-05
+ 32%|███▎      | 260/800 [1:32:36<3:17:40, 21.96s/it]epoch -- 0259 || train loss -- 0.45390 || val loss -- 0.47751 || lr -- 0.00004776 || val mean_dice -- 53.77974 -- saved
+epoch: 0260 -- train loss: 0.45486 -- lr: 4.760214353214409e-05
+ 33%|███▎      | 261/800 [1:32:57<3:16:27, 21.87s/it]epoch -- 0260 || train loss -- 0.45399 || val loss -- 0.49938 || lr -- 0.00004760 || val mean_dice -- 51.67452
+epoch: 0261 -- train loss: 0.45120 -- lr: 4.744284386195126e-05
+ 33%|███▎      | 262/800 [1:33:20<3:16:45, 21.94s/it]epoch -- 0261 || train loss -- 0.46884 || val loss -- 0.58454 || lr -- 0.00004744 || val mean_dice -- 43.41137
+epoch: 0262 -- train loss: 0.45994 -- lr: 4.7278746960964995e-05
+ 33%|███▎      | 263/800 [1:33:40<3:13:46, 21.65s/it]epoch -- 0262 || train loss -- 0.45548 || val loss -- 0.49958 || lr -- 0.00004728 || val mean_dice -- 51.59294
+epoch: 0263 -- train loss: 0.42680 -- lr: 4.710989331764021e-05
+ 33%|███▎      | 264/800 [1:34:03<3:14:39, 21.79s/it]epoch -- 0263 || train loss -- 0.45712 || val loss -- 0.56034 || lr -- 0.00004711 || val mean_dice -- 45.94171
+epoch: 0264 -- train loss: 0.43420 -- lr: 4.6936324594086756e-05
+ 33%|███▎      | 265/800 [1:34:24<3:13:29, 21.70s/it]epoch -- 0264 || train loss -- 0.43678 || val loss -- 0.78991 || lr -- 0.00004694 || val mean_dice -- 21.03100
+epoch: 0265 -- train loss: 0.34370 -- lr: 4.675808361579002e-05
+ 33%|███▎      | 266/800 [1:34:46<3:13:01, 21.69s/it]epoch -- 0265 || train loss -- 0.45806 || val loss -- 0.52658 || lr -- 0.00004676 || val mean_dice -- 49.06946
+epoch: 0266 -- train loss: 0.44885 -- lr: 4.657521436104433e-05
+ 33%|███▎      | 267/800 [1:35:08<3:13:33, 21.79s/it]epoch -- 0266 || train loss -- 0.44232 || val loss -- 0.57337 || lr -- 0.00004658 || val mean_dice -- 44.44728
+epoch: 0267 -- train loss: 0.44434 -- lr: 4.6387761950101946e-05
+ 34%|███▎      | 268/800 [1:35:30<3:14:16, 21.91s/it]epoch -- 0267 || train loss -- 0.44932 || val loss -- 0.49490 || lr -- 0.00004639 || val mean_dice -- 52.19424
+epoch: 0268 -- train loss: 0.50648 -- lr: 4.619577263404035e-05
+ 34%|███▎      | 269/800 [1:35:52<3:13:36, 21.88s/it]epoch -- 0268 || train loss -- 0.44538 || val loss -- 0.50275 || lr -- 0.00004620 || val mean_dice -- 51.40132
+epoch: 0269 -- train loss: 0.43266 -- lr: 4.5999293783350516e-05
+ 34%|███▍      | 270/800 [1:36:13<3:11:54, 21.73s/it]epoch -- 0269 || train loss -- 0.45039 || val loss -- 0.49090 || lr -- 0.00004600 || val mean_dice -- 52.57785
+epoch: 0270 -- train loss: 0.45802 -- lr: 4.5798373876248846e-05
+ 34%|███▍      | 271/800 [1:36:35<3:11:08, 21.68s/it]epoch -- 0270 || train loss -- 0.44303 || val loss -- 0.54880 || lr -- 0.00004580 || val mean_dice -- 46.67626
+epoch: 0271 -- train loss: 0.42670 -- lr: 4.559306248671599e-05
+ 34%|███▍      | 272/800 [1:36:56<3:09:30, 21.53s/it]epoch -- 0271 || train loss -- 0.44035 || val loss -- 0.48525 || lr -- 0.00004559 || val mean_dice -- 53.11068
+epoch: 0272 -- train loss: 0.51134 -- lr: 4.5383410272265186e-05
+ 34%|███▍      | 273/800 [1:37:18<3:09:29, 21.57s/it]epoch -- 0272 || train loss -- 0.43666 || val loss -- 0.70672 || lr -- 0.00004538 || val mean_dice -- 30.01338
+epoch: 0273 -- train loss: 0.48038 -- lr: 4.516946896144325e-05
+ 34%|███▍      | 274/800 [1:37:40<3:10:30, 21.73s/it]epoch -- 0273 || train loss -- 0.43801 || val loss -- 0.66540 || lr -- 0.00004517 || val mean_dice -- 34.80410
+epoch: 0274 -- train loss: 0.44059 -- lr: 4.495129134106736e-05
+ 34%|███▍      | 275/800 [1:38:01<3:10:04, 21.72s/it]epoch -- 0274 || train loss -- 0.44637 || val loss -- 0.56075 || lr -- 0.00004495 || val mean_dice -- 45.51930
+epoch: 0275 -- train loss: 0.49519 -- lr: 4.4728931243200685e-05
+ 34%|███▍      | 276/800 [1:38:23<3:10:21, 21.80s/it]epoch -- 0275 || train loss -- 0.43303 || val loss -- 0.54789 || lr -- 0.00004473 || val mean_dice -- 46.69504
+epoch: 0276 -- train loss: 0.45520 -- lr: 4.4502443531870114e-05
+ 35%|███▍      | 277/800 [1:38:46<3:11:35, 21.98s/it]epoch -- 0276 || train loss -- 0.44510 || val loss -- 0.54958 || lr -- 0.00004450 || val mean_dice -- 46.58940
+epoch: 0277 -- train loss: 0.41432 -- lr: 4.4271884089529406e-05
+ 35%|███▍      | 278/800 [1:39:08<3:11:04, 21.96s/it]epoch -- 0277 || train loss -- 0.43638 || val loss -- 0.51821 || lr -- 0.00004427 || val mean_dice -- 49.42361
+epoch: 0278 -- train loss: 0.35498 -- lr: 4.403730980327105e-05
+ 35%|███▍      | 279/800 [1:39:29<3:09:31, 21.83s/it]epoch -- 0278 || train loss -- 0.44205 || val loss -- 0.50271 || lr -- 0.00004404 || val mean_dice -- 51.31524
+epoch: 0279 -- train loss: 0.39046 -- lr: 4.379877855079015e-05
+ 35%|███▌      | 280/800 [1:39:50<3:07:50, 21.67s/it]epoch -- 0279 || train loss -- 0.44310 || val loss -- 0.51960 || lr -- 0.00004380 || val mean_dice -- 49.71110
+epoch: 0280 -- train loss: 0.44292 -- lr: 4.355634918610404e-05
+ 35%|███▌      | 281/800 [1:40:12<3:07:36, 21.69s/it]epoch -- 0280 || train loss -- 0.43678 || val loss -- 0.53709 || lr -- 0.00004356 || val mean_dice -- 47.79724
+epoch: 0281 -- train loss: 0.43498 -- lr: 4.331008152503091e-05
+ 35%|███▌      | 282/800 [1:40:34<3:08:13, 21.80s/it]epoch -- 0281 || train loss -- 0.44004 || val loss -- 0.54727 || lr -- 0.00004331 || val mean_dice -- 46.59406

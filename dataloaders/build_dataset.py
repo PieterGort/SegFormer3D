@@ -73,12 +73,18 @@ def build_dataloader(
     Returns:
         DataLoader: _description_
     """
+    num_workers = dataloader_args["num_workers"]
     dataloader = DataLoader(
         dataset=dataset,
         batch_size=dataloader_args["batch_size"],
         shuffle=dataloader_args["shuffle"],
-        num_workers=dataloader_args["num_workers"],
+        num_workers=num_workers,
         drop_last=dataloader_args["drop_last"],
         pin_memory=True,
+        # Keep worker processes alive between epochs to avoid the ~1-2s
+        # spawn overhead at the start of every epoch (only meaningful when
+        # num_workers > 0).
+        persistent_workers=num_workers > 0,
+        prefetch_factor=dataloader_args.get("prefetch_factor", 2) if num_workers > 0 else None,
     )
     return dataloader
