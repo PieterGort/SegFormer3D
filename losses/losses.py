@@ -8,9 +8,9 @@ from monai import losses
 class CrossEntropyLoss(nn.Module):
     """Cross-entropy loss wrapper for semantic segmentation."""
     
-    def __init__(self) -> None:
+    def __init__(self, **loss_args) -> None:
         super().__init__()
-        self._loss = nn.CrossEntropyLoss(reduction="mean")
+        self._loss = nn.CrossEntropyLoss(reduction="mean", **loss_args)
 
     def forward(self, predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """Compute cross-entropy loss.
@@ -29,9 +29,9 @@ class CrossEntropyLoss(nn.Module):
 class BinaryCrossEntropyWithLogits(nn.Module):
     """Binary cross-entropy with logits for binary segmentation tasks."""
     
-    def __init__(self) -> None:
+    def __init__(self, **loss_args) -> None:
         super().__init__()
-        self._loss = nn.BCEWithLogitsLoss(reduction="mean")
+        self._loss = nn.BCEWithLogitsLoss(reduction="mean", **loss_args)
 
     def forward(self, predictions: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """Compute BCE with logits loss.
@@ -50,9 +50,13 @@ class BinaryCrossEntropyWithLogits(nn.Module):
 class DiceLoss(nn.Module):
     """Dice loss for volumetric segmentation."""
     
-    def __init__(self) -> None:
+    def __init__(self, **loss_args) -> None:
         super().__init__()
-        self._loss = losses.DiceLoss(to_onehot_y=False, sigmoid=True)
+        default_args = {"to_onehot_y": False}
+        if "sigmoid" not in loss_args and "softmax" not in loss_args and "other_act" not in loss_args:
+            default_args["sigmoid"] = True
+        default_args.update(loss_args)
+        self._loss = losses.DiceLoss(**default_args)
 
     def forward(self, predicted: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         """Compute Dice loss.
@@ -71,9 +75,13 @@ class DiceLoss(nn.Module):
 class DiceCELoss(nn.Module):
     """Combined Dice and Cross-Entropy loss for robust segmentation."""
     
-    def __init__(self) -> None:
+    def __init__(self, **loss_args) -> None:
         super().__init__()
-        self._loss = losses.DiceCELoss(to_onehot_y=False, sigmoid=True)
+        default_args = {"to_onehot_y": False}
+        if "sigmoid" not in loss_args and "softmax" not in loss_args and "other_act" not in loss_args:
+            default_args["sigmoid"] = True
+        default_args.update(loss_args)
+        self._loss = losses.DiceCELoss(**default_args)
 
     def forward(self, predicted: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         """Compute combined Dice-CE loss.
@@ -115,4 +123,7 @@ def build_loss_fn(loss_type: str, loss_args: Optional[Dict] = None) -> nn.Module
             f"Supported types: {list(loss_registry.keys())}"
         )
     
-    return loss_registry[loss_type]()
+    if loss_args in (None, "None"):
+        loss_args = {}
+
+    return loss_registry[loss_type](**loss_args)

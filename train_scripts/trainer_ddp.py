@@ -1,6 +1,5 @@
 import os
 import torch
-import evaluate
 from tqdm import tqdm
 from typing import Dict
 from copy import deepcopy
@@ -68,6 +67,11 @@ class Segmentation_Trainer:
         self.sliding_window_inference = SlidingWindowInference(
             config["sliding_window_inference"]["roi"],
             config["sliding_window_inference"]["sw_batch_size"],
+            activation=config["sliding_window_inference"].get("activation", "sigmoid"),
+            threshold=config["sliding_window_inference"].get("threshold", 0.5),
+            num_classes=config["sliding_window_inference"].get("num_classes"),
+            include_background=config["sliding_window_inference"].get("include_background", True),
+            label_one_hot=config["sliding_window_inference"].get("label_one_hot", False),
         )
 
         # training scheduler

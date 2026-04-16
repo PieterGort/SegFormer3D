@@ -507,7 +507,7 @@ class DWConv(nn.Module):
 @torch.jit.script
 def cube_root(n: int) -> int:
     """Compute integer cube root efficiently."""
-    return round(n ** (1.0 / 3.0))
+    return int(round(n ** (1.0 / 3.0)))
     
 
 ###################################################################################

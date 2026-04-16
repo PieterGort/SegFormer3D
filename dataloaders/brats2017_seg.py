@@ -42,7 +42,12 @@ class Brats2017Task1Dataset(Dataset):
             csv_fp = os.path.join(root_dir, csv_name)
             assert os.path.exists(csv_fp), f"CSV file not found: {csv_fp}"
 
-        self.csv = pd.read_csv(csv_fp)
+        # Preserve case IDs like "00059" exactly as stored in the CSV.
+        self.csv = pd.read_csv(
+            csv_fp,
+            dtype={"data_path": str, "case_name": str},
+            keep_default_na=False,
+        )
         self.transform = transform
         self.is_train = is_train
 

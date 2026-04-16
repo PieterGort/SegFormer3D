@@ -1,8 +1,20 @@
 import monai.transforms as transforms
-from typing import Any
+from typing import Any, Iterable, Tuple
+
+
+def _to_tuple3(roi_size: Iterable[int]) -> Tuple[int, int, int]:
+    roi = tuple(int(x) for x in roi_size)
+    if len(roi) != 3:
+        raise ValueError(f"roi_size must contain exactly 3 values, got {roi_size}")
+    return roi
 
 #######################################################################################
-def build_augmentations(train: bool = True) -> transforms.Compose:
+def build_augmentations(
+    train: bool = True,
+    dataset_type: str = "brats2017_seg",
+    roi_size=(96, 96, 96),
+    num_samples: int = 4,
+) -> transforms.Compose:
     """Build data augmentation pipeline for 3D medical image segmentation.
     
     Training augmentations include:
@@ -20,6 +32,87 @@ def build_augmentations(train: bool = True) -> transforms.Compose:
     Returns:
         Composed MONAI transform pipeline
     """
+    roi_size = _to_tuple3(roi_size)
+
+    if dataset_type == "nnunet_seg":
+        if train:
+            train_transform = [
+                # Focus patch sampling on labeled anatomy instead of the large CT background.
+                transforms.CropForegroundd(
+                    keys=["image", "label"],
+                    source_key="label",
+                ),
+                transforms.SpatialPadd(
+                    keys=["image", "label"],
+                    spatial_size=roi_size,
+                ),
+                transforms.RandCropByPosNegLabeld(
+                    keys=["image", "label"],
+                    label_key="label",
+                    spatial_size=roi_size,
+                    pos=1,
+                    neg=1,
+                    num_samples=num_samples,
+                    image_key="image",
+                    image_threshold=0,
+                ),
+                transforms.RandFlipd(
+                    keys=["image", "label"],
+                    prob=0.50,
+                    spatial_axis=0,
+                ),
+                transforms.RandFlipd(
+                    keys=["image", "label"],
+                    prob=0.50,
+                    spatial_axis=1,
+                ),
+                transforms.RandFlipd(
+                    keys=["image", "label"],
+                    prob=0.50,
+                    spatial_axis=2,
+                ),
+                transforms.RandRotate90d(
+                    keys=["image", "label"],
+                    prob=0.50,
+                    max_k=3,
+                ),
+                transforms.RandScaleIntensityd(
+                    keys=["image"],
+                    factors=0.10,
+                    prob=0.50,
+                ),
+                transforms.RandShiftIntensityd(
+                    keys=["image"],
+                    offsets=0.10,
+                    prob=0.50,
+                ),
+                transforms.EnsureTyped(
+                    keys=["image", "label"],
+                    track_meta=False,
+                ),
+            ]
+            return transforms.Compose(train_transform)
+
+        val_transform = [
+            transforms.CropForegroundd(
+                keys=["image", "label"],
+                source_key="label",
+            ),
+            transforms.SpatialPadd(
+                keys=["image", "label"],
+                spatial_size=roi_size,
+            ),
+            transforms.CenterSpatialCropd(
+                keys=["image", "label"],
+                roi_size=roi_size,
+            ),
+            transforms.EnsureTyped(
+                keys=["image", "label"],
+                track_meta=False,
+            ),
+        ]
+        return transforms.Compose(val_transform)
+
     if train:
         train_transform = [
             # Random spatial cropping - generates 4 crops per volume for data efficiency

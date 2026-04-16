@@ -1,0 +1,1868 @@
+============================================================================================== 
+Warning! Mixing Conda and module environments may lead to corruption of the
+user environment. 
+We do not recommend users mixing those two environments unless absolutely
+necessary. Note that 
+SURF does not provide any support for Conda environment.
+For more information, please refer to our software policy page:
+https://servicedesk.surf.nl/wiki/display/WIKI/Software+policy+Snellius#SoftwarepolicySnellius-UseofAnacondaandMinicondaenvironmentsonSnellius 
+
+Remember that many packages have already been installed on the system and can
+be loaded using 
+the 'module load <package__name>' command. If you are uncertain if a package is
+already available 
+on the system, please use 'module avail' or 'module spider' to search for it.
+============================================================================================== 
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/monai/utils/module.py:395: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  pkg = __import__(module)  # top level module
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+wandb: Tracking run with wandb version 0.15.12
+wandb: W&B syncing is set to `offline` in this directory.  
+wandb: Run `wandb online` or set WANDB_MODE=online to enable cloud syncing.
+wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
+-------------------------------------------------------
+[info]: Experiment Info
+[info] ----- Project: segformer3d
+[info] ----- Group: dataset101_pm
+[info] ----- Name: segformer3d_dataset101_pm
+[info] ----- Batch Size: 1
+[info] ----- Num Epochs: 300
+[info] ----- Loss: dice
+[info] ----- Optimizer: adamw
+[info] ----- Train Dataset Size: 50
+[info] ----- Test Dataset Size: 12
+[info] ----- Distributed Training: False
+[info] ----- Num Clases: 14
+[info] ----- EMA: False
+[info] ----- Load From Checkpoint: False
+[info] ----- Params: 4495150
+-------------------------------------------------------
+  0%|          | 0/300 [00:00<?, ?it/s]
+[info] -- warming up learning rate 
+
+/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/conv.py:605: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv3d(
+epoch: 0000 -- train loss: 0.99267 -- lr: 1e-05
+epoch: 0000 -- train loss: 0.97599 -- lr: 1e-05
+epoch: 0000 -- train loss: 0.97004 -- lr: 1e-05
+epoch: 0000 -- train loss: 0.96584 -- lr: 1e-05
+epoch: 0000 -- train loss: 0.96409 -- lr: 1e-05
+  0%|          | 1/300 [02:04<10:22:32, 124.92s/it]epoch -- 0000 || train loss -- 0.96344 || val loss -- 0.95205 || lr -- 0.00001000 || val mean_dice -- 4.72648 -- saved
+epoch: 0001 -- train loss: 0.95397 -- lr: 2e-05
+epoch: 0001 -- train loss: 0.95749 -- lr: 2e-05
+epoch: 0001 -- train loss: 0.95645 -- lr: 2e-05
+epoch: 0001 -- train loss: 0.95749 -- lr: 2e-05
+epoch: 0001 -- train loss: 0.95722 -- lr: 2e-05
+  1%|          | 2/300 [04:07<10:13:06, 123.44s/it]epoch -- 0001 || train loss -- 0.95722 || val loss -- 0.95240 || lr -- 0.00002000 || val mean_dice -- 4.68891
+epoch: 0002 -- train loss: 0.95565 -- lr: 3e-05
+epoch: 0002 -- train loss: 0.95093 -- lr: 3e-05
+epoch: 0002 -- train loss: 0.95336 -- lr: 3e-05
+epoch: 0002 -- train loss: 0.95262 -- lr: 3e-05
+epoch: 0002 -- train loss: 0.95446 -- lr: 3e-05
+  1%|          | 3/300 [06:03<9:53:41, 119.94s/it] epoch -- 0002 || train loss -- 0.95469 || val loss -- 0.93684 || lr -- 0.00003000 || val mean_dice -- 6.29243 -- saved
+epoch: 0003 -- train loss: 0.91449 -- lr: 4e-05
+epoch: 0003 -- train loss: 0.95043 -- lr: 4e-05
+epoch: 0003 -- train loss: 0.94856 -- lr: 4e-05
+epoch: 0003 -- train loss: 0.94861 -- lr: 4e-05
+epoch: 0003 -- train loss: 0.94942 -- lr: 4e-05
+  1%|▏         | 4/300 [08:10<10:05:23, 122.71s/it]epoch -- 0003 || train loss -- 0.94885 || val loss -- 0.91547 || lr -- 0.00004000 || val mean_dice -- 8.46611 -- saved
+epoch: 0004 -- train loss: 0.90841 -- lr: 5e-05
+epoch: 0004 -- train loss: 0.94759 -- lr: 5e-05
+epoch: 0004 -- train loss: 0.94873 -- lr: 5e-05
+epoch: 0004 -- train loss: 0.94897 -- lr: 5e-05
+epoch: 0004 -- train loss: 0.94968 -- lr: 5e-05
+  2%|▏         | 5/300 [10:11<10:01:23, 122.32s/it]epoch -- 0004 || train loss -- 0.95036 || val loss -- 0.95500 || lr -- 0.00005000 || val mean_dice -- 4.41950
+epoch: 0005 -- train loss: 0.97439 -- lr: 6e-05
+epoch: 0005 -- train loss: 0.95251 -- lr: 6e-05
+epoch: 0005 -- train loss: 0.95141 -- lr: 6e-05
+epoch: 0005 -- train loss: 0.95141 -- lr: 6e-05
+epoch: 0005 -- train loss: 0.95052 -- lr: 6e-05
+  2%|▏         | 6/300 [12:17<10:05:09, 123.50s/it]epoch -- 0005 || train loss -- 0.95035 || val loss -- 0.94089 || lr -- 0.00006000 || val mean_dice -- 5.94520
+epoch: 0006 -- train loss: 0.95415 -- lr: 7e-05
+epoch: 0006 -- train loss: 0.94271 -- lr: 7e-05
+epoch: 0006 -- train loss: 0.94794 -- lr: 7e-05
+epoch: 0006 -- train loss: 0.94808 -- lr: 7e-05
+epoch: 0006 -- train loss: 0.94742 -- lr: 7e-05
+  2%|▏         | 7/300 [14:26<10:12:05, 125.34s/it]epoch -- 0006 || train loss -- 0.94792 || val loss -- 0.93570 || lr -- 0.00007000 || val mean_dice -- 6.46746
+epoch: 0007 -- train loss: 0.95017 -- lr: 8e-05
+epoch: 0007 -- train loss: 0.94953 -- lr: 8e-05
+epoch: 0007 -- train loss: 0.95031 -- lr: 8e-05
+epoch: 0007 -- train loss: 0.94924 -- lr: 8e-05
+epoch: 0007 -- train loss: 0.94849 -- lr: 8e-05
+  3%|▎         | 8/300 [16:38<10:19:29, 127.29s/it]epoch -- 0007 || train loss -- 0.94930 || val loss -- 0.95284 || lr -- 0.00008000 || val mean_dice -- 4.71189
+epoch: 0008 -- train loss: 0.97370 -- lr: 9e-05
+epoch: 0008 -- train loss: 0.95719 -- lr: 9e-05
+epoch: 0008 -- train loss: 0.95516 -- lr: 9e-05
+epoch: 0008 -- train loss: 0.95293 -- lr: 9e-05
+epoch: 0008 -- train loss: 0.94998 -- lr: 9e-05
+  3%|▎         | 9/300 [18:39<10:08:20, 125.43s/it]epoch -- 0008 || train loss -- 0.94891 || val loss -- 0.93715 || lr -- 0.00009000 || val mean_dice -- 6.33523
+epoch: 0009 -- train loss: 0.94770 -- lr: 0.0001
+epoch: 0009 -- train loss: 0.94416 -- lr: 0.0001
+epoch: 0009 -- train loss: 0.94921 -- lr: 0.0001
+epoch: 0009 -- train loss: 0.94867 -- lr: 0.0001
+epoch: 0009 -- train loss: 0.94922 -- lr: 0.0001
+  3%|▎         | 10/300 [20:38<9:56:12, 123.35s/it]epoch -- 0009 || train loss -- 0.94925 || val loss -- 0.96384 || lr -- 0.00010000 || val mean_dice -- 3.59654
+
+[info] -- switching to learning rate decay schedule 
+
+epoch: 0010 -- train loss: 0.94613 -- lr: 0.0001
+epoch: 0010 -- train loss: 0.94712 -- lr: 0.0001
+epoch: 0010 -- train loss: 0.95021 -- lr: 0.0001
+epoch: 0010 -- train loss: 0.94999 -- lr: 0.0001
+epoch: 0010 -- train loss: 0.94772 -- lr: 0.0001
+  4%|▎         | 11/300 [22:47<10:02:48, 125.15s/it]epoch -- 0010 || train loss -- 0.94838 || val loss -- 0.97170 || lr -- 0.00010000 || val mean_dice -- 2.80023
+epoch: 0011 -- train loss: 0.93539 -- lr: 9.999728588359285e-05
+epoch: 0011 -- train loss: 0.94581 -- lr: 9.999728588359285e-05
+epoch: 0011 -- train loss: 0.94297 -- lr: 9.999728588359285e-05
+epoch: 0011 -- train loss: 0.94116 -- lr: 9.999728588359285e-05
+epoch: 0011 -- train loss: 0.94317 -- lr: 9.999728588359285e-05
+  4%|▍         | 12/300 [24:50<9:57:15, 124.43s/it] epoch -- 0011 || train loss -- 0.94083 || val loss -- 0.95227 || lr -- 0.00010000 || val mean_dice -- 4.70348
+epoch: 0012 -- train loss: 0.90654 -- lr: 9.998914383200485e-05
+epoch: 0012 -- train loss: 0.94150 -- lr: 9.998914383200485e-05
+epoch: 0012 -- train loss: 0.93792 -- lr: 9.998914383200485e-05
+epoch: 0012 -- train loss: 0.93948 -- lr: 9.998914383200485e-05
+epoch: 0012 -- train loss: 0.93800 -- lr: 9.998914383200485e-05
+  4%|▍         | 13/300 [26:53<9:53:44, 124.13s/it]epoch -- 0012 || train loss -- 0.93917 || val loss -- 0.95016 || lr -- 0.00009999 || val mean_dice -- 4.85158
+epoch: 0013 -- train loss: 0.95155 -- lr: 9.997557473810373e-05
+epoch: 0013 -- train loss: 0.94194 -- lr: 9.997557473810373e-05
+epoch: 0013 -- train loss: 0.94506 -- lr: 9.997557473810373e-05
+epoch: 0013 -- train loss: 0.94183 -- lr: 9.997557473810373e-05
+epoch: 0013 -- train loss: 0.94000 -- lr: 9.997557473810373e-05
+  5%|▍         | 14/300 [28:58<9:52:09, 124.23s/it]epoch -- 0013 || train loss -- 0.93857 || val loss -- 0.94326 || lr -- 0.00009998 || val mean_dice -- 5.63406
+epoch: 0014 -- train loss: 0.93045 -- lr: 9.99565800898935e-05
+epoch: 0014 -- train loss: 0.94132 -- lr: 9.99565800898935e-05
+epoch: 0014 -- train loss: 0.93540 -- lr: 9.99565800898935e-05
+epoch: 0014 -- train loss: 0.93318 -- lr: 9.99565800898935e-05
+epoch: 0014 -- train loss: 0.93447 -- lr: 9.99565800898935e-05
+  5%|▌         | 15/300 [30:59<9:46:50, 123.55s/it]epoch -- 0014 || train loss -- 0.93795 || val loss -- 0.95888 || lr -- 0.00009996 || val mean_dice -- 4.19029
+epoch: 0015 -- train loss: 0.96651 -- lr: 9.99321619703514e-05
+epoch: 0015 -- train loss: 0.93720 -- lr: 9.99321619703514e-05
+epoch: 0015 -- train loss: 0.93800 -- lr: 9.99321619703514e-05
+epoch: 0015 -- train loss: 0.93769 -- lr: 9.99321619703514e-05
+epoch: 0015 -- train loss: 0.93614 -- lr: 9.99321619703514e-05
+  5%|▌         | 16/300 [33:02<9:43:06, 123.19s/it]epoch -- 0015 || train loss -- 0.93489 || val loss -- 0.99442 || lr -- 0.00009993 || val mean_dice -- 0.51620
+epoch: 0016 -- train loss: 0.96303 -- lr: 9.990232305719945e-05
+epoch: 0016 -- train loss: 0.93474 -- lr: 9.990232305719945e-05
+epoch: 0016 -- train loss: 0.93498 -- lr: 9.990232305719945e-05
+epoch: 0016 -- train loss: 0.93350 -- lr: 9.990232305719945e-05
+epoch: 0016 -- train loss: 0.93400 -- lr: 9.990232305719945e-05
+  6%|▌         | 17/300 [35:02<9:37:05, 122.35s/it]epoch -- 0016 || train loss -- 0.93315 || val loss -- 0.98132 || lr -- 0.00009990 || val mean_dice -- 1.77794
+epoch: 0017 -- train loss: 0.92824 -- lr: 9.986706662261068e-05
+epoch: 0017 -- train loss: 0.93553 -- lr: 9.986706662261068e-05
+epoch: 0017 -- train loss: 0.93094 -- lr: 9.986706662261068e-05
+epoch: 0017 -- train loss: 0.93008 -- lr: 9.986706662261068e-05
+epoch: 0017 -- train loss: 0.93483 -- lr: 9.986706662261068e-05
+  6%|▌         | 18/300 [36:58<9:26:00, 120.43s/it]epoch -- 0017 || train loss -- 0.93337 || val loss -- 0.97589 || lr -- 0.00009987 || val mean_dice -- 0.19894
+epoch: 0018 -- train loss: 0.93903 -- lr: 9.982639653285048e-05
+epoch: 0018 -- train loss: 0.93348 -- lr: 9.982639653285048e-05
+epoch: 0018 -- train loss: 0.93059 -- lr: 9.982639653285048e-05
+epoch: 0018 -- train loss: 0.92876 -- lr: 9.982639653285048e-05
+epoch: 0018 -- train loss: 0.93056 -- lr: 9.982639653285048e-05
+  6%|▋         | 19/300 [39:03<9:30:27, 121.81s/it]epoch -- 0018 || train loss -- 0.93256 || val loss -- 0.95017 || lr -- 0.00009983 || val mean_dice -- 4.90012
+epoch: 0019 -- train loss: 0.92868 -- lr: 9.978031724785247e-05
+epoch: 0019 -- train loss: 0.93445 -- lr: 9.978031724785247e-05
+epoch: 0019 -- train loss: 0.93492 -- lr: 9.978031724785247e-05
+epoch: 0019 -- train loss: 0.93378 -- lr: 9.978031724785247e-05
+epoch: 0019 -- train loss: 0.93304 -- lr: 9.978031724785247e-05
+  7%|▋         | 20/300 [41:07<9:30:35, 122.27s/it]epoch -- 0019 || train loss -- 0.93383 || val loss -- 0.98039 || lr -- 0.00009978 || val mean_dice -- 0.44436
+epoch: 0020 -- train loss: 0.95567 -- lr: 9.972883382072954e-05
+epoch: 0020 -- train loss: 0.93424 -- lr: 9.972883382072954e-05
+epoch: 0020 -- train loss: 0.93618 -- lr: 9.972883382072954e-05
+epoch: 0020 -- train loss: 0.93504 -- lr: 9.972883382072954e-05
+epoch: 0020 -- train loss: 0.93281 -- lr: 9.972883382072954e-05
+  7%|▋         | 21/300 [43:09<9:28:08, 122.18s/it]epoch -- 0020 || train loss -- 0.93395 || val loss -- 0.95293 || lr -- 0.00009973 || val mean_dice -- 4.69058
+epoch: 0021 -- train loss: 0.95592 -- lr: 9.967195189721962e-05
+epoch: 0021 -- train loss: 0.91864 -- lr: 9.967195189721962e-05
+epoch: 0021 -- train loss: 0.92309 -- lr: 9.967195189721962e-05
+epoch: 0021 -- train loss: 0.92395 -- lr: 9.967195189721962e-05
+epoch: 0021 -- train loss: 0.92781 -- lr: 9.967195189721962e-05
+  7%|▋         | 22/300 [45:20<9:39:22, 125.05s/it]epoch -- 0021 || train loss -- 0.92741 || val loss -- 0.96990 || lr -- 0.00009967 || val mean_dice -- 2.97908
+epoch: 0022 -- train loss: 0.88833 -- lr: 9.960967771506667e-05
+epoch: 0022 -- train loss: 0.93271 -- lr: 9.960967771506667e-05
+epoch: 0022 -- train loss: 0.93438 -- lr: 9.960967771506667e-05
+epoch: 0022 -- train loss: 0.93389 -- lr: 9.960967771506667e-05
+epoch: 0022 -- train loss: 0.93110 -- lr: 9.960967771506667e-05
+  8%|▊         | 23/300 [47:16<9:24:19, 122.24s/it]epoch -- 0022 || train loss -- 0.93097 || val loss -- 0.95601 || lr -- 0.00009961 || val mean_dice -- 4.38071
+epoch: 0023 -- train loss: 0.94084 -- lr: 9.954201810333646e-05
+epoch: 0023 -- train loss: 0.93311 -- lr: 9.954201810333646e-05
+epoch: 0023 -- train loss: 0.92844 -- lr: 9.954201810333646e-05
+epoch: 0023 -- train loss: 0.92962 -- lr: 9.954201810333646e-05
+epoch: 0023 -- train loss: 0.92897 -- lr: 9.954201810333646e-05
+  8%|▊         | 24/300 [49:26<9:33:31, 124.68s/it]epoch -- 0023 || train loss -- 0.92763 || val loss -- 0.94741 || lr -- 0.00009954 || val mean_dice -- 5.14432
+epoch: 0024 -- train loss: 0.92484 -- lr: 9.946898048166793e-05
+epoch: 0024 -- train loss: 0.92461 -- lr: 9.946898048166793e-05
+epoch: 0024 -- train loss: 0.92741 -- lr: 9.946898048166793e-05
+epoch: 0024 -- train loss: 0.92812 -- lr: 9.946898048166793e-05
+epoch: 0024 -- train loss: 0.92713 -- lr: 9.946898048166793e-05
+  8%|▊         | 25/300 [51:27<9:25:46, 123.44s/it]epoch -- 0024 || train loss -- 0.92823 || val loss -- 0.98771 || lr -- 0.00009947 || val mean_dice -- 1.17908
+epoch: 0025 -- train loss: 0.92823 -- lr: 9.939057285945933e-05
+epoch: 0025 -- train loss: 0.92064 -- lr: 9.939057285945933e-05
+epoch: 0025 -- train loss: 0.92395 -- lr: 9.939057285945933e-05
+epoch: 0025 -- train loss: 0.92694 -- lr: 9.939057285945933e-05
+epoch: 0025 -- train loss: 0.92763 -- lr: 9.939057285945933e-05
+  9%|▊         | 26/300 [53:37<9:33:17, 125.54s/it]epoch -- 0025 || train loss -- 0.92644 || val loss -- 0.95404 || lr -- 0.00009939 || val mean_dice -- 4.62655
+epoch: 0026 -- train loss: 0.86265 -- lr: 9.930680383499e-05
+epoch: 0026 -- train loss: 0.91931 -- lr: 9.930680383499e-05
+epoch: 0026 -- train loss: 0.92495 -- lr: 9.930680383499e-05
+epoch: 0026 -- train loss: 0.92340 -- lr: 9.930680383499e-05
+epoch: 0026 -- train loss: 0.92673 -- lr: 9.930680383499e-05
+  9%|▉         | 27/300 [55:42<9:29:23, 125.14s/it]epoch -- 0026 || train loss -- 0.92647 || val loss -- 0.94553 || lr -- 0.00009931 || val mean_dice -- 5.38121
+epoch: 0027 -- train loss: 0.91244 -- lr: 9.921768259447748e-05
+epoch: 0027 -- train loss: 0.91664 -- lr: 9.921768259447748e-05
+epoch: 0027 -- train loss: 0.92224 -- lr: 9.921768259447748e-05
+epoch: 0027 -- train loss: 0.92323 -- lr: 9.921768259447748e-05
+epoch: 0027 -- train loss: 0.92568 -- lr: 9.921768259447748e-05
+  9%|▉         | 28/300 [57:45<9:24:51, 124.60s/it]epoch -- 0027 || train loss -- 0.92851 || val loss -- 0.99396 || lr -- 0.00009922 || val mean_dice -- 0.52080
+epoch: 0028 -- train loss: 0.90192 -- lr: 9.91232189110701e-05
+epoch: 0028 -- train loss: 0.92567 -- lr: 9.91232189110701e-05
+epoch: 0028 -- train loss: 0.92242 -- lr: 9.91232189110701e-05
+epoch: 0028 -- train loss: 0.92462 -- lr: 9.91232189110701e-05
+epoch: 0028 -- train loss: 0.92345 -- lr: 9.91232189110701e-05
+ 10%|▉         | 29/300 [59:43<9:14:19, 122.73s/it]epoch -- 0028 || train loss -- 0.92601 || val loss -- 0.96235 || lr -- 0.00009912 || val mean_dice -- 3.15410
+epoch: 0029 -- train loss: 0.93192 -- lr: 9.902342314377523e-05
+epoch: 0029 -- train loss: 0.93472 -- lr: 9.902342314377523e-05
+epoch: 0029 -- train loss: 0.92778 -- lr: 9.902342314377523e-05
+epoch: 0029 -- train loss: 0.92712 -- lr: 9.902342314377523e-05
+epoch: 0029 -- train loss: 0.92751 -- lr: 9.902342314377523e-05
+ 10%|█         | 30/300 [1:01:45<9:11:08, 122.48s/it]epoch -- 0029 || train loss -- 0.92461 || val loss -- 0.93950 || lr -- 0.00009902 || val mean_dice -- 5.52860
+epoch: 0030 -- train loss: 0.92824 -- lr: 9.891830623632339e-05
+epoch: 0030 -- train loss: 0.91897 -- lr: 9.891830623632339e-05
+epoch: 0030 -- train loss: 0.91942 -- lr: 9.891830623632339e-05
+epoch: 0030 -- train loss: 0.92073 -- lr: 9.891830623632339e-05
+epoch: 0030 -- train loss: 0.92073 -- lr: 9.891830623632339e-05
+ 10%|█         | 31/300 [1:03:44<9:04:15, 121.40s/it]epoch -- 0030 || train loss -- 0.92084 || val loss -- 0.97743 || lr -- 0.00009892 || val mean_dice -- 1.57159
+epoch: 0031 -- train loss: 0.94313 -- lr: 9.8807879715968e-05
+epoch: 0031 -- train loss: 0.92540 -- lr: 9.8807879715968e-05
+epoch: 0031 -- train loss: 0.92398 -- lr: 9.8807879715968e-05
+epoch: 0031 -- train loss: 0.92114 -- lr: 9.8807879715968e-05
+epoch: 0031 -- train loss: 0.92108 -- lr: 9.8807879715968e-05
+ 11%|█         | 32/300 [1:05:46<9:03:30, 121.68s/it]epoch -- 0031 || train loss -- 0.92152 || val loss -- 0.94289 || lr -- 0.00009881 || val mean_dice -- 5.68284
+epoch: 0032 -- train loss: 0.91723 -- lr: 9.869215569222144e-05
+epoch: 0032 -- train loss: 0.91562 -- lr: 9.869215569222144e-05
+epoch: 0032 -- train loss: 0.91458 -- lr: 9.869215569222144e-05
+epoch: 0032 -- train loss: 0.91530 -- lr: 9.869215569222144e-05
+epoch: 0032 -- train loss: 0.91438 -- lr: 9.869215569222144e-05
+ 11%|█         | 33/300 [1:07:55<9:11:07, 123.85s/it]epoch -- 0032 || train loss -- 0.91514 || val loss -- 0.94634 || lr -- 0.00009869 || val mean_dice -- 5.35207
+epoch: 0033 -- train loss: 0.92636 -- lr: 9.8571146855527e-05
+epoch: 0033 -- train loss: 0.92941 -- lr: 9.8571146855527e-05
+epoch: 0033 -- train loss: 0.92241 -- lr: 9.8571146855527e-05
+epoch: 0033 -- train loss: 0.91969 -- lr: 9.8571146855527e-05
+epoch: 0033 -- train loss: 0.92186 -- lr: 9.8571146855527e-05
+ 11%|█▏        | 34/300 [1:10:09<9:22:14, 126.82s/it]epoch -- 0033 || train loss -- 0.92042 || val loss -- 0.94244 || lr -- 0.00009857 || val mean_dice -- 5.72004
+epoch: 0034 -- train loss: 0.91603 -- lr: 9.844486647586725e-05
+epoch: 0034 -- train loss: 0.91291 -- lr: 9.844486647586725e-05
+epoch: 0034 -- train loss: 0.91128 -- lr: 9.844486647586725e-05
+epoch: 0034 -- train loss: 0.91234 -- lr: 9.844486647586725e-05
+epoch: 0034 -- train loss: 0.91545 -- lr: 9.844486647586725e-05
+ 12%|█▏        | 35/300 [1:12:11<9:13:13, 125.26s/it]epoch -- 0034 || train loss -- 0.91548 || val loss -- 0.95779 || lr -- 0.00009844 || val mean_dice -- 4.18666
+epoch: 0035 -- train loss: 0.89939 -- lr: 9.831332840130888e-05
+epoch: 0035 -- train loss: 0.90997 -- lr: 9.831332840130888e-05
+epoch: 0035 -- train loss: 0.91499 -- lr: 9.831332840130888e-05
+epoch: 0035 -- train loss: 0.91153 -- lr: 9.831332840130888e-05
+epoch: 0035 -- train loss: 0.91455 -- lr: 9.831332840130888e-05
+ 12%|█▏        | 36/300 [1:14:20<9:16:34, 126.50s/it]epoch -- 0035 || train loss -- 0.91528 || val loss -- 0.95774 || lr -- 0.00009831 || val mean_dice -- 4.18376
+epoch: 0036 -- train loss: 0.89902 -- lr: 9.817654705648409e-05
+epoch: 0036 -- train loss: 0.91645 -- lr: 9.817654705648409e-05
+epoch: 0036 -- train loss: 0.91777 -- lr: 9.817654705648409e-05
+epoch: 0036 -- train loss: 0.91932 -- lr: 9.817654705648409e-05
+epoch: 0036 -- train loss: 0.91706 -- lr: 9.817654705648409e-05
+ 12%|█▏        | 37/300 [1:16:26<9:13:19, 126.23s/it]epoch -- 0036 || train loss -- 0.91350 || val loss -- 0.95664 || lr -- 0.00009818 || val mean_dice -- 4.30906
+epoch: 0037 -- train loss: 0.92468 -- lr: 9.803453744100869e-05
+epoch: 0037 -- train loss: 0.91241 -- lr: 9.803453744100869e-05
+epoch: 0037 -- train loss: 0.91567 -- lr: 9.803453744100869e-05
+epoch: 0037 -- train loss: 0.91917 -- lr: 9.803453744100869e-05
+epoch: 0037 -- train loss: 0.91766 -- lr: 9.803453744100869e-05
+ 13%|█▎        | 38/300 [1:18:33<9:12:28, 126.52s/it]epoch -- 0037 || train loss -- 0.91597 || val loss -- 0.94294 || lr -- 0.00009803 || val mean_dice -- 5.53306
+epoch: 0038 -- train loss: 0.93853 -- lr: 9.788731512783732e-05
+epoch: 0038 -- train loss: 0.90227 -- lr: 9.788731512783732e-05
+epoch: 0038 -- train loss: 0.90794 -- lr: 9.788731512783732e-05
+epoch: 0038 -- train loss: 0.91098 -- lr: 9.788731512783732e-05
+epoch: 0038 -- train loss: 0.91175 -- lr: 9.788731512783732e-05
+ 13%|█▎        | 39/300 [1:20:32<9:01:07, 124.39s/it]epoch -- 0038 || train loss -- 0.91122 || val loss -- 0.92835 || lr -- 0.00009789 || val mean_dice -- 7.05524
+epoch: 0039 -- train loss: 0.92094 -- lr: 9.77348962615557e-05
+epoch: 0039 -- train loss: 0.89942 -- lr: 9.77348962615557e-05
+epoch: 0039 -- train loss: 0.91068 -- lr: 9.77348962615557e-05
+epoch: 0039 -- train loss: 0.91255 -- lr: 9.77348962615557e-05
+epoch: 0039 -- train loss: 0.91203 -- lr: 9.77348962615557e-05
+ 13%|█▎        | 40/300 [1:22:35<8:57:17, 123.99s/it]epoch -- 0039 || train loss -- 0.91388 || val loss -- 0.98542 || lr -- 0.00009773 || val mean_dice -- 0.96152
+epoch: 0040 -- train loss: 0.91648 -- lr: 9.757729755661011e-05
+epoch: 0040 -- train loss: 0.91908 -- lr: 9.757729755661011e-05
+epoch: 0040 -- train loss: 0.91504 -- lr: 9.757729755661011e-05
+epoch: 0040 -- train loss: 0.91740 -- lr: 9.757729755661011e-05
+epoch: 0040 -- train loss: 0.91727 -- lr: 9.757729755661011e-05
+ 14%|█▎        | 41/300 [1:24:45<9:02:46, 125.74s/it]epoch -- 0040 || train loss -- 0.91819 || val loss -- 0.93633 || lr -- 0.00009758 || val mean_dice -- 6.29280
+epoch: 0041 -- train loss: 0.90361 -- lr: 9.74145362954745e-05
+epoch: 0041 -- train loss: 0.90403 -- lr: 9.74145362954745e-05
+epoch: 0041 -- train loss: 0.91564 -- lr: 9.74145362954745e-05
+epoch: 0041 -- train loss: 0.91446 -- lr: 9.74145362954745e-05
+epoch: 0041 -- train loss: 0.91691 -- lr: 9.74145362954745e-05
+ 14%|█▍        | 42/300 [1:26:56<9:07:08, 127.24s/it]epoch -- 0041 || train loss -- 0.91415 || val loss -- 0.95111 || lr -- 0.00009741 || val mean_dice -- 4.85795
+epoch: 0042 -- train loss: 0.96055 -- lr: 9.724663032675532e-05
+epoch: 0042 -- train loss: 0.92407 -- lr: 9.724663032675532e-05
+epoch: 0042 -- train loss: 0.91541 -- lr: 9.724663032675532e-05
+epoch: 0042 -- train loss: 0.91469 -- lr: 9.724663032675532e-05
+epoch: 0042 -- train loss: 0.91480 -- lr: 9.724663032675532e-05
+ 14%|█▍        | 43/300 [1:29:09<9:13:03, 129.12s/it]epoch -- 0042 || train loss -- 0.91459 || val loss -- 0.95356 || lr -- 0.00009725 || val mean_dice -- 4.60535
+epoch: 0043 -- train loss: 0.92161 -- lr: 9.707359806323417e-05
+epoch: 0043 -- train loss: 0.90956 -- lr: 9.707359806323417e-05
+epoch: 0043 -- train loss: 0.91501 -- lr: 9.707359806323417e-05
+epoch: 0043 -- train loss: 0.91418 -- lr: 9.707359806323417e-05
+epoch: 0043 -- train loss: 0.91627 -- lr: 9.707359806323417e-05
+ 15%|█▍        | 44/300 [1:31:18<9:09:41, 128.83s/it]epoch -- 0043 || train loss -- 0.91703 || val loss -- 0.93624 || lr -- 0.00009707 || val mean_dice -- 6.26969
+epoch: 0044 -- train loss: 0.93631 -- lr: 9.689545847984864e-05
+epoch: 0044 -- train loss: 0.91169 -- lr: 9.689545847984864e-05
+epoch: 0044 -- train loss: 0.91477 -- lr: 9.689545847984864e-05
+epoch: 0044 -- train loss: 0.91207 -- lr: 9.689545847984864e-05
+epoch: 0044 -- train loss: 0.91298 -- lr: 9.689545847984864e-05
+ 15%|█▌        | 45/300 [1:33:20<8:59:48, 127.01s/it]epoch -- 0044 || train loss -- 0.91380 || val loss -- 0.92936 || lr -- 0.00009690 || val mean_dice -- 7.00857
+epoch: 0045 -- train loss: 0.90437 -- lr: 9.671223111161149e-05
+epoch: 0045 -- train loss: 0.90150 -- lr: 9.671223111161149e-05
+epoch: 0045 -- train loss: 0.90954 -- lr: 9.671223111161149e-05
+epoch: 0045 -- train loss: 0.90955 -- lr: 9.671223111161149e-05
+epoch: 0045 -- train loss: 0.91142 -- lr: 9.671223111161149e-05
+ 15%|█▌        | 46/300 [1:35:34<9:06:43, 129.15s/it]epoch -- 0045 || train loss -- 0.91013 || val loss -- 0.93306 || lr -- 0.00009671 || val mean_dice -- 6.65975
+epoch: 0046 -- train loss: 0.90503 -- lr: 9.652393605146844e-05
+epoch: 0046 -- train loss: 0.90519 -- lr: 9.652393605146844e-05
+epoch: 0046 -- train loss: 0.90609 -- lr: 9.652393605146844e-05
+epoch: 0046 -- train loss: 0.90743 -- lr: 9.652393605146844e-05
+epoch: 0046 -- train loss: 0.90833 -- lr: 9.652393605146844e-05
+ 16%|█▌        | 47/300 [1:37:53<9:16:41, 132.02s/it]epoch -- 0046 || train loss -- 0.91068 || val loss -- 0.93731 || lr -- 0.00009652 || val mean_dice -- 6.19128
+epoch: 0047 -- train loss: 0.88443 -- lr: 9.633059394809475e-05
+epoch: 0047 -- train loss: 0.90404 -- lr: 9.633059394809475e-05
+epoch: 0047 -- train loss: 0.90986 -- lr: 9.633059394809475e-05
+epoch: 0047 -- train loss: 0.90748 -- lr: 9.633059394809475e-05
+epoch: 0047 -- train loss: 0.90759 -- lr: 9.633059394809475e-05
+ 16%|█▌        | 48/300 [1:40:13<9:23:54, 134.26s/it]epoch -- 0047 || train loss -- 0.90612 || val loss -- 0.95497 || lr -- 0.00009633 || val mean_dice -- 4.47039
+epoch: 0048 -- train loss: 0.90910 -- lr: 9.613222600363077e-05
+epoch: 0048 -- train loss: 0.91688 -- lr: 9.613222600363077e-05
+epoch: 0048 -- train loss: 0.91812 -- lr: 9.613222600363077e-05
+epoch: 0048 -- train loss: 0.91638 -- lr: 9.613222600363077e-05
+epoch: 0048 -- train loss: 0.91315 -- lr: 9.613222600363077e-05
+ 16%|█▋        | 49/300 [1:42:36<9:32:41, 136.90s/it]epoch -- 0048 || train loss -- 0.91333 || val loss -- 0.93767 || lr -- 0.00009613 || val mean_dice -- 6.01714
+epoch: 0049 -- train loss: 0.90014 -- lr: 9.592885397135707e-05
+epoch: 0049 -- train loss: 0.90921 -- lr: 9.592885397135707e-05
+epoch: 0049 -- train loss: 0.90983 -- lr: 9.592885397135707e-05
+epoch: 0049 -- train loss: 0.90679 -- lr: 9.592885397135707e-05
+epoch: 0049 -- train loss: 0.90887 -- lr: 9.592885397135707e-05
+ 17%|█▋        | 50/300 [1:44:42<9:17:14, 133.74s/it]epoch -- 0049 || train loss -- 0.90960 || val loss -- 0.92927 || lr -- 0.00009593 || val mean_dice -- 7.01782
+epoch: 0050 -- train loss: 0.83160 -- lr: 9.572050015330874e-05
+epoch: 0050 -- train loss: 0.90819 -- lr: 9.572050015330874e-05
+epoch: 0050 -- train loss: 0.90212 -- lr: 9.572050015330874e-05
+epoch: 0050 -- train loss: 0.89748 -- lr: 9.572050015330874e-05
+epoch: 0050 -- train loss: 0.90113 -- lr: 9.572050015330874e-05
+ 17%|█▋        | 51/300 [1:46:41<8:57:00, 129.40s/it]epoch -- 0050 || train loss -- 0.90111 || val loss -- 0.93605 || lr -- 0.00009572 || val mean_dice -- 6.41819
+epoch: 0051 -- train loss: 0.89227 -- lr: 9.55071873978299e-05
+epoch: 0051 -- train loss: 0.90651 -- lr: 9.55071873978299e-05
+epoch: 0051 -- train loss: 0.90707 -- lr: 9.55071873978299e-05
+epoch: 0051 -- train loss: 0.90765 -- lr: 9.55071873978299e-05
+epoch: 0051 -- train loss: 0.90851 -- lr: 9.55071873978299e-05
+ 17%|█▋        | 52/300 [1:48:43<8:45:03, 127.03s/it]epoch -- 0051 || train loss -- 0.90815 || val loss -- 0.97133 || lr -- 0.00009551 || val mean_dice -- 2.84629
+epoch: 0052 -- train loss: 0.82537 -- lr: 9.528893909706797e-05
+epoch: 0052 -- train loss: 0.90341 -- lr: 9.528893909706797e-05
+epoch: 0052 -- train loss: 0.90268 -- lr: 9.528893909706797e-05
+epoch: 0052 -- train loss: 0.90339 -- lr: 9.528893909706797e-05
+epoch: 0052 -- train loss: 0.90569 -- lr: 9.528893909706797e-05
+ 18%|█▊        | 53/300 [1:50:43<8:34:44, 125.04s/it]epoch -- 0052 || train loss -- 0.90754 || val loss -- 0.96996 || lr -- 0.00009529 || val mean_dice -- 2.77902
+epoch: 0053 -- train loss: 0.88795 -- lr: 9.506577918440859e-05
+epoch: 0053 -- train loss: 0.90183 -- lr: 9.506577918440859e-05
+epoch: 0053 -- train loss: 0.90441 -- lr: 9.506577918440859e-05
+epoch: 0053 -- train loss: 0.90607 -- lr: 9.506577918440859e-05
+epoch: 0053 -- train loss: 0.90380 -- lr: 9.506577918440859e-05
+ 18%|█▊        | 54/300 [1:52:40<8:21:53, 122.41s/it]epoch -- 0053 || train loss -- 0.90673 || val loss -- 0.91126 || lr -- 0.00009507 || val mean_dice -- 8.82615 -- saved
+epoch: 0054 -- train loss: 0.89652 -- lr: 9.483773213185094e-05
+epoch: 0054 -- train loss: 0.91057 -- lr: 9.483773213185094e-05
+epoch: 0054 -- train loss: 0.90970 -- lr: 9.483773213185094e-05
+epoch: 0054 -- train loss: 0.90763 -- lr: 9.483773213185094e-05
+epoch: 0054 -- train loss: 0.90772 -- lr: 9.483773213185094e-05
+ 18%|█▊        | 55/300 [1:54:44<8:22:54, 123.16s/it]epoch -- 0054 || train loss -- 0.90851 || val loss -- 0.94279 || lr -- 0.00009484 || val mean_dice -- 5.62051
+epoch: 0055 -- train loss: 0.93046 -- lr: 9.460482294732421e-05
+epoch: 0055 -- train loss: 0.91514 -- lr: 9.460482294732421e-05
+epoch: 0055 -- train loss: 0.90714 -- lr: 9.460482294732421e-05
+epoch: 0055 -- train loss: 0.90537 -- lr: 9.460482294732421e-05
+epoch: 0055 -- train loss: 0.90467 -- lr: 9.460482294732421e-05
+ 19%|█▊        | 56/300 [1:56:50<8:23:53, 123.91s/it]epoch -- 0055 || train loss -- 0.90653 || val loss -- 0.91793 || lr -- 0.00009460 || val mean_dice -- 8.13062
+epoch: 0056 -- train loss: 0.89294 -- lr: 9.436707717194513e-05
+epoch: 0056 -- train loss: 0.90273 -- lr: 9.436707717194513e-05
+epoch: 0056 -- train loss: 0.90080 -- lr: 9.436707717194513e-05
+epoch: 0056 -- train loss: 0.90676 -- lr: 9.436707717194513e-05
+epoch: 0056 -- train loss: 0.90901 -- lr: 9.436707717194513e-05
+ 19%|█▉        | 57/300 [1:58:47<8:13:45, 121.92s/it]epoch -- 0056 || train loss -- 0.91026 || val loss -- 0.93046 || lr -- 0.00009437 || val mean_dice -- 6.94057
+epoch: 0057 -- train loss: 0.87687 -- lr: 9.412452087721711e-05
+epoch: 0057 -- train loss: 0.90071 -- lr: 9.412452087721711e-05
+epoch: 0057 -- train loss: 0.90080 -- lr: 9.412452087721711e-05
+epoch: 0057 -- train loss: 0.89887 -- lr: 9.412452087721711e-05
+epoch: 0057 -- train loss: 0.89883 -- lr: 9.412452087721711e-05
+ 19%|█▉        | 58/300 [2:00:43<8:04:16, 120.07s/it]epoch -- 0057 || train loss -- 0.90040 || val loss -- 0.93614 || lr -- 0.00009412 || val mean_dice -- 6.33114
+epoch: 0058 -- train loss: 0.92611 -- lr: 9.387718066217124e-05
+epoch: 0058 -- train loss: 0.90410 -- lr: 9.387718066217124e-05
+epoch: 0058 -- train loss: 0.90655 -- lr: 9.387718066217124e-05
+epoch: 0058 -- train loss: 0.90649 -- lr: 9.387718066217124e-05
+epoch: 0058 -- train loss: 0.90621 -- lr: 9.387718066217124e-05
+ 20%|█▉        | 59/300 [2:02:50<8:10:30, 122.12s/it]epoch -- 0058 || train loss -- 0.90663 || val loss -- 0.91074 || lr -- 0.00009388 || val mean_dice -- 8.81316
+epoch: 0059 -- train loss: 0.90326 -- lr: 9.362508365044939e-05
+epoch: 0059 -- train loss: 0.90839 -- lr: 9.362508365044939e-05
+epoch: 0059 -- train loss: 0.90677 -- lr: 9.362508365044939e-05
+epoch: 0059 -- train loss: 0.90408 -- lr: 9.362508365044939e-05
+epoch: 0059 -- train loss: 0.90532 -- lr: 9.362508365044939e-05
+ 20%|██        | 60/300 [2:04:47<8:02:29, 120.62s/it]epoch -- 0059 || train loss -- 0.90423 || val loss -- 0.91626 || lr -- 0.00009363 || val mean_dice -- 8.15257
+epoch: 0060 -- train loss: 0.90621 -- lr: 9.336825748732972e-05
+epoch: 0060 -- train loss: 0.91784 -- lr: 9.336825748732972e-05
+epoch: 0060 -- train loss: 0.91335 -- lr: 9.336825748732972e-05
+epoch: 0060 -- train loss: 0.90761 -- lr: 9.336825748732972e-05
+epoch: 0060 -- train loss: 0.90538 -- lr: 9.336825748732972e-05
+ 20%|██        | 61/300 [2:06:50<8:03:30, 121.38s/it]epoch -- 0060 || train loss -- 0.90693 || val loss -- 0.91845 || lr -- 0.00009337 || val mean_dice -- 8.04056
+epoch: 0061 -- train loss: 0.93221 -- lr: 9.310673033669521e-05
+epoch: 0061 -- train loss: 0.89700 -- lr: 9.310673033669521e-05
+epoch: 0061 -- train loss: 0.90237 -- lr: 9.310673033669521e-05
+epoch: 0061 -- train loss: 0.90215 -- lr: 9.310673033669521e-05
+epoch: 0061 -- train loss: 0.90022 -- lr: 9.310673033669521e-05
+ 21%|██        | 62/300 [2:08:56<8:06:13, 122.58s/it]epoch -- 0061 || train loss -- 0.89998 || val loss -- 0.91739 || lr -- 0.00009311 || val mean_dice -- 8.21582
+epoch: 0062 -- train loss: 0.90707 -- lr: 9.284053087794509e-05
+epoch: 0062 -- train loss: 0.89771 -- lr: 9.284053087794509e-05
+epoch: 0062 -- train loss: 0.89441 -- lr: 9.284053087794509e-05
+epoch: 0062 -- train loss: 0.89815 -- lr: 9.284053087794509e-05
+epoch: 0062 -- train loss: 0.89932 -- lr: 9.284053087794509e-05
+ 21%|██        | 63/300 [2:11:01<8:07:34, 123.44s/it]epoch -- 0062 || train loss -- 0.90274 || val loss -- 0.90456 || lr -- 0.00009284 || val mean_dice -- 9.48527 -- saved
+epoch: 0063 -- train loss: 0.90537 -- lr: 9.256968830284978e-05
+epoch: 0063 -- train loss: 0.90690 -- lr: 9.256968830284978e-05
+epoch: 0063 -- train loss: 0.90473 -- lr: 9.256968830284978e-05
+epoch: 0063 -- train loss: 0.90132 -- lr: 9.256968830284978e-05
+epoch: 0063 -- train loss: 0.90079 -- lr: 9.256968830284978e-05
+ 21%|██▏       | 64/300 [2:13:07<8:08:50, 124.28s/it]epoch -- 0063 || train loss -- 0.90123 || val loss -- 0.93903 || lr -- 0.00009257 || val mean_dice -- 6.12530
+epoch: 0064 -- train loss: 0.94896 -- lr: 9.229423231234974e-05
+epoch: 0064 -- train loss: 0.90935 -- lr: 9.229423231234974e-05
+epoch: 0064 -- train loss: 0.90548 -- lr: 9.229423231234974e-05
+epoch: 0064 -- train loss: 0.90385 -- lr: 9.229423231234974e-05
+epoch: 0064 -- train loss: 0.90223 -- lr: 9.229423231234974e-05
+ 22%|██▏       | 65/300 [2:15:20<8:16:18, 126.72s/it]epoch -- 0064 || train loss -- 0.90173 || val loss -- 0.91138 || lr -- 0.00009229 || val mean_dice -- 8.76073
+epoch: 0065 -- train loss: 0.87603 -- lr: 9.20141931132985e-05
+epoch: 0065 -- train loss: 0.88881 -- lr: 9.20141931132985e-05
+epoch: 0065 -- train loss: 0.89157 -- lr: 9.20141931132985e-05
+epoch: 0065 -- train loss: 0.89994 -- lr: 9.20141931132985e-05
+epoch: 0065 -- train loss: 0.90380 -- lr: 9.20141931132985e-05
+ 22%|██▏       | 66/300 [2:17:23<8:09:43, 125.57s/it]epoch -- 0065 || train loss -- 0.90436 || val loss -- 0.92143 || lr -- 0.00009201 || val mean_dice -- 7.88285
+epoch: 0066 -- train loss: 0.88451 -- lr: 9.172960141514993e-05
+epoch: 0066 -- train loss: 0.90309 -- lr: 9.172960141514993e-05
+epoch: 0066 -- train loss: 0.90641 -- lr: 9.172960141514993e-05
+epoch: 0066 -- train loss: 0.90581 -- lr: 9.172960141514993e-05
+epoch: 0066 -- train loss: 0.90346 -- lr: 9.172960141514993e-05
+ 22%|██▏       | 67/300 [2:19:30<8:10:07, 126.21s/it]epoch -- 0066 || train loss -- 0.90243 || val loss -- 0.90166 || lr -- 0.00009173 || val mean_dice -- 9.45710
+epoch: 0067 -- train loss: 0.87560 -- lr: 9.14404884265908e-05
+epoch: 0067 -- train loss: 0.89416 -- lr: 9.14404884265908e-05
+epoch: 0067 -- train loss: 0.89721 -- lr: 9.14404884265908e-05
+epoch: 0067 -- train loss: 0.89932 -- lr: 9.14404884265908e-05
+epoch: 0067 -- train loss: 0.90110 -- lr: 9.14404884265908e-05
+ 23%|██▎       | 68/300 [2:21:26<7:55:55, 123.08s/it]epoch -- 0067 || train loss -- 0.90119 || val loss -- 0.91741 || lr -- 0.00009144 || val mean_dice -- 8.18609
+epoch: 0068 -- train loss: 0.90149 -- lr: 9.114688585211836e-05
+epoch: 0068 -- train loss: 0.92072 -- lr: 9.114688585211836e-05
+epoch: 0068 -- train loss: 0.90796 -- lr: 9.114688585211836e-05
+epoch: 0068 -- train loss: 0.90534 -- lr: 9.114688585211836e-05
+epoch: 0068 -- train loss: 0.90576 -- lr: 9.114688585211836e-05
+ 23%|██▎       | 69/300 [2:23:27<7:51:22, 122.44s/it]epoch -- 0068 || train loss -- 0.90761 || val loss -- 0.92807 || lr -- 0.00009115 || val mean_dice -- 7.12042
+epoch: 0069 -- train loss: 0.89028 -- lr: 9.084882588856343e-05
+epoch: 0069 -- train loss: 0.89499 -- lr: 9.084882588856343e-05
+epoch: 0069 -- train loss: 0.89911 -- lr: 9.084882588856343e-05
+epoch: 0069 -- train loss: 0.90180 -- lr: 9.084882588856343e-05
+epoch: 0069 -- train loss: 0.90374 -- lr: 9.084882588856343e-05
+ 23%|██▎       | 70/300 [2:25:30<7:49:23, 122.45s/it]epoch -- 0069 || train loss -- 0.90319 || val loss -- 0.93475 || lr -- 0.00009085 || val mean_dice -- 6.45874
+epoch: 0070 -- train loss: 0.90953 -- lr: 9.05463412215599e-05
+epoch: 0070 -- train loss: 0.89727 -- lr: 9.05463412215599e-05
+epoch: 0070 -- train loss: 0.89283 -- lr: 9.05463412215599e-05
+epoch: 0070 -- train loss: 0.89507 -- lr: 9.05463412215599e-05
+epoch: 0070 -- train loss: 0.89476 -- lr: 9.05463412215599e-05
+ 24%|██▎       | 71/300 [2:27:29<7:44:05, 121.60s/it]epoch -- 0070 || train loss -- 0.89515 || val loss -- 0.91233 || lr -- 0.00009055 || val mean_dice -- 8.65063
+epoch: 0071 -- train loss: 0.90911 -- lr: 9.023946502196018e-05
+epoch: 0071 -- train loss: 0.90725 -- lr: 9.023946502196018e-05
+epoch: 0071 -- train loss: 0.90287 -- lr: 9.023946502196018e-05
+epoch: 0071 -- train loss: 0.90410 -- lr: 9.023946502196018e-05
+epoch: 0071 -- train loss: 0.90116 -- lr: 9.023946502196018e-05
+ 24%|██▍       | 72/300 [2:29:31<7:42:51, 121.81s/it]epoch -- 0071 || train loss -- 0.89736 || val loss -- 0.90759 || lr -- 0.00009024 || val mean_dice -- 9.28577
+epoch: 0072 -- train loss: 0.88498 -- lr: 8.992823094219772e-05
+epoch: 0072 -- train loss: 0.89971 -- lr: 8.992823094219772e-05
+epoch: 0072 -- train loss: 0.89861 -- lr: 8.992823094219772e-05
+epoch: 0072 -- train loss: 0.89804 -- lr: 8.992823094219772e-05
+epoch: 0072 -- train loss: 0.90045 -- lr: 8.992823094219772e-05
+ 24%|██▍       | 73/300 [2:31:30<7:37:25, 120.90s/it]epoch -- 0072 || train loss -- 0.90003 || val loss -- 0.91437 || lr -- 0.00008993 || val mean_dice -- 8.53472
+epoch: 0073 -- train loss: 0.88541 -- lr: 8.961267311259666e-05
+epoch: 0073 -- train loss: 0.89337 -- lr: 8.961267311259666e-05
+epoch: 0073 -- train loss: 0.89683 -- lr: 8.961267311259666e-05
+epoch: 0073 -- train loss: 0.89628 -- lr: 8.961267311259666e-05
+epoch: 0073 -- train loss: 0.89540 -- lr: 8.961267311259666e-05
+ 25%|██▍       | 74/300 [2:33:46<7:51:38, 125.21s/it]epoch -- 0073 || train loss -- 0.89418 || val loss -- 0.88675 || lr -- 0.00008961 || val mean_dice -- 11.33299 -- saved
+epoch: 0074 -- train loss: 0.88453 -- lr: 8.929282613762908e-05
+epoch: 0074 -- train loss: 0.90041 -- lr: 8.929282613762908e-05
+epoch: 0074 -- train loss: 0.89459 -- lr: 8.929282613762908e-05
+epoch: 0074 -- train loss: 0.89858 -- lr: 8.929282613762908e-05
+epoch: 0074 -- train loss: 0.89577 -- lr: 8.929282613762908e-05
+ 25%|██▌       | 75/300 [2:35:52<7:51:04, 125.62s/it]epoch -- 0074 || train loss -- 0.89352 || val loss -- 0.88537 || lr -- 0.00008929 || val mean_dice -- 11.46573 -- saved
+epoch: 0075 -- train loss: 0.87611 -- lr: 8.896872509212006e-05
+epoch: 0075 -- train loss: 0.89713 -- lr: 8.896872509212006e-05
+epoch: 0075 -- train loss: 0.89864 -- lr: 8.896872509212006e-05
+epoch: 0075 -- train loss: 0.89790 -- lr: 8.896872509212006e-05
+epoch: 0075 -- train loss: 0.89609 -- lr: 8.896872509212006e-05
+ 25%|██▌       | 76/300 [2:37:53<7:43:52, 124.25s/it]epoch -- 0075 || train loss -- 0.89483 || val loss -- 0.91057 || lr -- 0.00008897 || val mean_dice -- 8.96400
+epoch: 0076 -- train loss: 0.91604 -- lr: 8.864040551740158e-05
+epoch: 0076 -- train loss: 0.89955 -- lr: 8.864040551740158e-05
+epoch: 0076 -- train loss: 0.89237 -- lr: 8.864040551740158e-05
+epoch: 0076 -- train loss: 0.89709 -- lr: 8.864040551740158e-05
+epoch: 0076 -- train loss: 0.89620 -- lr: 8.864040551740158e-05
+ 26%|██▌       | 77/300 [2:39:51<7:35:12, 122.48s/it]epoch -- 0076 || train loss -- 0.89659 || val loss -- 0.89581 || lr -- 0.00008864 || val mean_dice -- 10.41646
+epoch: 0077 -- train loss: 0.82301 -- lr: 8.83079034174148e-05
+epoch: 0077 -- train loss: 0.88342 -- lr: 8.83079034174148e-05
+epoch: 0077 -- train loss: 0.89503 -- lr: 8.83079034174148e-05
+epoch: 0077 -- train loss: 0.89702 -- lr: 8.83079034174148e-05
+epoch: 0077 -- train loss: 0.89770 -- lr: 8.83079034174148e-05
+ 26%|██▌       | 78/300 [2:41:49<7:27:47, 121.03s/it]epoch -- 0077 || train loss -- 0.89508 || val loss -- 0.87994 || lr -- 0.00008831 || val mean_dice -- 12.03655 -- saved
+epoch: 0078 -- train loss: 0.91612 -- lr: 8.797125525476195e-05
+epoch: 0078 -- train loss: 0.90029 -- lr: 8.797125525476195e-05
+epoch: 0078 -- train loss: 0.89881 -- lr: 8.797125525476195e-05
+epoch: 0078 -- train loss: 0.89161 -- lr: 8.797125525476195e-05
+epoch: 0078 -- train loss: 0.89114 -- lr: 8.797125525476195e-05
+ 26%|██▋       | 79/300 [2:43:50<7:25:18, 120.90s/it]epoch -- 0078 || train loss -- 0.89612 || val loss -- 0.88608 || lr -- 0.00008797 || val mean_dice -- 11.32873
+epoch: 0079 -- train loss: 0.91203 -- lr: 8.763049794670775e-05
+epoch: 0079 -- train loss: 0.89048 -- lr: 8.763049794670775e-05
+epoch: 0079 -- train loss: 0.89993 -- lr: 8.763049794670775e-05
+epoch: 0079 -- train loss: 0.89675 -- lr: 8.763049794670775e-05
+epoch: 0079 -- train loss: 0.89742 -- lr: 8.763049794670775e-05
+ 27%|██▋       | 80/300 [2:45:59<7:32:38, 123.45s/it]epoch -- 0079 || train loss -- 0.89718 || val loss -- 0.89969 || lr -- 0.00008763 || val mean_dice -- 10.00180
+epoch: 0080 -- train loss: 0.89264 -- lr: 8.728566886113103e-05
+epoch: 0080 -- train loss: 0.89579 -- lr: 8.728566886113103e-05
+epoch: 0080 -- train loss: 0.89520 -- lr: 8.728566886113103e-05
+epoch: 0080 -- train loss: 0.89648 -- lr: 8.728566886113103e-05
+epoch: 0080 -- train loss: 0.89539 -- lr: 8.728566886113103e-05
+ 27%|██▋       | 81/300 [2:48:02<7:29:34, 123.17s/it]epoch -- 0080 || train loss -- 0.89859 || val loss -- 0.89688 || lr -- 0.00008729 || val mean_dice -- 10.32071
+epoch: 0081 -- train loss: 0.86048 -- lr: 8.693680581242686e-05
+epoch: 0081 -- train loss: 0.90391 -- lr: 8.693680581242686e-05
+epoch: 0081 -- train loss: 0.90494 -- lr: 8.693680581242686e-05
+epoch: 0081 -- train loss: 0.90027 -- lr: 8.693680581242686e-05
+epoch: 0081 -- train loss: 0.89686 -- lr: 8.693680581242686e-05
+ 27%|██▋       | 82/300 [2:50:04<7:26:32, 122.90s/it]epoch -- 0081 || train loss -- 0.89762 || val loss -- 0.88361 || lr -- 0.00008694 || val mean_dice -- 11.66535
+epoch: 0082 -- train loss: 0.90986 -- lr: 8.658394705735987e-05
+epoch: 0082 -- train loss: 0.89036 -- lr: 8.658394705735987e-05
+epoch: 0082 -- train loss: 0.89029 -- lr: 8.658394705735987e-05
+epoch: 0082 -- train loss: 0.89045 -- lr: 8.658394705735987e-05
+epoch: 0082 -- train loss: 0.88916 -- lr: 8.658394705735987e-05
+ 28%|██▊       | 83/300 [2:52:00<7:17:16, 120.91s/it]epoch -- 0082 || train loss -- 0.89162 || val loss -- 0.89385 || lr -- 0.00008658 || val mean_dice -- 10.60175
+epoch: 0083 -- train loss: 0.89305 -- lr: 8.622713129086894e-05
+epoch: 0083 -- train loss: 0.88913 -- lr: 8.622713129086894e-05
+epoch: 0083 -- train loss: 0.88853 -- lr: 8.622713129086894e-05
+epoch: 0083 -- train loss: 0.89010 -- lr: 8.622713129086894e-05
+epoch: 0083 -- train loss: 0.89472 -- lr: 8.622713129086894e-05
+ 28%|██▊       | 84/300 [2:54:02<7:16:29, 121.25s/it]epoch -- 0083 || train loss -- 0.89547 || val loss -- 0.91415 || lr -- 0.00008623 || val mean_dice -- 8.53004
+epoch: 0084 -- train loss: 0.88692 -- lr: 8.586639764182377e-05
+epoch: 0084 -- train loss: 0.91152 -- lr: 8.586639764182377e-05
+epoch: 0084 -- train loss: 0.90306 -- lr: 8.586639764182377e-05
+epoch: 0084 -- train loss: 0.90354 -- lr: 8.586639764182377e-05
+epoch: 0084 -- train loss: 0.90179 -- lr: 8.586639764182377e-05
+ 28%|██▊       | 85/300 [2:56:02<7:13:03, 120.85s/it]epoch -- 0084 || train loss -- 0.90013 || val loss -- 0.88624 || lr -- 0.00008587 || val mean_dice -- 11.33405
+epoch: 0085 -- train loss: 0.86144 -- lr: 8.55017856687341e-05
+epoch: 0085 -- train loss: 0.89093 -- lr: 8.55017856687341e-05
+epoch: 0085 -- train loss: 0.89281 -- lr: 8.55017856687341e-05
+epoch: 0085 -- train loss: 0.89738 -- lr: 8.55017856687341e-05
+epoch: 0085 -- train loss: 0.89978 -- lr: 8.55017856687341e-05
+ 29%|██▊       | 86/300 [2:58:04<7:11:56, 121.11s/it]epoch -- 0085 || train loss -- 0.89985 || val loss -- 0.89499 || lr -- 0.00008550 || val mean_dice -- 10.38647
+epoch: 0086 -- train loss: 0.89050 -- lr: 8.51333353554116e-05
+epoch: 0086 -- train loss: 0.88019 -- lr: 8.51333353554116e-05
+epoch: 0086 -- train loss: 0.88680 -- lr: 8.51333353554116e-05
+epoch: 0086 -- train loss: 0.88809 -- lr: 8.51333353554116e-05
+epoch: 0086 -- train loss: 0.89172 -- lr: 8.51333353554116e-05
+ 29%|██▉       | 87/300 [3:00:07<7:12:25, 121.81s/it]epoch -- 0086 || train loss -- 0.89257 || val loss -- 0.87948 || lr -- 0.00008513 || val mean_dice -- 12.11569 -- saved
+epoch: 0087 -- train loss: 0.88591 -- lr: 8.476108710658514e-05
+epoch: 0087 -- train loss: 0.88176 -- lr: 8.476108710658514e-05
+epoch: 0087 -- train loss: 0.88782 -- lr: 8.476108710658514e-05
+epoch: 0087 -- train loss: 0.88642 -- lr: 8.476108710658514e-05
+epoch: 0087 -- train loss: 0.88440 -- lr: 8.476108710658514e-05
+ 29%|██▉       | 88/300 [3:02:06<7:06:54, 120.83s/it]epoch -- 0087 || train loss -- 0.88605 || val loss -- 0.90927 || lr -- 0.00008476 || val mean_dice -- 9.07061
+epoch: 0088 -- train loss: 0.86379 -- lr: 8.438508174347009e-05
+epoch: 0088 -- train loss: 0.89664 -- lr: 8.438508174347009e-05
+epoch: 0088 -- train loss: 0.89181 -- lr: 8.438508174347009e-05
+epoch: 0088 -- train loss: 0.89129 -- lr: 8.438508174347009e-05
+epoch: 0088 -- train loss: 0.89051 -- lr: 8.438508174347009e-05
+ 30%|██▉       | 89/300 [3:04:07<7:05:09, 120.90s/it]epoch -- 0088 || train loss -- 0.89168 || val loss -- 0.88848 || lr -- 0.00008439 || val mean_dice -- 11.04102
+epoch: 0089 -- train loss: 0.95527 -- lr: 8.40053604992917e-05
+epoch: 0089 -- train loss: 0.88674 -- lr: 8.40053604992917e-05
+epoch: 0089 -- train loss: 0.89063 -- lr: 8.40053604992917e-05
+epoch: 0089 -- train loss: 0.88997 -- lr: 8.40053604992917e-05
+epoch: 0089 -- train loss: 0.88818 -- lr: 8.40053604992917e-05
+ 30%|███       | 90/300 [3:06:11<7:06:46, 121.94s/it]epoch -- 0089 || train loss -- 0.88770 || val loss -- 0.90016 || lr -- 0.00008401 || val mean_dice -- 9.81104
+epoch: 0090 -- train loss: 0.88723 -- lr: 8.362196501476348e-05
+epoch: 0090 -- train loss: 0.89215 -- lr: 8.362196501476348e-05
+epoch: 0090 -- train loss: 0.89680 -- lr: 8.362196501476348e-05
+epoch: 0090 -- train loss: 0.89436 -- lr: 8.362196501476348e-05
+epoch: 0090 -- train loss: 0.89329 -- lr: 8.362196501476348e-05
+ 30%|███       | 91/300 [3:08:14<7:05:20, 122.11s/it]epoch -- 0090 || train loss -- 0.88937 || val loss -- 0.87940 || lr -- 0.00008362 || val mean_dice -- 12.09885
+epoch: 0091 -- train loss: 0.91230 -- lr: 8.323493733352077e-05
+epoch: 0091 -- train loss: 0.89837 -- lr: 8.323493733352077e-05
+epoch: 0091 -- train loss: 0.90017 -- lr: 8.323493733352077e-05
+epoch: 0091 -- train loss: 0.89164 -- lr: 8.323493733352077e-05
+epoch: 0091 -- train loss: 0.89562 -- lr: 8.323493733352077e-05
+ 31%|███       | 92/300 [3:10:24<7:11:29, 124.47s/it]epoch -- 0091 || train loss -- 0.89594 || val loss -- 0.89100 || lr -- 0.00008323 || val mean_dice -- 11.04282
+epoch: 0092 -- train loss: 0.90854 -- lr: 8.284431989751024e-05
+epoch: 0092 -- train loss: 0.88189 -- lr: 8.284431989751024e-05
+epoch: 0092 -- train loss: 0.88543 -- lr: 8.284431989751024e-05
+epoch: 0092 -- train loss: 0.88725 -- lr: 8.284431989751024e-05
+epoch: 0092 -- train loss: 0.88569 -- lr: 8.284431989751024e-05
+ 31%|███       | 93/300 [3:12:31<7:12:24, 125.34s/it]epoch -- 0092 || train loss -- 0.88773 || val loss -- 0.89781 || lr -- 0.00008284 || val mean_dice -- 10.31045
+epoch: 0093 -- train loss: 0.85718 -- lr: 8.245015554233556e-05
+epoch: 0093 -- train loss: 0.88707 -- lr: 8.245015554233556e-05
+epoch: 0093 -- train loss: 0.89066 -- lr: 8.245015554233556e-05
+epoch: 0093 -- train loss: 0.88897 -- lr: 8.245015554233556e-05
+epoch: 0093 -- train loss: 0.88828 -- lr: 8.245015554233556e-05
+ 31%|███▏      | 94/300 [3:14:30<7:03:52, 123.46s/it]epoch -- 0093 || train loss -- 0.88659 || val loss -- 0.90786 || lr -- 0.00008245 || val mean_dice -- 9.17567
+epoch: 0094 -- train loss: 0.94715 -- lr: 8.205248749256015e-05
+epoch: 0094 -- train loss: 0.91175 -- lr: 8.205248749256015e-05
+epoch: 0094 -- train loss: 0.90132 -- lr: 8.205248749256015e-05
+epoch: 0094 -- train loss: 0.89466 -- lr: 8.205248749256015e-05
+epoch: 0094 -- train loss: 0.89504 -- lr: 8.205248749256015e-05
+ 32%|███▏      | 95/300 [3:16:38<7:06:01, 124.69s/it]epoch -- 0094 || train loss -- 0.89504 || val loss -- 0.87945 || lr -- 0.00008205 || val mean_dice -- 12.14783 -- saved
+epoch: 0095 -- train loss: 0.87210 -- lr: 8.165135935696696e-05
+epoch: 0095 -- train loss: 0.91080 -- lr: 8.165135935696696e-05
+epoch: 0095 -- train loss: 0.90148 -- lr: 8.165135935696696e-05
+epoch: 0095 -- train loss: 0.89644 -- lr: 8.165135935696696e-05
+epoch: 0095 -- train loss: 0.89634 -- lr: 8.165135935696696e-05
+ 32%|███▏      | 96/300 [3:18:36<6:57:32, 122.81s/it]epoch -- 0095 || train loss -- 0.89640 || val loss -- 0.88549 || lr -- 0.00008165 || val mean_dice -- 11.44483
+epoch: 0096 -- train loss: 0.88509 -- lr: 8.124681512377638e-05
+epoch: 0096 -- train loss: 0.87522 -- lr: 8.124681512377638e-05
+epoch: 0096 -- train loss: 0.87442 -- lr: 8.124681512377638e-05
+epoch: 0096 -- train loss: 0.88286 -- lr: 8.124681512377638e-05
+epoch: 0096 -- train loss: 0.88560 -- lr: 8.124681512377638e-05
+ 32%|███▏      | 97/300 [3:20:35<6:51:06, 121.51s/it]epoch -- 0096 || train loss -- 0.88632 || val loss -- 0.89274 || lr -- 0.00008125 || val mean_dice -- 10.64997
+epoch: 0097 -- train loss: 0.87201 -- lr: 8.083889915582235e-05
+epoch: 0097 -- train loss: 0.88937 -- lr: 8.083889915582235e-05
+epoch: 0097 -- train loss: 0.88116 -- lr: 8.083889915582235e-05
+epoch: 0097 -- train loss: 0.88486 -- lr: 8.083889915582235e-05
+epoch: 0097 -- train loss: 0.88760 -- lr: 8.083889915582235e-05
+ 33%|███▎      | 98/300 [3:22:34<6:46:26, 120.73s/it]epoch -- 0097 || train loss -- 0.88760 || val loss -- 0.89977 || lr -- 0.00008084 || val mean_dice -- 9.94471
+epoch: 0098 -- train loss: 0.93117 -- lr: 8.042765618568757e-05
+epoch: 0098 -- train loss: 0.90234 -- lr: 8.042765618568757e-05
+epoch: 0098 -- train loss: 0.90222 -- lr: 8.042765618568757e-05
+epoch: 0098 -- train loss: 0.90215 -- lr: 8.042765618568757e-05
+epoch: 0098 -- train loss: 0.89613 -- lr: 8.042765618568757e-05
+ 33%|███▎      | 99/300 [3:24:35<6:45:07, 120.93s/it]epoch -- 0098 || train loss -- 0.89499 || val loss -- 0.88038 || lr -- 0.00008043 || val mean_dice -- 12.02706
+epoch: 0099 -- train loss: 0.83512 -- lr: 8.001313131079799e-05
+epoch: 0099 -- train loss: 0.88549 -- lr: 8.001313131079799e-05
+epoch: 0099 -- train loss: 0.89888 -- lr: 8.001313131079799e-05
+epoch: 0099 -- train loss: 0.89725 -- lr: 8.001313131079799e-05
+epoch: 0099 -- train loss: 0.89263 -- lr: 8.001313131079799e-05
+ 33%|███▎      | 100/300 [3:26:44<6:51:13, 123.37s/it]epoch -- 0099 || train loss -- 0.89232 || val loss -- 0.88936 || lr -- 0.00008001 || val mean_dice -- 11.06330
+epoch: 0100 -- train loss: 0.93238 -- lr: 7.959536998847742e-05
+epoch: 0100 -- train loss: 0.90147 -- lr: 7.959536998847742e-05
+epoch: 0100 -- train loss: 0.89410 -- lr: 7.959536998847742e-05
+epoch: 0100 -- train loss: 0.88985 -- lr: 7.959536998847742e-05
+epoch: 0100 -- train loss: 0.89292 -- lr: 7.959536998847742e-05
+ 34%|███▎      | 101/300 [3:28:45<6:47:15, 122.79s/it]epoch -- 0100 || train loss -- 0.89007 || val loss -- 0.87290 || lr -- 0.00007960 || val mean_dice -- 12.75995 -- saved
+epoch: 0101 -- train loss: 0.90078 -- lr: 7.91744180309626e-05
+epoch: 0101 -- train loss: 0.87838 -- lr: 7.91744180309626e-05
+epoch: 0101 -- train loss: 0.88788 -- lr: 7.91744180309626e-05
+epoch: 0101 -- train loss: 0.88580 -- lr: 7.91744180309626e-05
+epoch: 0101 -- train loss: 0.88785 -- lr: 7.91744180309626e-05
+ 34%|███▍      | 102/300 [3:30:46<6:42:53, 122.09s/it]epoch -- 0101 || train loss -- 0.88739 || val loss -- 0.88075 || lr -- 0.00007917 || val mean_dice -- 11.96482
+epoch: 0102 -- train loss: 0.87426 -- lr: 7.875032160037939e-05
+epoch: 0102 -- train loss: 0.88084 -- lr: 7.875032160037939e-05
+epoch: 0102 -- train loss: 0.88958 -- lr: 7.875032160037939e-05
+epoch: 0102 -- train loss: 0.87871 -- lr: 7.875032160037939e-05
+epoch: 0102 -- train loss: 0.88283 -- lr: 7.875032160037939e-05
+ 34%|███▍      | 103/300 [3:32:44<6:36:34, 120.78s/it]epoch -- 0102 || train loss -- 0.88474 || val loss -- 0.87490 || lr -- 0.00007875 || val mean_dice -- 12.51690
+epoch: 0103 -- train loss: 0.83494 -- lr: 7.832312720368048e-05
+epoch: 0103 -- train loss: 0.89460 -- lr: 7.832312720368048e-05
+epoch: 0103 -- train loss: 0.89492 -- lr: 7.832312720368048e-05
+epoch: 0103 -- train loss: 0.88878 -- lr: 7.832312720368048e-05
+epoch: 0103 -- train loss: 0.88680 -- lr: 7.832312720368048e-05
+ 35%|███▍      | 104/300 [3:34:47<6:36:58, 121.52s/it]epoch -- 0103 || train loss -- 0.88691 || val loss -- 0.87328 || lr -- 0.00007832 || val mean_dice -- 12.70038
+epoch: 0104 -- train loss: 0.89910 -- lr: 7.789288168754554e-05
+epoch: 0104 -- train loss: 0.89656 -- lr: 7.789288168754554e-05
+epoch: 0104 -- train loss: 0.88931 -- lr: 7.789288168754554e-05
+epoch: 0104 -- train loss: 0.88831 -- lr: 7.789288168754554e-05
+epoch: 0104 -- train loss: 0.88692 -- lr: 7.789288168754554e-05
+ 35%|███▌      | 105/300 [3:36:53<6:39:47, 123.02s/it]epoch -- 0104 || train loss -- 0.88756 || val loss -- 0.88297 || lr -- 0.00007789 || val mean_dice -- 11.70026
+epoch: 0105 -- train loss: 0.85548 -- lr: 7.745963223324384e-05
+epoch: 0105 -- train loss: 0.87212 -- lr: 7.745963223324384e-05
+epoch: 0105 -- train loss: 0.88019 -- lr: 7.745963223324384e-05
+epoch: 0105 -- train loss: 0.88551 -- lr: 7.745963223324384e-05
+epoch: 0105 -- train loss: 0.88230 -- lr: 7.745963223324384e-05
+ 35%|███▌      | 106/300 [3:38:58<6:39:11, 123.46s/it]epoch -- 0105 || train loss -- 0.88179 || val loss -- 0.89008 || lr -- 0.00007746 || val mean_dice -- 11.10465
+epoch: 0106 -- train loss: 0.90403 -- lr: 7.702342635146033e-05
+epoch: 0106 -- train loss: 0.87862 -- lr: 7.702342635146033e-05
+epoch: 0106 -- train loss: 0.89316 -- lr: 7.702342635146033e-05
+epoch: 0106 -- train loss: 0.88966 -- lr: 7.702342635146033e-05
+epoch: 0106 -- train loss: 0.89190 -- lr: 7.702342635146033e-05
+ 36%|███▌      | 107/300 [3:41:02<6:38:10, 123.79s/it]epoch -- 0106 || train loss -- 0.89101 || val loss -- 0.89366 || lr -- 0.00007702 || val mean_dice -- 10.60981
+epoch: 0107 -- train loss: 0.90886 -- lr: 7.658431187708556e-05
+epoch: 0107 -- train loss: 0.88003 -- lr: 7.658431187708556e-05
+epoch: 0107 -- train loss: 0.88592 -- lr: 7.658431187708556e-05
+epoch: 0107 -- train loss: 0.88611 -- lr: 7.658431187708556e-05
+epoch: 0107 -- train loss: 0.88569 -- lr: 7.658431187708556e-05
+ 36%|███▌      | 108/300 [3:43:02<6:32:21, 122.61s/it]epoch -- 0107 || train loss -- 0.88340 || val loss -- 0.88340 || lr -- 0.00007658 || val mean_dice -- 11.69052
+epoch: 0108 -- train loss: 0.87808 -- lr: 7.614233696396995e-05
+epoch: 0108 -- train loss: 0.87699 -- lr: 7.614233696396995e-05
+epoch: 0108 -- train loss: 0.88413 -- lr: 7.614233696396995e-05
+epoch: 0108 -- train loss: 0.88144 -- lr: 7.614233696396995e-05
+epoch: 0108 -- train loss: 0.88427 -- lr: 7.614233696396995e-05
+ 36%|███▋      | 109/300 [3:45:07<6:32:31, 123.30s/it]epoch -- 0108 || train loss -- 0.88581 || val loss -- 0.87814 || lr -- 0.00007614 || val mean_dice -- 12.15467
+epoch: 0109 -- train loss: 0.91858 -- lr: 7.569755007964338e-05
+epoch: 0109 -- train loss: 0.87602 -- lr: 7.569755007964338e-05
+epoch: 0109 -- train loss: 0.88060 -- lr: 7.569755007964338e-05
+epoch: 0109 -- train loss: 0.87982 -- lr: 7.569755007964338e-05
+epoch: 0109 -- train loss: 0.88153 -- lr: 7.569755007964338e-05
+ 37%|███▋      | 110/300 [3:47:06<6:26:28, 122.04s/it]epoch -- 0109 || train loss -- 0.88153 || val loss -- 0.87223 || lr -- 0.00007570 || val mean_dice -- 12.89221 -- saved
+epoch: 0110 -- train loss: 0.89653 -- lr: 7.525e-05
+epoch: 0110 -- train loss: 0.88369 -- lr: 7.525e-05
+epoch: 0110 -- train loss: 0.88816 -- lr: 7.525e-05
+epoch: 0110 -- train loss: 0.88567 -- lr: 7.525e-05
+epoch: 0110 -- train loss: 0.88663 -- lr: 7.525e-05
+ 37%|███▋      | 111/300 [3:49:02<6:18:22, 120.12s/it]epoch -- 0110 || train loss -- 0.88686 || val loss -- 0.88614 || lr -- 0.00007525 || val mean_dice -- 11.37968
+epoch: 0111 -- train loss: 0.82299 -- lr: 7.479973580394947e-05
+epoch: 0111 -- train loss: 0.87387 -- lr: 7.479973580394947e-05
+epoch: 0111 -- train loss: 0.87955 -- lr: 7.479973580394947e-05
+epoch: 0111 -- train loss: 0.88002 -- lr: 7.479973580394947e-05
+epoch: 0111 -- train loss: 0.88353 -- lr: 7.479973580394947e-05
+ 37%|███▋      | 112/300 [3:51:03<6:17:31, 120.48s/it]epoch -- 0111 || train loss -- 0.88286 || val loss -- 0.88811 || lr -- 0.00007480 || val mean_dice -- 11.08047
+epoch: 0112 -- train loss: 0.93644 -- lr: 7.43468068680349e-05
+epoch: 0112 -- train loss: 0.89409 -- lr: 7.43468068680349e-05
+epoch: 0112 -- train loss: 0.89319 -- lr: 7.43468068680349e-05
+epoch: 0112 -- train loss: 0.88651 -- lr: 7.43468068680349e-05
+epoch: 0112 -- train loss: 0.88427 -- lr: 7.43468068680349e-05
+ 38%|███▊      | 113/300 [3:53:03<6:14:55, 120.29s/it]epoch -- 0112 || train loss -- 0.88464 || val loss -- 0.88224 || lr -- 0.00007435 || val mean_dice -- 11.83169
+epoch: 0113 -- train loss: 0.92062 -- lr: 7.389126286101818e-05
+epoch: 0113 -- train loss: 0.88728 -- lr: 7.389126286101818e-05
+epoch: 0113 -- train loss: 0.89256 -- lr: 7.389126286101818e-05
+epoch: 0113 -- train loss: 0.89013 -- lr: 7.389126286101818e-05
+epoch: 0113 -- train loss: 0.88925 -- lr: 7.389126286101818e-05
+ 38%|███▊      | 114/300 [3:55:15<6:23:53, 123.83s/it]epoch -- 0113 || train loss -- 0.88929 || val loss -- 0.87983 || lr -- 0.00007389 || val mean_dice -- 11.99792
+epoch: 0114 -- train loss: 0.86274 -- lr: 7.343315373843316e-05
+epoch: 0114 -- train loss: 0.87437 -- lr: 7.343315373843316e-05
+epoch: 0114 -- train loss: 0.88076 -- lr: 7.343315373843316e-05
+epoch: 0114 -- train loss: 0.88771 -- lr: 7.343315373843316e-05
+epoch: 0114 -- train loss: 0.88700 -- lr: 7.343315373843316e-05
+ 38%|███▊      | 115/300 [3:57:18<6:21:15, 123.65s/it]epoch -- 0114 || train loss -- 0.88962 || val loss -- 0.88709 || lr -- 0.00007343 || val mean_dice -- 11.25596
+epoch: 0115 -- train loss: 0.86661 -- lr: 7.297252973710757e-05
+epoch: 0115 -- train loss: 0.88070 -- lr: 7.297252973710757e-05
+epoch: 0115 -- train loss: 0.88642 -- lr: 7.297252973710757e-05
+epoch: 0115 -- train loss: 0.89051 -- lr: 7.297252973710757e-05
+epoch: 0115 -- train loss: 0.89115 -- lr: 7.297252973710757e-05
+ 39%|███▊      | 116/300 [3:59:18<6:15:49, 122.55s/it]epoch -- 0115 || train loss -- 0.89038 || val loss -- 0.89133 || lr -- 0.00007297 || val mean_dice -- 10.85244
+epoch: 0116 -- train loss: 0.90326 -- lr: 7.250944136965391e-05
+epoch: 0116 -- train loss: 0.89300 -- lr: 7.250944136965391e-05
+epoch: 0116 -- train loss: 0.88536 -- lr: 7.250944136965391e-05
+epoch: 0116 -- train loss: 0.88687 -- lr: 7.250944136965391e-05
+epoch: 0116 -- train loss: 0.88751 -- lr: 7.250944136965391e-05
+ 39%|███▉      | 117/300 [4:01:20<6:12:53, 122.26s/it]epoch -- 0116 || train loss -- 0.89056 || val loss -- 0.88348 || lr -- 0.00007251 || val mean_dice -- 11.70088
+epoch: 0117 -- train loss: 0.85979 -- lr: 7.204393941893022e-05
+epoch: 0117 -- train loss: 0.89410 -- lr: 7.204393941893022e-05
+epoch: 0117 -- train loss: 0.88740 -- lr: 7.204393941893022e-05
+epoch: 0117 -- train loss: 0.88703 -- lr: 7.204393941893022e-05
+epoch: 0117 -- train loss: 0.88579 -- lr: 7.204393941893022e-05
+ 39%|███▉      | 118/300 [4:03:26<6:14:18, 123.40s/it]epoch -- 0117 || train loss -- 0.88676 || val loss -- 0.88915 || lr -- 0.00007204 || val mean_dice -- 11.08944
+epoch: 0118 -- train loss: 0.91624 -- lr: 7.15760749324711e-05
+epoch: 0118 -- train loss: 0.88496 -- lr: 7.15760749324711e-05
+epoch: 0118 -- train loss: 0.88197 -- lr: 7.15760749324711e-05
+epoch: 0118 -- train loss: 0.88712 -- lr: 7.15760749324711e-05
+epoch: 0118 -- train loss: 0.88992 -- lr: 7.15760749324711e-05
+ 40%|███▉      | 119/300 [4:05:32<6:14:41, 124.21s/it]epoch -- 0118 || train loss -- 0.89127 || val loss -- 0.88666 || lr -- 0.00007158 || val mean_dice -- 11.24889
+epoch: 0119 -- train loss: 0.90386 -- lr: 7.110589921688986e-05
+epoch: 0119 -- train loss: 0.89153 -- lr: 7.110589921688986e-05
+epoch: 0119 -- train loss: 0.88100 -- lr: 7.110589921688986e-05
+epoch: 0119 -- train loss: 0.88063 -- lr: 7.110589921688986e-05
+epoch: 0119 -- train loss: 0.88673 -- lr: 7.110589921688986e-05
+ 40%|████      | 120/300 [4:07:31<6:08:13, 122.74s/it]epoch -- 0119 || train loss -- 0.88327 || val loss -- 0.88055 || lr -- 0.00007111 || val mean_dice -- 11.94065
+epoch: 0120 -- train loss: 0.92598 -- lr: 7.06334638322521e-05
+epoch: 0120 -- train loss: 0.88307 -- lr: 7.06334638322521e-05
+epoch: 0120 -- train loss: 0.88266 -- lr: 7.06334638322521e-05
+epoch: 0120 -- train loss: 0.88052 -- lr: 7.06334638322521e-05
+epoch: 0120 -- train loss: 0.87720 -- lr: 7.06334638322521e-05
+ 40%|████      | 121/300 [4:09:31<6:02:54, 121.65s/it]epoch -- 0120 || train loss -- 0.87845 || val loss -- 0.87423 || lr -- 0.00007063 || val mean_dice -- 12.55786
+epoch: 0121 -- train loss: 0.94117 -- lr: 7.015882058642164e-05
+epoch: 0121 -- train loss: 0.88216 -- lr: 7.015882058642164e-05
+epoch: 0121 -- train loss: 0.88014 -- lr: 7.015882058642164e-05
+epoch: 0121 -- train loss: 0.87770 -- lr: 7.015882058642164e-05
+epoch: 0121 -- train loss: 0.87924 -- lr: 7.015882058642164e-05
+ 41%|████      | 122/300 [4:11:27<5:56:19, 120.11s/it]epoch -- 0121 || train loss -- 0.87888 || val loss -- 0.87498 || lr -- 0.00007016 || val mean_dice -- 12.50879
+epoch: 0122 -- train loss: 0.88650 -- lr: 6.96820215293791e-05
+epoch: 0122 -- train loss: 0.88741 -- lr: 6.96820215293791e-05
+epoch: 0122 -- train loss: 0.87620 -- lr: 6.96820215293791e-05
+epoch: 0122 -- train loss: 0.88078 -- lr: 6.96820215293791e-05
+epoch: 0122 -- train loss: 0.87982 -- lr: 6.96820215293791e-05
+ 41%|████      | 123/300 [4:13:38<6:03:43, 123.30s/it]epoch -- 0122 || train loss -- 0.87954 || val loss -- 0.87251 || lr -- 0.00006968 || val mean_dice -- 12.70817
+epoch: 0123 -- train loss: 0.83894 -- lr: 6.920311894751413e-05
+epoch: 0123 -- train loss: 0.87505 -- lr: 6.920311894751413e-05
+epoch: 0123 -- train loss: 0.87936 -- lr: 6.920311894751413e-05
+epoch: 0123 -- train loss: 0.88049 -- lr: 6.920311894751413e-05
+epoch: 0123 -- train loss: 0.87605 -- lr: 6.920311894751413e-05
+ 41%|████▏     | 124/300 [4:15:38<5:58:30, 122.22s/it]epoch -- 0123 || train loss -- 0.87720 || val loss -- 0.86841 || lr -- 0.00006920 || val mean_dice -- 13.25704 -- saved
+epoch: 0124 -- train loss: 0.90088 -- lr: 6.872216535789157e-05
+epoch: 0124 -- train loss: 0.88209 -- lr: 6.872216535789157e-05
+epoch: 0124 -- train loss: 0.88652 -- lr: 6.872216535789157e-05
+epoch: 0124 -- train loss: 0.88792 -- lr: 6.872216535789157e-05
+epoch: 0124 -- train loss: 0.88606 -- lr: 6.872216535789157e-05
+ 42%|████▏     | 125/300 [4:17:35<5:52:12, 120.76s/it]epoch -- 0124 || train loss -- 0.88800 || val loss -- 0.87277 || lr -- 0.00006872 || val mean_dice -- 12.74976
+epoch: 0125 -- train loss: 0.89029 -- lr: 6.823921350249236e-05
+epoch: 0125 -- train loss: 0.87073 -- lr: 6.823921350249236e-05
+epoch: 0125 -- train loss: 0.87535 -- lr: 6.823921350249236e-05
+epoch: 0125 -- train loss: 0.87808 -- lr: 6.823921350249236e-05
+epoch: 0125 -- train loss: 0.87995 -- lr: 6.823921350249236e-05
+ 42%|████▏     | 126/300 [4:19:32<5:47:20, 119.77s/it]epoch -- 0125 || train loss -- 0.88282 || val loss -- 0.86303 || lr -- 0.00006824 || val mean_dice -- 13.68092 -- saved
+epoch: 0126 -- train loss: 0.79831 -- lr: 6.775431634242986e-05
+epoch: 0126 -- train loss: 0.87459 -- lr: 6.775431634242986e-05
+epoch: 0126 -- train loss: 0.86953 -- lr: 6.775431634242986e-05
+epoch: 0126 -- train loss: 0.87556 -- lr: 6.775431634242986e-05
+epoch: 0126 -- train loss: 0.87545 -- lr: 6.775431634242986e-05
+ 42%|████▏     | 127/300 [4:21:31<5:43:58, 119.30s/it]epoch -- 0126 || train loss -- 0.87453 || val loss -- 0.88452 || lr -- 0.00006775 || val mean_dice -- 11.48142
+epoch: 0127 -- train loss: 0.87081 -- lr: 6.726752705214194e-05
+epoch: 0127 -- train loss: 0.88779 -- lr: 6.726752705214194e-05
+epoch: 0127 -- train loss: 0.88071 -- lr: 6.726752705214194e-05
+epoch: 0127 -- train loss: 0.88310 -- lr: 6.726752705214194e-05
+epoch: 0127 -- train loss: 0.88124 -- lr: 6.726752705214194e-05
+ 43%|████▎     | 128/300 [4:23:34<5:45:43, 120.60s/it]epoch -- 0127 || train loss -- 0.88113 || val loss -- 0.87706 || lr -- 0.00006727 || val mean_dice -- 12.37556
+epoch: 0128 -- train loss: 0.88551 -- lr: 6.677889901355988e-05
+epoch: 0128 -- train loss: 0.89864 -- lr: 6.677889901355988e-05
+epoch: 0128 -- train loss: 0.89143 -- lr: 6.677889901355988e-05
+epoch: 0128 -- train loss: 0.88909 -- lr: 6.677889901355988e-05
+epoch: 0128 -- train loss: 0.88296 -- lr: 6.677889901355988e-05
+ 43%|████▎     | 129/300 [4:25:41<5:49:14, 122.54s/it]epoch -- 0128 || train loss -- 0.88252 || val loss -- 0.88366 || lr -- 0.00006678 || val mean_dice -- 11.65719
+epoch: 0129 -- train loss: 0.86178 -- lr: 6.628848581025446e-05
+epoch: 0129 -- train loss: 0.87966 -- lr: 6.628848581025446e-05
+epoch: 0129 -- train loss: 0.88292 -- lr: 6.628848581025446e-05
+epoch: 0129 -- train loss: 0.88494 -- lr: 6.628848581025446e-05
+epoch: 0129 -- train loss: 0.88390 -- lr: 6.628848581025446e-05
+ 43%|████▎     | 130/300 [4:27:45<5:48:24, 122.97s/it]epoch -- 0129 || train loss -- 0.88422 || val loss -- 0.87272 || lr -- 0.00006629 || val mean_dice -- 12.85404
+epoch: 0130 -- train loss: 0.90790 -- lr: 6.57963412215599e-05
+epoch: 0130 -- train loss: 0.88304 -- lr: 6.57963412215599e-05
+epoch: 0130 -- train loss: 0.88119 -- lr: 6.57963412215599e-05
+epoch: 0130 -- train loss: 0.87840 -- lr: 6.57963412215599e-05
+epoch: 0130 -- train loss: 0.87905 -- lr: 6.57963412215599e-05
+ 44%|████▎     | 131/300 [4:29:53<5:50:07, 124.30s/it]epoch -- 0130 || train loss -- 0.87793 || val loss -- 0.88430 || lr -- 0.00006580 || val mean_dice -- 11.57208
+epoch: 0131 -- train loss: 0.86621 -- lr: 6.530251921667629e-05
+epoch: 0131 -- train loss: 0.88260 -- lr: 6.530251921667629e-05
+epoch: 0131 -- train loss: 0.88165 -- lr: 6.530251921667629e-05
+epoch: 0131 -- train loss: 0.88479 -- lr: 6.530251921667629e-05
+epoch: 0131 -- train loss: 0.88521 -- lr: 6.530251921667629e-05
+ 44%|████▍     | 132/300 [4:31:56<5:47:22, 124.06s/it]epoch -- 0131 || train loss -- 0.88036 || val loss -- 0.88350 || lr -- 0.00006530 || val mean_dice -- 11.60116
+epoch: 0132 -- train loss: 0.80047 -- lr: 6.480707394875134e-05
+epoch: 0132 -- train loss: 0.87562 -- lr: 6.480707394875134e-05
+epoch: 0132 -- train loss: 0.88319 -- lr: 6.480707394875134e-05
+epoch: 0132 -- train loss: 0.88970 -- lr: 6.480707394875134e-05
+epoch: 0132 -- train loss: 0.88396 -- lr: 6.480707394875134e-05
+ 44%|████▍     | 133/300 [4:33:57<5:42:41, 123.13s/it]epoch -- 0132 || train loss -- 0.88418 || val loss -- 0.88165 || lr -- 0.00006481 || val mean_dice -- 11.79981
+epoch: 0133 -- train loss: 0.85537 -- lr: 6.431005974894185e-05
+epoch: 0133 -- train loss: 0.87850 -- lr: 6.431005974894185e-05
+epoch: 0133 -- train loss: 0.87775 -- lr: 6.431005974894185e-05
+epoch: 0133 -- train loss: 0.88168 -- lr: 6.431005974894185e-05
+epoch: 0133 -- train loss: 0.88116 -- lr: 6.431005974894185e-05
+ 45%|████▍     | 134/300 [4:35:58<5:38:44, 122.44s/it]epoch -- 0133 || train loss -- 0.88288 || val loss -- 0.87202 || lr -- 0.00006431 || val mean_dice -- 12.82428
+epoch: 0134 -- train loss: 0.85835 -- lr: 6.381153112045566e-05
+epoch: 0134 -- train loss: 0.87293 -- lr: 6.381153112045566e-05
+epoch: 0134 -- train loss: 0.88315 -- lr: 6.381153112045566e-05
+epoch: 0134 -- train loss: 0.88480 -- lr: 6.381153112045566e-05
+epoch: 0134 -- train loss: 0.88194 -- lr: 6.381153112045566e-05
+ 45%|████▌     | 135/300 [4:37:56<5:32:54, 121.05s/it]epoch -- 0134 || train loss -- 0.88236 || val loss -- 0.86904 || lr -- 0.00006381 || val mean_dice -- 13.14949
+epoch: 0135 -- train loss: 0.87449 -- lr: 6.331154273257479e-05
+epoch: 0135 -- train loss: 0.87391 -- lr: 6.331154273257479e-05
+epoch: 0135 -- train loss: 0.87644 -- lr: 6.331154273257479e-05
+epoch: 0135 -- train loss: 0.87731 -- lr: 6.331154273257479e-05
+epoch: 0135 -- train loss: 0.87763 -- lr: 6.331154273257479e-05
+ 45%|████▌     | 136/300 [4:40:05<5:37:54, 123.62s/it]epoch -- 0135 || train loss -- 0.87819 || val loss -- 0.86856 || lr -- 0.00006331 || val mean_dice -- 13.17826
+epoch: 0136 -- train loss: 0.91652 -- lr: 6.281014941466031e-05
+epoch: 0136 -- train loss: 0.90158 -- lr: 6.281014941466031e-05
+epoch: 0136 -- train loss: 0.89178 -- lr: 6.281014941466031e-05
+epoch: 0136 -- train loss: 0.89181 -- lr: 6.281014941466031e-05
+epoch: 0136 -- train loss: 0.89001 -- lr: 6.281014941466031e-05
+ 46%|████▌     | 137/300 [4:42:12<5:37:57, 124.40s/it]epoch -- 0136 || train loss -- 0.88622 || val loss -- 0.86563 || lr -- 0.00006281 || val mean_dice -- 13.50465
+epoch: 0137 -- train loss: 0.90088 -- lr: 6.230740615013976e-05
+epoch: 0137 -- train loss: 0.87931 -- lr: 6.230740615013976e-05
+epoch: 0137 -- train loss: 0.87953 -- lr: 6.230740615013976e-05
+epoch: 0137 -- train loss: 0.88200 -- lr: 6.230740615013976e-05
+epoch: 0137 -- train loss: 0.87940 -- lr: 6.230740615013976e-05
+ 46%|████▌     | 138/300 [4:44:12<5:32:55, 123.30s/it]epoch -- 0137 || train loss -- 0.87914 || val loss -- 0.86825 || lr -- 0.00006231 || val mean_dice -- 13.18297
+epoch: 0138 -- train loss: 0.84956 -- lr: 6.180336807047746e-05
+epoch: 0138 -- train loss: 0.87188 -- lr: 6.180336807047746e-05
+epoch: 0138 -- train loss: 0.88174 -- lr: 6.180336807047746e-05
+epoch: 0138 -- train loss: 0.88134 -- lr: 6.180336807047746e-05
+epoch: 0138 -- train loss: 0.88354 -- lr: 6.180336807047746e-05
+ 46%|████▋     | 139/300 [4:46:12<5:27:57, 122.22s/it]epoch -- 0138 || train loss -- 0.88037 || val loss -- 0.86509 || lr -- 0.00006180 || val mean_dice -- 13.55785
+epoch: 0139 -- train loss: 0.88938 -- lr: 6.129809044912887e-05
+epoch: 0139 -- train loss: 0.86987 -- lr: 6.129809044912887e-05
+epoch: 0139 -- train loss: 0.87353 -- lr: 6.129809044912887e-05
+epoch: 0139 -- train loss: 0.87277 -- lr: 6.129809044912887e-05
+epoch: 0139 -- train loss: 0.87088 -- lr: 6.129809044912887e-05
+ 47%|████▋     | 140/300 [4:48:12<5:23:49, 121.43s/it]epoch -- 0139 || train loss -- 0.87385 || val loss -- 0.88719 || lr -- 0.00006130 || val mean_dice -- 11.26763
+epoch: 0140 -- train loss: 0.86468 -- lr: 6.0791628695479094e-05
+epoch: 0140 -- train loss: 0.85672 -- lr: 6.0791628695479094e-05
+epoch: 0140 -- train loss: 0.86246 -- lr: 6.0791628695479094e-05
+epoch: 0140 -- train loss: 0.86843 -- lr: 6.0791628695479094e-05
+epoch: 0140 -- train loss: 0.87389 -- lr: 6.0791628695479094e-05
+ 47%|████▋     | 141/300 [4:50:13<5:21:56, 121.48s/it]epoch -- 0140 || train loss -- 0.87359 || val loss -- 0.88902 || lr -- 0.00006079 || val mean_dice -- 11.05042
+epoch: 0141 -- train loss: 0.86331 -- lr: 6.0284038348766736e-05
+epoch: 0141 -- train loss: 0.88375 -- lr: 6.0284038348766736e-05
+epoch: 0141 -- train loss: 0.88938 -- lr: 6.0284038348766736e-05
+epoch: 0141 -- train loss: 0.88648 -- lr: 6.0284038348766736e-05
+epoch: 0141 -- train loss: 0.88426 -- lr: 6.0284038348766736e-05
+ 47%|████▋     | 142/300 [4:52:17<5:21:54, 122.24s/it]epoch -- 0141 || train loss -- 0.88433 || val loss -- 0.88171 || lr -- 0.00006028 || val mean_dice -- 11.87105
+epoch: 0142 -- train loss: 0.85635 -- lr: 5.977537507199338e-05
+epoch: 0142 -- train loss: 0.87355 -- lr: 5.977537507199338e-05
+epoch: 0142 -- train loss: 0.87239 -- lr: 5.977537507199338e-05
+epoch: 0142 -- train loss: 0.87112 -- lr: 5.977537507199338e-05
+epoch: 0142 -- train loss: 0.87340 -- lr: 5.977537507199338e-05
+ 48%|████▊     | 143/300 [4:54:18<5:18:52, 121.86s/it]epoch -- 0142 || train loss -- 0.87024 || val loss -- 0.87265 || lr -- 0.00005978 || val mean_dice -- 12.75285
+epoch: 0143 -- train loss: 0.87815 -- lr: 5.9265694645819384e-05
+epoch: 0143 -- train loss: 0.87097 -- lr: 5.9265694645819384e-05
+epoch: 0143 -- train loss: 0.86791 -- lr: 5.9265694645819384e-05
+epoch: 0143 -- train loss: 0.86963 -- lr: 5.9265694645819384e-05
+epoch: 0143 -- train loss: 0.87049 -- lr: 5.9265694645819384e-05
+ 48%|████▊     | 144/300 [4:56:17<5:14:46, 121.07s/it]epoch -- 0143 || train loss -- 0.87308 || val loss -- 0.87476 || lr -- 0.00005927 || val mean_dice -- 12.56374
+epoch: 0144 -- train loss: 0.92911 -- lr: 5.8755052962447066e-05
+epoch: 0144 -- train loss: 0.87885 -- lr: 5.8755052962447066e-05
+epoch: 0144 -- train loss: 0.88605 -- lr: 5.8755052962447066e-05
+epoch: 0144 -- train loss: 0.88215 -- lr: 5.8755052962447066e-05
+epoch: 0144 -- train loss: 0.88368 -- lr: 5.8755052962447066e-05
+ 48%|████▊     | 145/300 [4:58:22<5:15:27, 122.12s/it]epoch -- 0144 || train loss -- 0.88191 || val loss -- 0.87306 || lr -- 0.00005876 || val mean_dice -- 12.73843
+epoch: 0145 -- train loss: 0.83731 -- lr: 5.8243506019491436e-05
+epoch: 0145 -- train loss: 0.86618 -- lr: 5.8243506019491436e-05
+epoch: 0145 -- train loss: 0.87010 -- lr: 5.8243506019491436e-05
+epoch: 0145 -- train loss: 0.86803 -- lr: 5.8243506019491436e-05
+epoch: 0145 -- train loss: 0.86767 -- lr: 5.8243506019491436e-05
+ 49%|████▊     | 146/300 [5:00:29<5:17:04, 123.54s/it]epoch -- 0145 || train loss -- 0.86849 || val loss -- 0.87283 || lr -- 0.00005824 || val mean_dice -- 12.78237
+epoch: 0146 -- train loss: 0.89493 -- lr: 5.773110991383938e-05
+epoch: 0146 -- train loss: 0.88202 -- lr: 5.773110991383938e-05
+epoch: 0146 -- train loss: 0.87300 -- lr: 5.773110991383938e-05
+epoch: 0146 -- train loss: 0.86967 -- lr: 5.773110991383938e-05
+epoch: 0146 -- train loss: 0.87083 -- lr: 5.773110991383938e-05
+ 49%|████▉     | 147/300 [5:02:35<5:16:46, 124.22s/it]epoch -- 0146 || train loss -- 0.87307 || val loss -- 0.86706 || lr -- 0.00005773 || val mean_dice -- 13.29502
+epoch: 0147 -- train loss: 0.90921 -- lr: 5.7217920835498074e-05
+epoch: 0147 -- train loss: 0.85981 -- lr: 5.7217920835498074e-05
+epoch: 0147 -- train loss: 0.86655 -- lr: 5.7217920835498074e-05
+epoch: 0147 -- train loss: 0.86874 -- lr: 5.7217920835498074e-05
+epoch: 0147 -- train loss: 0.86875 -- lr: 5.7217920835498074e-05
+ 49%|████▉     | 148/300 [5:04:34<5:11:19, 122.89s/it]epoch -- 0147 || train loss -- 0.86820 || val loss -- 0.86494 || lr -- 0.00005722 || val mean_dice -- 13.47666
+epoch: 0148 -- train loss: 0.87027 -- lr: 5.670399506143306e-05
+epoch: 0148 -- train loss: 0.87417 -- lr: 5.670399506143306e-05
+epoch: 0148 -- train loss: 0.88129 -- lr: 5.670399506143306e-05
+epoch: 0148 -- train loss: 0.87703 -- lr: 5.670399506143306e-05
+epoch: 0148 -- train loss: 0.87660 -- lr: 5.670399506143306e-05
+ 50%|████▉     | 149/300 [5:06:40<5:11:39, 123.84s/it]epoch -- 0148 || train loss -- 0.87773 || val loss -- 0.88516 || lr -- 0.00005670 || val mean_dice -- 11.44584
+epoch: 0149 -- train loss: 0.87425 -- lr: 5.61893889493969e-05
+epoch: 0149 -- train loss: 0.85745 -- lr: 5.61893889493969e-05
+epoch: 0149 -- train loss: 0.86243 -- lr: 5.61893889493969e-05
+epoch: 0149 -- train loss: 0.87149 -- lr: 5.61893889493969e-05
+epoch: 0149 -- train loss: 0.87220 -- lr: 5.61893889493969e-05
+ 50%|█████     | 150/300 [5:08:44<5:09:37, 123.85s/it]epoch -- 0149 || train loss -- 0.87152 || val loss -- 0.90309 || lr -- 0.00005619 || val mean_dice -- 9.65520
+epoch: 0150 -- train loss: 0.93884 -- lr: 5.567415893174886e-05
+epoch: 0150 -- train loss: 0.87705 -- lr: 5.567415893174886e-05
+epoch: 0150 -- train loss: 0.87860 -- lr: 5.567415893174886e-05
+epoch: 0150 -- train loss: 0.87585 -- lr: 5.567415893174886e-05
+epoch: 0150 -- train loss: 0.87655 -- lr: 5.567415893174886e-05
+ 50%|█████     | 151/300 [5:10:53<5:11:04, 125.26s/it]epoch -- 0150 || train loss -- 0.87879 || val loss -- 0.86997 || lr -- 0.00005567 || val mean_dice -- 13.10166
+epoch: 0151 -- train loss: 0.89794 -- lr: 5.5158361509266474e-05
+epoch: 0151 -- train loss: 0.87193 -- lr: 5.5158361509266474e-05
+epoch: 0151 -- train loss: 0.87570 -- lr: 5.5158361509266474e-05
+epoch: 0151 -- train loss: 0.87563 -- lr: 5.5158361509266474e-05
+epoch: 0151 -- train loss: 0.87421 -- lr: 5.5158361509266474e-05
+ 51%|█████     | 152/300 [5:12:55<5:06:59, 124.46s/it]epoch -- 0151 || train loss -- 0.87409 || val loss -- 0.87100 || lr -- 0.00005516 || val mean_dice -- 12.87483
+epoch: 0152 -- train loss: 0.85956 -- lr: 5.464205324494962e-05
+epoch: 0152 -- train loss: 0.87603 -- lr: 5.464205324494962e-05
+epoch: 0152 -- train loss: 0.87166 -- lr: 5.464205324494962e-05
+epoch: 0152 -- train loss: 0.86983 -- lr: 5.464205324494962e-05
+epoch: 0152 -- train loss: 0.87482 -- lr: 5.464205324494962e-05
+ 51%|█████     | 153/300 [5:15:05<5:08:36, 125.96s/it]epoch -- 0152 || train loss -- 0.87676 || val loss -- 0.89407 || lr -- 0.00005464 || val mean_dice -- 10.51681
+epoch: 0153 -- train loss: 0.84162 -- lr: 5.4125290757817766e-05
+epoch: 0153 -- train loss: 0.87160 -- lr: 5.4125290757817766e-05
+epoch: 0153 -- train loss: 0.87432 -- lr: 5.4125290757817766e-05
+epoch: 0153 -- train loss: 0.87458 -- lr: 5.4125290757817766e-05
+epoch: 0153 -- train loss: 0.87538 -- lr: 5.4125290757817766e-05
+ 51%|█████▏    | 154/300 [5:17:07<5:03:50, 124.86s/it]epoch -- 0153 || train loss -- 0.86883 || val loss -- 0.87241 || lr -- 0.00005413 || val mean_dice -- 12.70461
+epoch: 0154 -- train loss: 0.88505 -- lr: 5.360813071670102e-05
+epoch: 0154 -- train loss: 0.86122 -- lr: 5.360813071670102e-05
+epoch: 0154 -- train loss: 0.86411 -- lr: 5.360813071670102e-05
+epoch: 0154 -- train loss: 0.87197 -- lr: 5.360813071670102e-05
+epoch: 0154 -- train loss: 0.86760 -- lr: 5.360813071670102e-05
+ 52%|█████▏    | 155/300 [5:19:10<5:00:20, 124.28s/it]epoch -- 0154 || train loss -- 0.86843 || val loss -- 0.87116 || lr -- 0.00005361 || val mean_dice -- 12.80369
+epoch: 0155 -- train loss: 0.83099 -- lr: 5.309062983402573e-05
+epoch: 0155 -- train loss: 0.86610 -- lr: 5.309062983402573e-05
+epoch: 0155 -- train loss: 0.87581 -- lr: 5.309062983402573e-05
+epoch: 0155 -- train loss: 0.87928 -- lr: 5.309062983402573e-05
+epoch: 0155 -- train loss: 0.87428 -- lr: 5.309062983402573e-05
+ 52%|█████▏    | 156/300 [5:21:19<5:01:17, 125.54s/it]epoch -- 0155 || train loss -- 0.87766 || val loss -- 0.86792 || lr -- 0.00005309 || val mean_dice -- 13.21273
+epoch: 0156 -- train loss: 0.93669 -- lr: 5.257284485959539e-05
+epoch: 0156 -- train loss: 0.88007 -- lr: 5.257284485959539e-05
+epoch: 0156 -- train loss: 0.87903 -- lr: 5.257284485959539e-05
+epoch: 0156 -- train loss: 0.87933 -- lr: 5.257284485959539e-05
+epoch: 0156 -- train loss: 0.87553 -- lr: 5.257284485959539e-05
+ 52%|█████▏    | 157/300 [5:23:23<4:58:36, 125.29s/it]epoch -- 0156 || train loss -- 0.87400 || val loss -- 0.87373 || lr -- 0.00005257 || val mean_dice -- 12.59810
+epoch: 0157 -- train loss: 0.94311 -- lr: 5.205483257436734e-05
+epoch: 0157 -- train loss: 0.88053 -- lr: 5.205483257436734e-05
+epoch: 0157 -- train loss: 0.87787 -- lr: 5.205483257436734e-05
+epoch: 0157 -- train loss: 0.88186 -- lr: 5.205483257436734e-05
+epoch: 0157 -- train loss: 0.87677 -- lr: 5.205483257436734e-05
+ 53%|█████▎    | 158/300 [5:25:20<4:50:20, 122.68s/it]epoch -- 0157 || train loss -- 0.87917 || val loss -- 0.87738 || lr -- 0.00005205 || val mean_dice -- 12.24319
+epoch: 0158 -- train loss: 0.86519 -- lr: 5.153664978422617e-05
+epoch: 0158 -- train loss: 0.87217 -- lr: 5.153664978422617e-05
+epoch: 0158 -- train loss: 0.85953 -- lr: 5.153664978422617e-05
+epoch: 0158 -- train loss: 0.86170 -- lr: 5.153664978422617e-05
+epoch: 0158 -- train loss: 0.86693 -- lr: 5.153664978422617e-05
+ 53%|█████▎    | 159/300 [5:27:21<4:47:12, 122.22s/it]epoch -- 0158 || train loss -- 0.86735 || val loss -- 0.86144 || lr -- 0.00005154 || val mean_dice -- 13.84455 -- saved
+epoch: 0159 -- train loss: 0.89031 -- lr: 5.101835331375417e-05
+epoch: 0159 -- train loss: 0.86244 -- lr: 5.101835331375417e-05
+epoch: 0159 -- train loss: 0.87146 -- lr: 5.101835331375417e-05
+epoch: 0159 -- train loss: 0.87384 -- lr: 5.101835331375417e-05
+epoch: 0159 -- train loss: 0.87292 -- lr: 5.101835331375417e-05
+ 53%|█████▎    | 160/300 [5:29:30<4:50:11, 124.37s/it]epoch -- 0159 || train loss -- 0.87279 || val loss -- 0.86417 || lr -- 0.00005102 || val mean_dice -- 13.61379
+epoch: 0160 -- train loss: 0.90624 -- lr: 5.05e-05
+epoch: 0160 -- train loss: 0.88597 -- lr: 5.05e-05
+epoch: 0160 -- train loss: 0.87337 -- lr: 5.05e-05
+epoch: 0160 -- train loss: 0.87951 -- lr: 5.05e-05
+epoch: 0160 -- train loss: 0.87507 -- lr: 5.05e-05
+ 54%|█████▎    | 161/300 [5:31:37<4:49:23, 124.92s/it]epoch -- 0160 || train loss -- 0.87565 || val loss -- 0.85769 || lr -- 0.00005050 || val mean_dice -- 14.19884 -- saved
+epoch: 0161 -- train loss: 0.85419 -- lr: 4.9981646686245835e-05
+epoch: 0161 -- train loss: 0.86581 -- lr: 4.9981646686245835e-05
+epoch: 0161 -- train loss: 0.86915 -- lr: 4.9981646686245835e-05
+epoch: 0161 -- train loss: 0.86827 -- lr: 4.9981646686245835e-05
+epoch: 0161 -- train loss: 0.86824 -- lr: 4.9981646686245835e-05
+ 54%|█████▍    | 162/300 [5:33:31<4:40:19, 121.88s/it]epoch -- 0161 || train loss -- 0.86794 || val loss -- 0.87188 || lr -- 0.00004998 || val mean_dice -- 12.82786
+epoch: 0162 -- train loss: 0.87991 -- lr: 4.9463350215773845e-05
+epoch: 0162 -- train loss: 0.87750 -- lr: 4.9463350215773845e-05
+epoch: 0162 -- train loss: 0.86708 -- lr: 4.9463350215773845e-05
+epoch: 0162 -- train loss: 0.86575 -- lr: 4.9463350215773845e-05
+epoch: 0162 -- train loss: 0.86869 -- lr: 4.9463350215773845e-05
+ 54%|█████▍    | 163/300 [5:35:35<4:39:09, 122.26s/it]epoch -- 0162 || train loss -- 0.86886 || val loss -- 0.88077 || lr -- 0.00004946 || val mean_dice -- 11.78861
+epoch: 0163 -- train loss: 0.91555 -- lr: 4.894516742563265e-05
+epoch: 0163 -- train loss: 0.87287 -- lr: 4.894516742563265e-05
+epoch: 0163 -- train loss: 0.86885 -- lr: 4.894516742563265e-05
+epoch: 0163 -- train loss: 0.87204 -- lr: 4.894516742563265e-05
+epoch: 0163 -- train loss: 0.87112 -- lr: 4.894516742563265e-05
+ 55%|█████▍    | 164/300 [5:37:49<4:45:17, 125.86s/it]epoch -- 0163 || train loss -- 0.87298 || val loss -- 0.87307 || lr -- 0.00004895 || val mean_dice -- 12.60581
+epoch: 0164 -- train loss: 0.89180 -- lr: 4.8427155140404615e-05
+epoch: 0164 -- train loss: 0.87969 -- lr: 4.8427155140404615e-05
+epoch: 0164 -- train loss: 0.87268 -- lr: 4.8427155140404615e-05
+epoch: 0164 -- train loss: 0.87249 -- lr: 4.8427155140404615e-05
+epoch: 0164 -- train loss: 0.87228 -- lr: 4.8427155140404615e-05
+ 55%|█████▌    | 165/300 [5:39:53<4:41:56, 125.31s/it]epoch -- 0164 || train loss -- 0.87237 || val loss -- 0.86860 || lr -- 0.00004843 || val mean_dice -- 13.13678
+epoch: 0165 -- train loss: 0.88138 -- lr: 4.790937016597428e-05
+epoch: 0165 -- train loss: 0.87683 -- lr: 4.790937016597428e-05
+epoch: 0165 -- train loss: 0.87749 -- lr: 4.790937016597428e-05
+epoch: 0165 -- train loss: 0.87387 -- lr: 4.790937016597428e-05
+epoch: 0165 -- train loss: 0.87153 -- lr: 4.790937016597428e-05
+ 55%|█████▌    | 166/300 [5:41:52<4:35:35, 123.40s/it]epoch -- 0165 || train loss -- 0.87336 || val loss -- 0.87465 || lr -- 0.00004791 || val mean_dice -- 12.47230
+epoch: 0166 -- train loss: 0.84041 -- lr: 4.7391869283299e-05
+epoch: 0166 -- train loss: 0.87099 -- lr: 4.7391869283299e-05
+epoch: 0166 -- train loss: 0.86920 -- lr: 4.7391869283299e-05
+epoch: 0166 -- train loss: 0.86647 -- lr: 4.7391869283299e-05
+epoch: 0166 -- train loss: 0.86672 -- lr: 4.7391869283299e-05
+ 56%|█████▌    | 167/300 [5:43:48<4:28:27, 121.11s/it]epoch -- 0166 || train loss -- 0.86505 || val loss -- 0.87408 || lr -- 0.00004739 || val mean_dice -- 12.60153
+epoch: 0167 -- train loss: 0.91019 -- lr: 4.687470924218224e-05
+epoch: 0167 -- train loss: 0.87206 -- lr: 4.687470924218224e-05
+epoch: 0167 -- train loss: 0.86845 -- lr: 4.687470924218224e-05
+epoch: 0167 -- train loss: 0.86978 -- lr: 4.687470924218224e-05
+epoch: 0167 -- train loss: 0.87002 -- lr: 4.687470924218224e-05
+ 56%|█████▌    | 168/300 [5:45:47<4:25:10, 120.53s/it]epoch -- 0167 || train loss -- 0.87519 || val loss -- 0.86986 || lr -- 0.00004687 || val mean_dice -- 13.05927
+epoch: 0168 -- train loss: 0.83030 -- lr: 4.6357946755050385e-05
+epoch: 0168 -- train loss: 0.85321 -- lr: 4.6357946755050385e-05
+epoch: 0168 -- train loss: 0.86469 -- lr: 4.6357946755050385e-05
+epoch: 0168 -- train loss: 0.86493 -- lr: 4.6357946755050385e-05
+epoch: 0168 -- train loss: 0.86852 -- lr: 4.6357946755050385e-05
+ 56%|█████▋    | 169/300 [5:47:47<4:23:04, 120.49s/it]epoch -- 0168 || train loss -- 0.86879 || val loss -- 0.87630 || lr -- 0.00004636 || val mean_dice -- 12.29306
+epoch: 0169 -- train loss: 0.87994 -- lr: 4.584163849073354e-05
+epoch: 0169 -- train loss: 0.87423 -- lr: 4.584163849073354e-05
+epoch: 0169 -- train loss: 0.87403 -- lr: 4.584163849073354e-05
+epoch: 0169 -- train loss: 0.87329 -- lr: 4.584163849073354e-05
+epoch: 0169 -- train loss: 0.87652 -- lr: 4.584163849073354e-05
+ 57%|█████▋    | 170/300 [5:49:50<4:22:29, 121.15s/it]epoch -- 0169 || train loss -- 0.87721 || val loss -- 0.87713 || lr -- 0.00004584 || val mean_dice -- 12.27538
+epoch: 0170 -- train loss: 0.90067 -- lr: 4.532584106825116e-05
+epoch: 0170 -- train loss: 0.87156 -- lr: 4.532584106825116e-05
+epoch: 0170 -- train loss: 0.86810 -- lr: 4.532584106825116e-05
+epoch: 0170 -- train loss: 0.86898 -- lr: 4.532584106825116e-05
+epoch: 0170 -- train loss: 0.87080 -- lr: 4.532584106825116e-05
+ 57%|█████▋    | 171/300 [5:51:50<4:19:33, 120.72s/it]epoch -- 0170 || train loss -- 0.87055 || val loss -- 0.86301 || lr -- 0.00004533 || val mean_dice -- 13.61915
+epoch: 0171 -- train loss: 0.92186 -- lr: 4.481061105060311e-05
+epoch: 0171 -- train loss: 0.87381 -- lr: 4.481061105060311e-05
+epoch: 0171 -- train loss: 0.86725 -- lr: 4.481061105060311e-05
+epoch: 0171 -- train loss: 0.87324 -- lr: 4.481061105060311e-05
+epoch: 0171 -- train loss: 0.87510 -- lr: 4.481061105060311e-05
+ 57%|█████▋    | 172/300 [5:53:52<4:18:20, 121.10s/it]epoch -- 0171 || train loss -- 0.87311 || val loss -- 0.86300 || lr -- 0.00004481 || val mean_dice -- 13.67921
+epoch: 0172 -- train loss: 0.85728 -- lr: 4.429600493856695e-05
+epoch: 0172 -- train loss: 0.85104 -- lr: 4.429600493856695e-05
+epoch: 0172 -- train loss: 0.86159 -- lr: 4.429600493856695e-05
+epoch: 0172 -- train loss: 0.86273 -- lr: 4.429600493856695e-05
+epoch: 0172 -- train loss: 0.86130 -- lr: 4.429600493856695e-05
+ 58%|█████▊    | 173/300 [5:56:00<4:20:44, 123.18s/it]epoch -- 0172 || train loss -- 0.86520 || val loss -- 0.87695 || lr -- 0.00004430 || val mean_dice -- 12.28417
+epoch: 0173 -- train loss: 0.88379 -- lr: 4.3782079164501935e-05
+epoch: 0173 -- train loss: 0.86473 -- lr: 4.3782079164501935e-05
+epoch: 0173 -- train loss: 0.85819 -- lr: 4.3782079164501935e-05
+epoch: 0173 -- train loss: 0.86613 -- lr: 4.3782079164501935e-05
+epoch: 0173 -- train loss: 0.86716 -- lr: 4.3782079164501935e-05
+ 58%|█████▊    | 174/300 [5:58:00<4:17:06, 122.43s/it]epoch -- 0173 || train loss -- 0.87135 || val loss -- 0.86898 || lr -- 0.00004378 || val mean_dice -- 13.01683
+epoch: 0174 -- train loss: 0.85649 -- lr: 4.326889008616064e-05
+epoch: 0174 -- train loss: 0.86128 -- lr: 4.326889008616064e-05
+epoch: 0174 -- train loss: 0.87573 -- lr: 4.326889008616064e-05
+epoch: 0174 -- train loss: 0.87514 -- lr: 4.326889008616064e-05
+epoch: 0174 -- train loss: 0.87090 -- lr: 4.326889008616064e-05
+ 58%|█████▊    | 175/300 [6:00:01<4:13:49, 121.84s/it]epoch -- 0174 || train loss -- 0.86958 || val loss -- 0.86960 || lr -- 0.00004327 || val mean_dice -- 13.01518
+epoch: 0175 -- train loss: 0.88210 -- lr: 4.2756493980508586e-05
+epoch: 0175 -- train loss: 0.86890 -- lr: 4.2756493980508586e-05
+epoch: 0175 -- train loss: 0.86652 -- lr: 4.2756493980508586e-05
+epoch: 0175 -- train loss: 0.86476 -- lr: 4.2756493980508586e-05
+epoch: 0175 -- train loss: 0.86582 -- lr: 4.2756493980508586e-05
+ 59%|█████▊    | 176/300 [6:02:07<4:14:33, 123.18s/it]epoch -- 0175 || train loss -- 0.86822 || val loss -- 0.87038 || lr -- 0.00004276 || val mean_dice -- 12.88309
+epoch: 0176 -- train loss: 0.90716 -- lr: 4.224494703755293e-05
+epoch: 0176 -- train loss: 0.85668 -- lr: 4.224494703755293e-05
+epoch: 0176 -- train loss: 0.86268 -- lr: 4.224494703755293e-05
+epoch: 0176 -- train loss: 0.86178 -- lr: 4.224494703755293e-05
+epoch: 0176 -- train loss: 0.86482 -- lr: 4.224494703755293e-05
+ 59%|█████▉    | 177/300 [6:04:09<4:11:41, 122.78s/it]epoch -- 0176 || train loss -- 0.86613 || val loss -- 0.87854 || lr -- 0.00004224 || val mean_dice -- 12.13043
+epoch: 0177 -- train loss: 0.87675 -- lr: 4.173430535418063e-05
+epoch: 0177 -- train loss: 0.85189 -- lr: 4.173430535418063e-05
+epoch: 0177 -- train loss: 0.85828 -- lr: 4.173430535418063e-05
+epoch: 0177 -- train loss: 0.86299 -- lr: 4.173430535418063e-05
+epoch: 0177 -- train loss: 0.86702 -- lr: 4.173430535418063e-05
+ 59%|█████▉    | 178/300 [6:06:08<4:07:33, 121.75s/it]epoch -- 0177 || train loss -- 0.86531 || val loss -- 0.87462 || lr -- 0.00004173 || val mean_dice -- 12.47624
+epoch: 0178 -- train loss: 0.89770 -- lr: 4.122462492800663e-05
+epoch: 0178 -- train loss: 0.88314 -- lr: 4.122462492800663e-05
+epoch: 0178 -- train loss: 0.88098 -- lr: 4.122462492800663e-05
+epoch: 0178 -- train loss: 0.87038 -- lr: 4.122462492800663e-05
+epoch: 0178 -- train loss: 0.86734 -- lr: 4.122462492800663e-05
+ 60%|█████▉    | 179/300 [6:08:11<4:05:57, 121.97s/it]epoch -- 0178 || train loss -- 0.86606 || val loss -- 0.87053 || lr -- 0.00004122 || val mean_dice -- 12.99551
+epoch: 0179 -- train loss: 0.87967 -- lr: 4.071596165123325e-05
+epoch: 0179 -- train loss: 0.87998 -- lr: 4.071596165123325e-05
+epoch: 0179 -- train loss: 0.86962 -- lr: 4.071596165123325e-05
+epoch: 0179 -- train loss: 0.86972 -- lr: 4.071596165123325e-05
+epoch: 0179 -- train loss: 0.87093 -- lr: 4.071596165123325e-05
+ 60%|██████    | 180/300 [6:10:18<4:06:52, 123.44s/it]epoch -- 0179 || train loss -- 0.86700 || val loss -- 0.86577 || lr -- 0.00004072 || val mean_dice -- 13.49498
+epoch: 0180 -- train loss: 0.82969 -- lr: 4.020837130452091e-05
+epoch: 0180 -- train loss: 0.86375 -- lr: 4.020837130452091e-05
+epoch: 0180 -- train loss: 0.86877 -- lr: 4.020837130452091e-05
+epoch: 0180 -- train loss: 0.87108 -- lr: 4.020837130452091e-05
+epoch: 0180 -- train loss: 0.87104 -- lr: 4.020837130452091e-05
+ 60%|██████    | 181/300 [6:12:13<4:00:14, 121.13s/it]epoch -- 0180 || train loss -- 0.87051 || val loss -- 0.87084 || lr -- 0.00004021 || val mean_dice -- 12.83185
+epoch: 0181 -- train loss: 0.88382 -- lr: 3.970190955087115e-05
+epoch: 0181 -- train loss: 0.86500 -- lr: 3.970190955087115e-05
+epoch: 0181 -- train loss: 0.85971 -- lr: 3.970190955087115e-05
+epoch: 0181 -- train loss: 0.86813 -- lr: 3.970190955087115e-05
+epoch: 0181 -- train loss: 0.86893 -- lr: 3.970190955087115e-05
+ 61%|██████    | 182/300 [6:14:15<3:58:33, 121.30s/it]epoch -- 0181 || train loss -- 0.87103 || val loss -- 0.88364 || lr -- 0.00003970 || val mean_dice -- 11.64641
+epoch: 0182 -- train loss: 0.80656 -- lr: 3.919663192952255e-05
+epoch: 0182 -- train loss: 0.85612 -- lr: 3.919663192952255e-05
+epoch: 0182 -- train loss: 0.85684 -- lr: 3.919663192952255e-05
+epoch: 0182 -- train loss: 0.85910 -- lr: 3.919663192952255e-05
+epoch: 0182 -- train loss: 0.86412 -- lr: 3.919663192952255e-05
+ 61%|██████    | 183/300 [6:16:14<3:55:07, 120.58s/it]epoch -- 0182 || train loss -- 0.86391 || val loss -- 0.87447 || lr -- 0.00003920 || val mean_dice -- 12.44612
+epoch: 0183 -- train loss: 0.80539 -- lr: 3.869259384986026e-05
+epoch: 0183 -- train loss: 0.86297 -- lr: 3.869259384986026e-05
+epoch: 0183 -- train loss: 0.86041 -- lr: 3.869259384986026e-05
+epoch: 0183 -- train loss: 0.86269 -- lr: 3.869259384986026e-05
+epoch: 0183 -- train loss: 0.85979 -- lr: 3.869259384986026e-05
+ 61%|██████▏   | 184/300 [6:18:16<3:54:06, 121.09s/it]epoch -- 0183 || train loss -- 0.86236 || val loss -- 0.88387 || lr -- 0.00003869 || val mean_dice -- 11.49841
+epoch: 0184 -- train loss: 0.87104 -- lr: 3.8189850585339694e-05
+epoch: 0184 -- train loss: 0.86962 -- lr: 3.8189850585339694e-05
+epoch: 0184 -- train loss: 0.86418 -- lr: 3.8189850585339694e-05
+epoch: 0184 -- train loss: 0.86262 -- lr: 3.8189850585339694e-05
+epoch: 0184 -- train loss: 0.86245 -- lr: 3.8189850585339694e-05
+ 62%|██████▏   | 185/300 [6:20:17<3:51:54, 121.00s/it]epoch -- 0184 || train loss -- 0.86330 || val loss -- 0.86002 || lr -- 0.00003819 || val mean_dice -- 14.02862
+epoch: 0185 -- train loss: 0.81413 -- lr: 3.768845726742523e-05
+epoch: 0185 -- train loss: 0.85540 -- lr: 3.768845726742523e-05
+epoch: 0185 -- train loss: 0.86070 -- lr: 3.768845726742523e-05
+epoch: 0185 -- train loss: 0.85933 -- lr: 3.768845726742523e-05
+epoch: 0185 -- train loss: 0.86239 -- lr: 3.768845726742523e-05
+ 62%|██████▏   | 186/300 [6:22:18<3:49:46, 120.94s/it]epoch -- 0185 || train loss -- 0.86473 || val loss -- 0.86308 || lr -- 0.00003769 || val mean_dice -- 13.66359
+epoch: 0186 -- train loss: 0.83712 -- lr: 3.718846887954436e-05
+epoch: 0186 -- train loss: 0.84515 -- lr: 3.718846887954436e-05
+epoch: 0186 -- train loss: 0.85394 -- lr: 3.718846887954436e-05
+epoch: 0186 -- train loss: 0.85562 -- lr: 3.718846887954436e-05
+epoch: 0186 -- train loss: 0.85856 -- lr: 3.718846887954436e-05
+ 62%|██████▏   | 187/300 [6:24:22<3:49:41, 121.96s/it]epoch -- 0186 || train loss -- 0.85979 || val loss -- 0.86636 || lr -- 0.00003719 || val mean_dice -- 13.32036
+epoch: 0187 -- train loss: 0.88881 -- lr: 3.6689940251058145e-05
+epoch: 0187 -- train loss: 0.86861 -- lr: 3.6689940251058145e-05
+epoch: 0187 -- train loss: 0.86759 -- lr: 3.6689940251058145e-05
+epoch: 0187 -- train loss: 0.86182 -- lr: 3.6689940251058145e-05
+epoch: 0187 -- train loss: 0.86598 -- lr: 3.6689940251058145e-05
+ 63%|██████▎   | 188/300 [6:26:21<3:46:04, 121.11s/it]epoch -- 0187 || train loss -- 0.86480 || val loss -- 0.86112 || lr -- 0.00003669 || val mean_dice -- 13.89866
+epoch: 0188 -- train loss: 0.90097 -- lr: 3.6192926051248646e-05
+epoch: 0188 -- train loss: 0.86827 -- lr: 3.6192926051248646e-05
+epoch: 0188 -- train loss: 0.86691 -- lr: 3.6192926051248646e-05
+epoch: 0188 -- train loss: 0.86732 -- lr: 3.6192926051248646e-05
+epoch: 0188 -- train loss: 0.86426 -- lr: 3.6192926051248646e-05
+ 63%|██████▎   | 189/300 [6:28:23<3:44:09, 121.17s/it]epoch -- 0188 || train loss -- 0.86411 || val loss -- 0.86170 || lr -- 0.00003619 || val mean_dice -- 13.84094
+epoch: 0189 -- train loss: 0.81820 -- lr: 3.569748078332371e-05
+epoch: 0189 -- train loss: 0.85741 -- lr: 3.569748078332371e-05
+epoch: 0189 -- train loss: 0.85331 -- lr: 3.569748078332371e-05
+epoch: 0189 -- train loss: 0.85658 -- lr: 3.569748078332371e-05
+epoch: 0189 -- train loss: 0.86233 -- lr: 3.569748078332371e-05
+ 63%|██████▎   | 190/300 [6:30:23<3:41:44, 120.95s/it]epoch -- 0189 || train loss -- 0.86136 || val loss -- 0.85968 || lr -- 0.00003570 || val mean_dice -- 13.86504
+epoch: 0190 -- train loss: 0.92585 -- lr: 3.5203658778440106e-05
+epoch: 0190 -- train loss: 0.87125 -- lr: 3.5203658778440106e-05
+epoch: 0190 -- train loss: 0.86646 -- lr: 3.5203658778440106e-05
+epoch: 0190 -- train loss: 0.86864 -- lr: 3.5203658778440106e-05
+epoch: 0190 -- train loss: 0.86850 -- lr: 3.5203658778440106e-05
+ 64%|██████▎   | 191/300 [6:32:25<3:40:17, 121.26s/it]epoch -- 0190 || train loss -- 0.86776 || val loss -- 0.85780 || lr -- 0.00003520 || val mean_dice -- 14.19550
+epoch: 0191 -- train loss: 0.84281 -- lr: 3.471151418974554e-05
+epoch: 0191 -- train loss: 0.86278 -- lr: 3.471151418974554e-05
+epoch: 0191 -- train loss: 0.86453 -- lr: 3.471151418974554e-05
+epoch: 0191 -- train loss: 0.86162 -- lr: 3.471151418974554e-05
+epoch: 0191 -- train loss: 0.86216 -- lr: 3.471151418974554e-05
+ 64%|██████▍   | 192/300 [6:34:28<3:39:26, 121.92s/it]epoch -- 0191 || train loss -- 0.86202 || val loss -- 0.85319 || lr -- 0.00003471 || val mean_dice -- 14.73792 -- saved
+epoch: 0192 -- train loss: 0.91455 -- lr: 3.422110098644013e-05
+epoch: 0192 -- train loss: 0.86613 -- lr: 3.422110098644013e-05
+epoch: 0192 -- train loss: 0.86498 -- lr: 3.422110098644013e-05
+epoch: 0192 -- train loss: 0.86791 -- lr: 3.422110098644013e-05
+epoch: 0192 -- train loss: 0.86871 -- lr: 3.422110098644013e-05
+ 64%|██████▍   | 193/300 [6:36:34<3:39:33, 123.11s/it]epoch -- 0192 || train loss -- 0.86834 || val loss -- 0.86238 || lr -- 0.00003422 || val mean_dice -- 13.70230
+epoch: 0193 -- train loss: 0.85385 -- lr: 3.373247294785808e-05
+epoch: 0193 -- train loss: 0.86679 -- lr: 3.373247294785808e-05
+epoch: 0193 -- train loss: 0.86241 -- lr: 3.373247294785808e-05
+epoch: 0193 -- train loss: 0.86418 -- lr: 3.373247294785808e-05
+epoch: 0193 -- train loss: 0.86674 -- lr: 3.373247294785808e-05
+ 65%|██████▍   | 194/300 [6:38:33<3:35:07, 121.77s/it]epoch -- 0193 || train loss -- 0.86509 || val loss -- 0.86050 || lr -- 0.00003373 || val mean_dice -- 13.99225
+epoch: 0194 -- train loss: 0.82401 -- lr: 3.3245683657570155e-05
+epoch: 0194 -- train loss: 0.83952 -- lr: 3.3245683657570155e-05
+epoch: 0194 -- train loss: 0.85189 -- lr: 3.3245683657570155e-05
+epoch: 0194 -- train loss: 0.85266 -- lr: 3.3245683657570155e-05
+epoch: 0194 -- train loss: 0.85377 -- lr: 3.3245683657570155e-05
+ 65%|██████▌   | 195/300 [6:40:36<3:33:55, 122.24s/it]epoch -- 0194 || train loss -- 0.85840 || val loss -- 0.86948 || lr -- 0.00003325 || val mean_dice -- 13.07667
+epoch: 0195 -- train loss: 0.81263 -- lr: 3.276078649750765e-05
+epoch: 0195 -- train loss: 0.84847 -- lr: 3.276078649750765e-05
+epoch: 0195 -- train loss: 0.84779 -- lr: 3.276078649750765e-05
+epoch: 0195 -- train loss: 0.84918 -- lr: 3.276078649750765e-05
+epoch: 0195 -- train loss: 0.85479 -- lr: 3.276078649750765e-05
+ 65%|██████▌   | 196/300 [6:42:37<3:31:13, 121.86s/it]epoch -- 0195 || train loss -- 0.85618 || val loss -- 0.86085 || lr -- 0.00003276 || val mean_dice -- 13.87987
+epoch: 0196 -- train loss: 0.86604 -- lr: 3.2277834642108455e-05
+epoch: 0196 -- train loss: 0.85047 -- lr: 3.2277834642108455e-05
+epoch: 0196 -- train loss: 0.86139 -- lr: 3.2277834642108455e-05
+epoch: 0196 -- train loss: 0.86308 -- lr: 3.2277834642108455e-05
+epoch: 0196 -- train loss: 0.86438 -- lr: 3.2277834642108455e-05
+ 66%|██████▌   | 197/300 [6:44:36<3:27:45, 121.03s/it]epoch -- 0196 || train loss -- 0.86578 || val loss -- 0.86363 || lr -- 0.00003228 || val mean_dice -- 13.71636
+epoch: 0197 -- train loss: 0.85054 -- lr: 3.179688105248587e-05
+epoch: 0197 -- train loss: 0.86844 -- lr: 3.179688105248587e-05
+epoch: 0197 -- train loss: 0.87105 -- lr: 3.179688105248587e-05
+epoch: 0197 -- train loss: 0.86548 -- lr: 3.179688105248587e-05
+epoch: 0197 -- train loss: 0.86346 -- lr: 3.179688105248587e-05
+ 66%|██████▌   | 198/300 [6:46:43<3:28:40, 122.75s/it]epoch -- 0197 || train loss -- 0.86482 || val loss -- 0.86718 || lr -- 0.00003180 || val mean_dice -- 13.21270
+epoch: 0198 -- train loss: 0.82550 -- lr: 3.1317978470620905e-05
+epoch: 0198 -- train loss: 0.84862 -- lr: 3.1317978470620905e-05
+epoch: 0198 -- train loss: 0.86062 -- lr: 3.1317978470620905e-05
+epoch: 0198 -- train loss: 0.85588 -- lr: 3.1317978470620905e-05
+epoch: 0198 -- train loss: 0.85675 -- lr: 3.1317978470620905e-05
+ 66%|██████▋   | 199/300 [6:48:43<3:25:24, 122.02s/it]epoch -- 0198 || train loss -- 0.85730 || val loss -- 0.86644 || lr -- 0.00003132 || val mean_dice -- 13.36944
+epoch: 0199 -- train loss: 0.88616 -- lr: 3.084117941357835e-05
+epoch: 0199 -- train loss: 0.87157 -- lr: 3.084117941357835e-05
+epoch: 0199 -- train loss: 0.86124 -- lr: 3.084117941357835e-05
+epoch: 0199 -- train loss: 0.85979 -- lr: 3.084117941357835e-05
+epoch: 0199 -- train loss: 0.85865 -- lr: 3.084117941357835e-05
+ 67%|██████▋   | 200/300 [6:50:50<3:25:36, 123.36s/it]epoch -- 0199 || train loss -- 0.86180 || val loss -- 0.86572 || lr -- 0.00003084 || val mean_dice -- 13.43100
+epoch: 0200 -- train loss: 0.87021 -- lr: 3.036653616774789e-05
+epoch: 0200 -- train loss: 0.86269 -- lr: 3.036653616774789e-05
+epoch: 0200 -- train loss: 0.86449 -- lr: 3.036653616774789e-05
+epoch: 0200 -- train loss: 0.86991 -- lr: 3.036653616774789e-05
+epoch: 0200 -- train loss: 0.86927 -- lr: 3.036653616774789e-05
+ 67%|██████▋   | 201/300 [6:53:03<3:28:30, 126.37s/it]epoch -- 0200 || train loss -- 0.86931 || val loss -- 0.86810 || lr -- 0.00003037 || val mean_dice -- 13.20029
+epoch: 0201 -- train loss: 0.85802 -- lr: 2.989410078311015e-05
+epoch: 0201 -- train loss: 0.84841 -- lr: 2.989410078311015e-05
+epoch: 0201 -- train loss: 0.84802 -- lr: 2.989410078311015e-05
+epoch: 0201 -- train loss: 0.85168 -- lr: 2.989410078311015e-05
+epoch: 0201 -- train loss: 0.85645 -- lr: 2.989410078311015e-05
+ 67%|██████▋   | 202/300 [6:55:04<3:23:41, 124.71s/it]epoch -- 0201 || train loss -- 0.85366 || val loss -- 0.87030 || lr -- 0.00002989 || val mean_dice -- 12.86739
+epoch: 0202 -- train loss: 0.88708 -- lr: 2.9423925067528905e-05
+epoch: 0202 -- train loss: 0.88069 -- lr: 2.9423925067528905e-05
+epoch: 0202 -- train loss: 0.86771 -- lr: 2.9423925067528905e-05
+epoch: 0202 -- train loss: 0.87329 -- lr: 2.9423925067528905e-05
+epoch: 0202 -- train loss: 0.86986 -- lr: 2.9423925067528905e-05
+ 68%|██████▊   | 203/300 [6:57:07<3:20:53, 124.26s/it]epoch -- 0202 || train loss -- 0.87063 || val loss -- 0.87136 || lr -- 0.00002942 || val mean_dice -- 12.91322
+epoch: 0203 -- train loss: 0.83609 -- lr: 2.8956060581069795e-05
+epoch: 0203 -- train loss: 0.87697 -- lr: 2.8956060581069795e-05
+epoch: 0203 -- train loss: 0.86558 -- lr: 2.8956060581069795e-05
+epoch: 0203 -- train loss: 0.86127 -- lr: 2.8956060581069795e-05
+epoch: 0203 -- train loss: 0.86044 -- lr: 2.8956060581069795e-05
+ 68%|██████▊   | 204/300 [6:59:18<3:22:01, 126.27s/it]epoch -- 0203 || train loss -- 0.86108 || val loss -- 0.86803 || lr -- 0.00002896 || val mean_dice -- 13.20004
+epoch: 0204 -- train loss: 0.87245 -- lr: 2.8490558630346103e-05
+epoch: 0204 -- train loss: 0.88815 -- lr: 2.8490558630346103e-05
+epoch: 0204 -- train loss: 0.87534 -- lr: 2.8490558630346103e-05
+epoch: 0204 -- train loss: 0.86978 -- lr: 2.8490558630346103e-05
+epoch: 0204 -- train loss: 0.86704 -- lr: 2.8490558630346103e-05
+ 68%|██████▊   | 205/300 [7:01:21<3:18:05, 125.11s/it]epoch -- 0204 || train loss -- 0.86848 || val loss -- 0.86090 || lr -- 0.00002849 || val mean_dice -- 13.90077
+epoch: 0205 -- train loss: 0.89188 -- lr: 2.8027470262892437e-05
+epoch: 0205 -- train loss: 0.85069 -- lr: 2.8027470262892437e-05
+epoch: 0205 -- train loss: 0.85863 -- lr: 2.8027470262892437e-05
+epoch: 0205 -- train loss: 0.85624 -- lr: 2.8027470262892437e-05
+epoch: 0205 -- train loss: 0.85282 -- lr: 2.8027470262892437e-05
+ 69%|██████▊   | 206/300 [7:03:20<3:13:29, 123.50s/it]epoch -- 0205 || train loss -- 0.85520 || val loss -- 0.86201 || lr -- 0.00002803 || val mean_dice -- 13.73976
+epoch: 0206 -- train loss: 0.85460 -- lr: 2.7566846261566858e-05
+epoch: 0206 -- train loss: 0.85278 -- lr: 2.7566846261566858e-05
+epoch: 0206 -- train loss: 0.86773 -- lr: 2.7566846261566858e-05
+epoch: 0206 -- train loss: 0.86545 -- lr: 2.7566846261566858e-05
+epoch: 0206 -- train loss: 0.86044 -- lr: 2.7566846261566858e-05
+ 69%|██████▉   | 207/300 [7:05:19<3:09:03, 121.97s/it]epoch -- 0206 || train loss -- 0.86212 || val loss -- 0.86243 || lr -- 0.00002757 || val mean_dice -- 13.73192
+epoch: 0207 -- train loss: 0.89202 -- lr: 2.7108737138981835e-05
+epoch: 0207 -- train loss: 0.84761 -- lr: 2.7108737138981835e-05
+epoch: 0207 -- train loss: 0.85342 -- lr: 2.7108737138981835e-05
+epoch: 0207 -- train loss: 0.85939 -- lr: 2.7108737138981835e-05
+epoch: 0207 -- train loss: 0.86521 -- lr: 2.7108737138981835e-05
+ 69%|██████▉   | 208/300 [7:07:20<3:06:51, 121.86s/it]epoch -- 0207 || train loss -- 0.86211 || val loss -- 0.86332 || lr -- 0.00002711 || val mean_dice -- 13.67379
+epoch: 0208 -- train loss: 0.87848 -- lr: 2.665319313196509e-05
+epoch: 0208 -- train loss: 0.84807 -- lr: 2.665319313196509e-05
+epoch: 0208 -- train loss: 0.86142 -- lr: 2.665319313196509e-05
+epoch: 0208 -- train loss: 0.86842 -- lr: 2.665319313196509e-05
+epoch: 0208 -- train loss: 0.86522 -- lr: 2.665319313196509e-05
+ 70%|██████▉   | 209/300 [7:09:21<3:04:12, 121.45s/it]epoch -- 0208 || train loss -- 0.86343 || val loss -- 0.85650 || lr -- 0.00002665 || val mean_dice -- 14.28527
+epoch: 0209 -- train loss: 0.89525 -- lr: 2.620026419605053e-05
+epoch: 0209 -- train loss: 0.87356 -- lr: 2.620026419605053e-05
+epoch: 0209 -- train loss: 0.87950 -- lr: 2.620026419605053e-05
+epoch: 0209 -- train loss: 0.87202 -- lr: 2.620026419605053e-05
+epoch: 0209 -- train loss: 0.86752 -- lr: 2.620026419605053e-05
+ 70%|███████   | 210/300 [7:11:21<3:01:39, 121.11s/it]epoch -- 0209 || train loss -- 0.86730 || val loss -- 0.85988 || lr -- 0.00002620 || val mean_dice -- 14.08519
+epoch: 0210 -- train loss: 0.85824 -- lr: 2.5749999999999992e-05
+epoch: 0210 -- train loss: 0.85370 -- lr: 2.5749999999999992e-05
+epoch: 0210 -- train loss: 0.85656 -- lr: 2.5749999999999992e-05
+epoch: 0210 -- train loss: 0.86468 -- lr: 2.5749999999999992e-05
+epoch: 0210 -- train loss: 0.86526 -- lr: 2.5749999999999992e-05
+ 70%|███████   | 211/300 [7:13:31<3:03:17, 123.57s/it]epoch -- 0210 || train loss -- 0.86454 || val loss -- 0.86176 || lr -- 0.00002575 || val mean_dice -- 13.81555
+epoch: 0211 -- train loss: 0.85984 -- lr: 2.5302449920356623e-05
+epoch: 0211 -- train loss: 0.85532 -- lr: 2.5302449920356623e-05
+epoch: 0211 -- train loss: 0.85775 -- lr: 2.5302449920356623e-05
+epoch: 0211 -- train loss: 0.85758 -- lr: 2.5302449920356623e-05
+epoch: 0211 -- train loss: 0.85670 -- lr: 2.5302449920356623e-05
+ 71%|███████   | 212/300 [7:15:30<2:59:34, 122.44s/it]epoch -- 0211 || train loss -- 0.85773 || val loss -- 0.86490 || lr -- 0.00002530 || val mean_dice -- 13.38359
+epoch: 0212 -- train loss: 0.88226 -- lr: 2.4857663036030064e-05
+epoch: 0212 -- train loss: 0.87294 -- lr: 2.4857663036030064e-05
+epoch: 0212 -- train loss: 0.86855 -- lr: 2.4857663036030064e-05
+epoch: 0212 -- train loss: 0.86674 -- lr: 2.4857663036030064e-05
+epoch: 0212 -- train loss: 0.86066 -- lr: 2.4857663036030064e-05
+ 71%|███████   | 213/300 [7:17:39<3:00:18, 124.35s/it]epoch -- 0212 || train loss -- 0.85999 || val loss -- 0.86357 || lr -- 0.00002486 || val mean_dice -- 13.49782
+epoch: 0213 -- train loss: 0.88213 -- lr: 2.441568812291446e-05
+epoch: 0213 -- train loss: 0.86908 -- lr: 2.441568812291446e-05
+epoch: 0213 -- train loss: 0.86723 -- lr: 2.441568812291446e-05
+epoch: 0213 -- train loss: 0.86038 -- lr: 2.441568812291446e-05
+epoch: 0213 -- train loss: 0.85896 -- lr: 2.441568812291446e-05
+ 71%|███████▏  | 214/300 [7:19:41<2:57:14, 123.65s/it]epoch -- 0213 || train loss -- 0.86053 || val loss -- 0.86205 || lr -- 0.00002442 || val mean_dice -- 13.78843
+epoch: 0214 -- train loss: 0.83969 -- lr: 2.397657364853968e-05
+epoch: 0214 -- train loss: 0.85168 -- lr: 2.397657364853968e-05
+epoch: 0214 -- train loss: 0.85909 -- lr: 2.397657364853968e-05
+epoch: 0214 -- train loss: 0.85207 -- lr: 2.397657364853968e-05
+epoch: 0214 -- train loss: 0.85443 -- lr: 2.397657364853968e-05
+ 72%|███████▏  | 215/300 [7:21:47<2:56:15, 124.42s/it]epoch -- 0214 || train loss -- 0.85534 || val loss -- 0.86413 || lr -- 0.00002398 || val mean_dice -- 13.50693
+epoch: 0215 -- train loss: 0.85174 -- lr: 2.3540367766756178e-05
+epoch: 0215 -- train loss: 0.84555 -- lr: 2.3540367766756178e-05
+epoch: 0215 -- train loss: 0.85734 -- lr: 2.3540367766756178e-05
+epoch: 0215 -- train loss: 0.86471 -- lr: 2.3540367766756178e-05
+epoch: 0215 -- train loss: 0.86344 -- lr: 2.3540367766756178e-05
+ 72%|███████▏  | 216/300 [7:23:54<2:55:07, 125.09s/it]epoch -- 0215 || train loss -- 0.86027 || val loss -- 0.86280 || lr -- 0.00002354 || val mean_dice -- 13.56214
+epoch: 0216 -- train loss: 0.92678 -- lr: 2.3107118312454476e-05
+epoch: 0216 -- train loss: 0.86650 -- lr: 2.3107118312454476e-05
+epoch: 0216 -- train loss: 0.85895 -- lr: 2.3107118312454476e-05
+epoch: 0216 -- train loss: 0.86433 -- lr: 2.3107118312454476e-05
+epoch: 0216 -- train loss: 0.86306 -- lr: 2.3107118312454476e-05
+ 72%|███████▏  | 217/300 [7:25:54<2:50:41, 123.39s/it]epoch -- 0216 || train loss -- 0.86101 || val loss -- 0.85941 || lr -- 0.00002311 || val mean_dice -- 14.03500
+epoch: 0217 -- train loss: 0.82397 -- lr: 2.267687279631955e-05
+epoch: 0217 -- train loss: 0.86884 -- lr: 2.267687279631955e-05
+epoch: 0217 -- train loss: 0.86542 -- lr: 2.267687279631955e-05
+epoch: 0217 -- train loss: 0.86915 -- lr: 2.267687279631955e-05
+epoch: 0217 -- train loss: 0.86529 -- lr: 2.267687279631955e-05
+ 73%|███████▎  | 218/300 [7:27:59<2:49:26, 123.99s/it]epoch -- 0217 || train loss -- 0.86226 || val loss -- 0.85754 || lr -- 0.00002268 || val mean_dice -- 14.31096
+epoch: 0218 -- train loss: 0.88784 -- lr: 2.224967839962064e-05
+epoch: 0218 -- train loss: 0.86244 -- lr: 2.224967839962064e-05
+epoch: 0218 -- train loss: 0.86476 -- lr: 2.224967839962064e-05
+epoch: 0218 -- train loss: 0.85614 -- lr: 2.224967839962064e-05
+epoch: 0218 -- train loss: 0.85449 -- lr: 2.224967839962064e-05
+ 73%|███████▎  | 219/300 [7:30:07<2:48:50, 125.07s/it]epoch -- 0218 || train loss -- 0.85737 || val loss -- 0.85945 || lr -- 0.00002225 || val mean_dice -- 14.13257
+epoch: 0219 -- train loss: 0.85502 -- lr: 2.1825581969037396e-05
+epoch: 0219 -- train loss: 0.85835 -- lr: 2.1825581969037396e-05
+epoch: 0219 -- train loss: 0.85342 -- lr: 2.1825581969037396e-05
+epoch: 0219 -- train loss: 0.85498 -- lr: 2.1825581969037396e-05
+epoch: 0219 -- train loss: 0.85967 -- lr: 2.1825581969037396e-05
+ 73%|███████▎  | 220/300 [7:32:13<2:47:13, 125.41s/it]epoch -- 0219 || train loss -- 0.86088 || val loss -- 0.86616 || lr -- 0.00002183 || val mean_dice -- 13.33739
+epoch: 0220 -- train loss: 0.89074 -- lr: 2.1404630011522586e-05
+epoch: 0220 -- train loss: 0.86698 -- lr: 2.1404630011522586e-05
+epoch: 0220 -- train loss: 0.86512 -- lr: 2.1404630011522586e-05
+epoch: 0220 -- train loss: 0.86264 -- lr: 2.1404630011522586e-05
+epoch: 0220 -- train loss: 0.86641 -- lr: 2.1404630011522586e-05
+ 74%|███████▎  | 221/300 [7:34:20<2:45:53, 125.99s/it]epoch -- 0220 || train loss -- 0.86041 || val loss -- 0.86504 || lr -- 0.00002140 || val mean_dice -- 13.42053
+epoch: 0221 -- train loss: 0.85527 -- lr: 2.0986868689202015e-05
+epoch: 0221 -- train loss: 0.86833 -- lr: 2.0986868689202015e-05
+epoch: 0221 -- train loss: 0.86405 -- lr: 2.0986868689202015e-05
+epoch: 0221 -- train loss: 0.86250 -- lr: 2.0986868689202015e-05
+epoch: 0221 -- train loss: 0.85549 -- lr: 2.0986868689202015e-05
+ 74%|███████▍  | 222/300 [7:36:22<2:42:17, 124.84s/it]epoch -- 0221 || train loss -- 0.85337 || val loss -- 0.86875 || lr -- 0.00002099 || val mean_dice -- 13.06441
+epoch: 0222 -- train loss: 0.75960 -- lr: 2.0572343814312448e-05
+epoch: 0222 -- train loss: 0.84885 -- lr: 2.0572343814312448e-05
+epoch: 0222 -- train loss: 0.85903 -- lr: 2.0572343814312448e-05
+epoch: 0222 -- train loss: 0.85752 -- lr: 2.0572343814312448e-05
+epoch: 0222 -- train loss: 0.86129 -- lr: 2.0572343814312448e-05
+ 74%|███████▍  | 223/300 [7:38:29<2:40:59, 125.44s/it]epoch -- 0222 || train loss -- 0.86123 || val loss -- 0.86921 || lr -- 0.00002057 || val mean_dice -- 13.03142
+epoch: 0223 -- train loss: 0.82183 -- lr: 2.0161100844177676e-05
+epoch: 0223 -- train loss: 0.85594 -- lr: 2.0161100844177676e-05
+epoch: 0223 -- train loss: 0.85015 -- lr: 2.0161100844177676e-05
+epoch: 0223 -- train loss: 0.85688 -- lr: 2.0161100844177676e-05
+epoch: 0223 -- train loss: 0.85932 -- lr: 2.0161100844177676e-05
+ 75%|███████▍  | 224/300 [7:40:29<2:36:50, 123.83s/it]epoch -- 0223 || train loss -- 0.86110 || val loss -- 0.86484 || lr -- 0.00002016 || val mean_dice -- 13.55520
+epoch: 0224 -- train loss: 0.82430 -- lr: 1.9753184876223643e-05
+epoch: 0224 -- train loss: 0.87009 -- lr: 1.9753184876223643e-05
+epoch: 0224 -- train loss: 0.85295 -- lr: 1.9753184876223643e-05
+epoch: 0224 -- train loss: 0.85787 -- lr: 1.9753184876223643e-05
+epoch: 0224 -- train loss: 0.85387 -- lr: 1.9753184876223643e-05
+ 75%|███████▌  | 225/300 [7:42:28<2:32:54, 122.33s/it]epoch -- 0224 || train loss -- 0.85016 || val loss -- 0.85501 || lr -- 0.00001975 || val mean_dice -- 14.54394
+epoch: 0225 -- train loss: 0.86815 -- lr: 1.9348640643033057e-05
+epoch: 0225 -- train loss: 0.88609 -- lr: 1.9348640643033057e-05
+epoch: 0225 -- train loss: 0.87673 -- lr: 1.9348640643033057e-05
+epoch: 0225 -- train loss: 0.87077 -- lr: 1.9348640643033057e-05
+epoch: 0225 -- train loss: 0.86991 -- lr: 1.9348640643033057e-05
+ 75%|███████▌  | 226/300 [7:44:27<2:29:36, 121.30s/it]epoch -- 0225 || train loss -- 0.86704 || val loss -- 0.85905 || lr -- 0.00001935 || val mean_dice -- 14.13909
+epoch: 0226 -- train loss: 0.88898 -- lr: 1.8947512507439858e-05
+epoch: 0226 -- train loss: 0.85031 -- lr: 1.8947512507439858e-05
+epoch: 0226 -- train loss: 0.85970 -- lr: 1.8947512507439858e-05
+epoch: 0226 -- train loss: 0.86064 -- lr: 1.8947512507439858e-05
+epoch: 0226 -- train loss: 0.85953 -- lr: 1.8947512507439858e-05
+ 76%|███████▌  | 227/300 [7:46:22<2:25:29, 119.59s/it]epoch -- 0226 || train loss -- 0.86018 || val loss -- 0.85349 || lr -- 0.00001895 || val mean_dice -- 14.57456
+epoch: 0227 -- train loss: 0.85920 -- lr: 1.8549844457664458e-05
+epoch: 0227 -- train loss: 0.85870 -- lr: 1.8549844457664458e-05
+epoch: 0227 -- train loss: 0.86045 -- lr: 1.8549844457664458e-05
+epoch: 0227 -- train loss: 0.85925 -- lr: 1.8549844457664458e-05
+epoch: 0227 -- train loss: 0.86107 -- lr: 1.8549844457664458e-05
+ 76%|███████▌  | 228/300 [7:48:19<2:22:30, 118.76s/it]epoch -- 0227 || train loss -- 0.86169 || val loss -- 0.86206 || lr -- 0.00001855 || val mean_dice -- 13.70634
+epoch: 0228 -- train loss: 0.87185 -- lr: 1.8155680102489796e-05
+epoch: 0228 -- train loss: 0.85651 -- lr: 1.8155680102489796e-05
+epoch: 0228 -- train loss: 0.85946 -- lr: 1.8155680102489796e-05
+epoch: 0228 -- train loss: 0.85369 -- lr: 1.8155680102489796e-05
+epoch: 0228 -- train loss: 0.85482 -- lr: 1.8155680102489796e-05
+ 76%|███████▋  | 229/300 [7:50:22<2:22:04, 120.07s/it]epoch -- 0228 || train loss -- 0.85555 || val loss -- 0.85348 || lr -- 0.00001816 || val mean_dice -- 14.49902
+epoch: 0229 -- train loss: 0.89838 -- lr: 1.7765062666479224e-05
+epoch: 0229 -- train loss: 0.86238 -- lr: 1.7765062666479224e-05
+epoch: 0229 -- train loss: 0.85584 -- lr: 1.7765062666479224e-05
+epoch: 0229 -- train loss: 0.85742 -- lr: 1.7765062666479224e-05
+epoch: 0229 -- train loss: 0.85670 -- lr: 1.7765062666479224e-05
+ 77%|███████▋  | 230/300 [7:52:23<2:20:18, 120.27s/it]epoch -- 0229 || train loss -- 0.85717 || val loss -- 0.85962 || lr -- 0.00001777 || val mean_dice -- 14.04365
+epoch: 0230 -- train loss: 0.86613 -- lr: 1.737803498523652e-05
+epoch: 0230 -- train loss: 0.86625 -- lr: 1.737803498523652e-05
+epoch: 0230 -- train loss: 0.86398 -- lr: 1.737803498523652e-05
+epoch: 0230 -- train loss: 0.86205 -- lr: 1.737803498523652e-05
+epoch: 0230 -- train loss: 0.86194 -- lr: 1.737803498523652e-05
+ 77%|███████▋  | 231/300 [7:54:33<2:21:44, 123.25s/it]epoch -- 0230 || train loss -- 0.86201 || val loss -- 0.85557 || lr -- 0.00001738 || val mean_dice -- 14.36905
+epoch: 0231 -- train loss: 0.85356 -- lr: 1.6994639500708302e-05
+epoch: 0231 -- train loss: 0.87030 -- lr: 1.6994639500708302e-05
+epoch: 0231 -- train loss: 0.87091 -- lr: 1.6994639500708302e-05
+epoch: 0231 -- train loss: 0.86550 -- lr: 1.6994639500708302e-05
+epoch: 0231 -- train loss: 0.86156 -- lr: 1.6994639500708302e-05
+ 77%|███████▋  | 232/300 [7:56:37<2:19:59, 123.52s/it]epoch -- 0231 || train loss -- 0.85921 || val loss -- 0.85850 || lr -- 0.00001699 || val mean_dice -- 14.02628
+epoch: 0232 -- train loss: 0.77245 -- lr: 1.661491825652991e-05
+epoch: 0232 -- train loss: 0.85821 -- lr: 1.661491825652991e-05
+epoch: 0232 -- train loss: 0.85456 -- lr: 1.661491825652991e-05
+epoch: 0232 -- train loss: 0.85084 -- lr: 1.661491825652991e-05
+epoch: 0232 -- train loss: 0.85441 -- lr: 1.661491825652991e-05
+ 78%|███████▊  | 233/300 [7:58:49<2:20:36, 125.92s/it]epoch -- 0232 || train loss -- 0.85670 || val loss -- 0.86062 || lr -- 0.00001661 || val mean_dice -- 13.84941
+epoch: 0233 -- train loss: 0.83760 -- lr: 1.623891289341487e-05
+epoch: 0233 -- train loss: 0.85865 -- lr: 1.623891289341487e-05
+epoch: 0233 -- train loss: 0.85455 -- lr: 1.623891289341487e-05
+epoch: 0233 -- train loss: 0.86113 -- lr: 1.623891289341487e-05
+epoch: 0233 -- train loss: 0.86073 -- lr: 1.623891289341487e-05
+ 78%|███████▊  | 234/300 [8:00:49<2:16:26, 124.04s/it]epoch -- 0233 || train loss -- 0.86220 || val loss -- 0.86860 || lr -- 0.00001624 || val mean_dice -- 13.03982
+epoch: 0234 -- train loss: 0.84017 -- lr: 1.5866664644588407e-05
+epoch: 0234 -- train loss: 0.86908 -- lr: 1.5866664644588407e-05
+epoch: 0234 -- train loss: 0.84904 -- lr: 1.5866664644588407e-05
+epoch: 0234 -- train loss: 0.84703 -- lr: 1.5866664644588407e-05
+epoch: 0234 -- train loss: 0.85160 -- lr: 1.5866664644588407e-05
+ 78%|███████▊  | 235/300 [8:02:53<2:14:34, 124.23s/it]epoch -- 0234 || train loss -- 0.85314 || val loss -- 0.86521 || lr -- 0.00001587 || val mean_dice -- 13.30785
+epoch: 0235 -- train loss: 0.91031 -- lr: 1.54982143312659e-05
+epoch: 0235 -- train loss: 0.85802 -- lr: 1.54982143312659e-05
+epoch: 0235 -- train loss: 0.86127 -- lr: 1.54982143312659e-05
+epoch: 0235 -- train loss: 0.86265 -- lr: 1.54982143312659e-05
+epoch: 0235 -- train loss: 0.86008 -- lr: 1.54982143312659e-05
+ 79%|███████▊  | 236/300 [8:04:53<2:11:09, 122.97s/it]epoch -- 0235 || train loss -- 0.86034 || val loss -- 0.85964 || lr -- 0.00001550 || val mean_dice -- 14.02986
+epoch: 0236 -- train loss: 0.85584 -- lr: 1.5133602358176246e-05
+epoch: 0236 -- train loss: 0.85380 -- lr: 1.5133602358176246e-05
+epoch: 0236 -- train loss: 0.85085 -- lr: 1.5133602358176246e-05
+epoch: 0236 -- train loss: 0.85100 -- lr: 1.5133602358176246e-05
+epoch: 0236 -- train loss: 0.85413 -- lr: 1.5133602358176246e-05
+ 79%|███████▉  | 237/300 [8:07:02<2:10:48, 124.57s/it]epoch -- 0236 || train loss -- 0.85496 || val loss -- 0.86719 || lr -- 0.00001513 || val mean_dice -- 13.23434
+epoch: 0237 -- train loss: 0.83355 -- lr: 1.4772868709131075e-05
+epoch: 0237 -- train loss: 0.86248 -- lr: 1.4772868709131075e-05
+epoch: 0237 -- train loss: 0.86162 -- lr: 1.4772868709131075e-05
+epoch: 0237 -- train loss: 0.86038 -- lr: 1.4772868709131075e-05
+epoch: 0237 -- train loss: 0.85901 -- lr: 1.4772868709131075e-05
+ 79%|███████▉  | 238/300 [8:09:10<2:10:02, 125.85s/it]epoch -- 0237 || train loss -- 0.85807 || val loss -- 0.86122 || lr -- 0.00001477 || val mean_dice -- 13.70762
+epoch: 0238 -- train loss: 0.90387 -- lr: 1.441605294264014e-05
+epoch: 0238 -- train loss: 0.86744 -- lr: 1.441605294264014e-05
+epoch: 0238 -- train loss: 0.86308 -- lr: 1.441605294264014e-05
+epoch: 0238 -- train loss: 0.87156 -- lr: 1.441605294264014e-05
+epoch: 0238 -- train loss: 0.86972 -- lr: 1.441605294264014e-05
+ 80%|███████▉  | 239/300 [8:11:20<2:09:11, 127.08s/it]epoch -- 0238 || train loss -- 0.86744 || val loss -- 0.86241 || lr -- 0.00001442 || val mean_dice -- 13.69225
+epoch: 0239 -- train loss: 0.87485 -- lr: 1.4063194187573169e-05
+epoch: 0239 -- train loss: 0.85705 -- lr: 1.4063194187573169e-05
+epoch: 0239 -- train loss: 0.84260 -- lr: 1.4063194187573169e-05
+epoch: 0239 -- train loss: 0.84587 -- lr: 1.4063194187573169e-05
+epoch: 0239 -- train loss: 0.85316 -- lr: 1.4063194187573169e-05
+ 80%|████████  | 240/300 [8:13:32<2:08:27, 128.45s/it]epoch -- 0239 || train loss -- 0.85441 || val loss -- 0.86736 || lr -- 0.00001406 || val mean_dice -- 13.24065
+epoch: 0240 -- train loss: 0.88338 -- lr: 1.3714331138868981e-05
+epoch: 0240 -- train loss: 0.85227 -- lr: 1.3714331138868981e-05
+epoch: 0240 -- train loss: 0.86129 -- lr: 1.3714331138868981e-05
+epoch: 0240 -- train loss: 0.86701 -- lr: 1.3714331138868981e-05
+epoch: 0240 -- train loss: 0.86402 -- lr: 1.3714331138868981e-05
+ 80%|████████  | 241/300 [8:15:34<2:04:16, 126.38s/it]epoch -- 0240 || train loss -- 0.86466 || val loss -- 0.85647 || lr -- 0.00001371 || val mean_dice -- 14.31233
+epoch: 0241 -- train loss: 0.71547 -- lr: 1.3369502053292252e-05
+epoch: 0241 -- train loss: 0.85205 -- lr: 1.3369502053292252e-05
+epoch: 0241 -- train loss: 0.85249 -- lr: 1.3369502053292252e-05
+epoch: 0241 -- train loss: 0.85295 -- lr: 1.3369502053292252e-05
+epoch: 0241 -- train loss: 0.85283 -- lr: 1.3369502053292252e-05
+ 81%|████████  | 242/300 [8:17:52<2:05:44, 130.07s/it]epoch -- 0241 || train loss -- 0.85351 || val loss -- 0.85758 || lr -- 0.00001337 || val mean_dice -- 14.21186
+epoch: 0242 -- train loss: 0.88271 -- lr: 1.3028744745238066e-05
+epoch: 0242 -- train loss: 0.86904 -- lr: 1.3028744745238066e-05
+epoch: 0242 -- train loss: 0.84866 -- lr: 1.3028744745238066e-05
+epoch: 0242 -- train loss: 0.85907 -- lr: 1.3028744745238066e-05
+epoch: 0242 -- train loss: 0.86009 -- lr: 1.3028744745238066e-05
+ 81%|████████  | 243/300 [8:20:01<2:03:14, 129.73s/it]epoch -- 0242 || train loss -- 0.85996 || val loss -- 0.85814 || lr -- 0.00001303 || val mean_dice -- 14.12795
+epoch: 0243 -- train loss: 0.90464 -- lr: 1.269209658258521e-05
+epoch: 0243 -- train loss: 0.86985 -- lr: 1.269209658258521e-05
+epoch: 0243 -- train loss: 0.86703 -- lr: 1.269209658258521e-05
+epoch: 0243 -- train loss: 0.86715 -- lr: 1.269209658258521e-05
+epoch: 0243 -- train loss: 0.86552 -- lr: 1.269209658258521e-05
+ 81%|████████▏ | 244/300 [8:22:08<2:00:16, 128.87s/it]epoch -- 0243 || train loss -- 0.86483 || val loss -- 0.86190 || lr -- 0.00001269 || val mean_dice -- 13.81349
+epoch: 0244 -- train loss: 0.86976 -- lr: 1.235959448259844e-05
+epoch: 0244 -- train loss: 0.86217 -- lr: 1.235959448259844e-05
+epoch: 0244 -- train loss: 0.85712 -- lr: 1.235959448259844e-05
+epoch: 0244 -- train loss: 0.85702 -- lr: 1.235959448259844e-05
+epoch: 0244 -- train loss: 0.86013 -- lr: 1.235959448259844e-05
+ 82%|████████▏ | 245/300 [8:24:10<1:56:14, 126.81s/it]epoch -- 0244 || train loss -- 0.85923 || val loss -- 0.86002 || lr -- 0.00001236 || val mean_dice -- 13.99139
+epoch: 0245 -- train loss: 0.85489 -- lr: 1.2031274907879942e-05
+epoch: 0245 -- train loss: 0.85234 -- lr: 1.2031274907879942e-05
+epoch: 0245 -- train loss: 0.85249 -- lr: 1.2031274907879942e-05
+epoch: 0245 -- train loss: 0.84886 -- lr: 1.2031274907879942e-05
+epoch: 0245 -- train loss: 0.84855 -- lr: 1.2031274907879942e-05
+ 82%|████████▏ | 246/300 [8:26:08<1:51:50, 124.27s/it]epoch -- 0245 || train loss -- 0.84374 || val loss -- 0.85787 || lr -- 0.00001203 || val mean_dice -- 14.20067
+epoch: 0246 -- train loss: 0.86585 -- lr: 1.1707173862370935e-05
+epoch: 0246 -- train loss: 0.85263 -- lr: 1.1707173862370935e-05
+epoch: 0246 -- train loss: 0.83862 -- lr: 1.1707173862370935e-05
+epoch: 0246 -- train loss: 0.84580 -- lr: 1.1707173862370935e-05
+epoch: 0246 -- train loss: 0.84595 -- lr: 1.1707173862370935e-05
+ 82%|████████▏ | 247/300 [8:28:14<1:50:03, 124.59s/it]epoch -- 0246 || train loss -- 0.84867 || val loss -- 0.85313 || lr -- 0.00001171 || val mean_dice -- 14.74319 -- saved
+epoch: 0247 -- train loss: 0.92011 -- lr: 1.1387326887403337e-05
+epoch: 0247 -- train loss: 0.85379 -- lr: 1.1387326887403337e-05
+epoch: 0247 -- train loss: 0.84441 -- lr: 1.1387326887403337e-05
+epoch: 0247 -- train loss: 0.84780 -- lr: 1.1387326887403337e-05
+epoch: 0247 -- train loss: 0.85388 -- lr: 1.1387326887403337e-05
+ 83%|████████▎ | 248/300 [8:30:16<1:47:28, 124.00s/it]epoch -- 0247 || train loss -- 0.85657 || val loss -- 0.85305 || lr -- 0.00001139 || val mean_dice -- 14.74465 -- saved
+epoch: 0248 -- train loss: 0.84403 -- lr: 1.1071769057802287e-05
+epoch: 0248 -- train loss: 0.85724 -- lr: 1.1071769057802287e-05
+epoch: 0248 -- train loss: 0.85541 -- lr: 1.1071769057802287e-05
+epoch: 0248 -- train loss: 0.85289 -- lr: 1.1071769057802287e-05
+epoch: 0248 -- train loss: 0.84994 -- lr: 1.1071769057802287e-05
+ 83%|████████▎ | 249/300 [8:32:11<1:43:06, 121.30s/it]epoch -- 0248 || train loss -- 0.85212 || val loss -- 0.85156 || lr -- 0.00001107 || val mean_dice -- 14.89529 -- saved
+epoch: 0249 -- train loss: 0.79076 -- lr: 1.0760534978039841e-05
+epoch: 0249 -- train loss: 0.86550 -- lr: 1.0760534978039841e-05
+epoch: 0249 -- train loss: 0.85385 -- lr: 1.0760534978039841e-05
+epoch: 0249 -- train loss: 0.85128 -- lr: 1.0760534978039841e-05
+epoch: 0249 -- train loss: 0.85826 -- lr: 1.0760534978039841e-05
+ 83%|████████▎ | 250/300 [8:34:08<1:39:55, 119.91s/it]epoch -- 0249 || train loss -- 0.85685 || val loss -- 0.85209 || lr -- 0.00001076 || val mean_dice -- 14.80453
+epoch: 0250 -- train loss: 0.86633 -- lr: 1.0453658778440109e-05
+epoch: 0250 -- train loss: 0.87483 -- lr: 1.0453658778440109e-05
+epoch: 0250 -- train loss: 0.86596 -- lr: 1.0453658778440109e-05
+epoch: 0250 -- train loss: 0.86191 -- lr: 1.0453658778440109e-05
+epoch: 0250 -- train loss: 0.85899 -- lr: 1.0453658778440109e-05
+ 84%|████████▎ | 251/300 [8:36:07<1:37:39, 119.59s/it]epoch -- 0250 || train loss -- 0.85935 || val loss -- 0.85356 || lr -- 0.00001045 || val mean_dice -- 14.55155
+epoch: 0251 -- train loss: 0.90086 -- lr: 1.0151174111436563e-05
+epoch: 0251 -- train loss: 0.86789 -- lr: 1.0151174111436563e-05
+epoch: 0251 -- train loss: 0.86550 -- lr: 1.0151174111436563e-05
+epoch: 0251 -- train loss: 0.86007 -- lr: 1.0151174111436563e-05
+epoch: 0251 -- train loss: 0.86028 -- lr: 1.0151174111436563e-05
+ 84%|████████▍ | 252/300 [8:38:07<1:35:41, 119.61s/it]epoch -- 0251 || train loss -- 0.85904 || val loss -- 0.85331 || lr -- 0.00001015 || val mean_dice -- 14.60962
+epoch: 0252 -- train loss: 0.80344 -- lr: 9.853114147881652e-06
+epoch: 0252 -- train loss: 0.84722 -- lr: 9.853114147881652e-06
+epoch: 0252 -- train loss: 0.85013 -- lr: 9.853114147881652e-06
+epoch: 0252 -- train loss: 0.85471 -- lr: 9.853114147881652e-06
+epoch: 0252 -- train loss: 0.85555 -- lr: 9.853114147881652e-06
+ 84%|████████▍ | 253/300 [8:40:12<1:34:57, 121.23s/it]epoch -- 0252 || train loss -- 0.85519 || val loss -- 0.84952 || lr -- 0.00000985 || val mean_dice -- 14.98630 -- saved
+epoch: 0253 -- train loss: 0.83937 -- lr: 9.559511573409185e-06
+epoch: 0253 -- train loss: 0.84399 -- lr: 9.559511573409185e-06
+epoch: 0253 -- train loss: 0.84280 -- lr: 9.559511573409185e-06
+epoch: 0253 -- train loss: 0.84938 -- lr: 9.559511573409185e-06
+epoch: 0253 -- train loss: 0.85274 -- lr: 9.559511573409185e-06
+ 85%|████████▍ | 254/300 [8:42:13<1:32:52, 121.13s/it]epoch -- 0253 || train loss -- 0.85357 || val loss -- 0.85174 || lr -- 0.00000956 || val mean_dice -- 14.86564
+epoch: 0254 -- train loss: 0.80984 -- lr: 9.27039858485008e-06
+epoch: 0254 -- train loss: 0.83628 -- lr: 9.27039858485008e-06
+epoch: 0254 -- train loss: 0.84351 -- lr: 9.27039858485008e-06
+epoch: 0254 -- train loss: 0.84184 -- lr: 9.27039858485008e-06
+epoch: 0254 -- train loss: 0.84399 -- lr: 9.27039858485008e-06
+ 85%|████████▌ | 255/300 [8:44:13<1:30:36, 120.82s/it]epoch -- 0254 || train loss -- 0.84926 || val loss -- 0.84932 || lr -- 0.00000927 || val mean_dice -- 15.05494 -- saved
+epoch: 0255 -- train loss: 0.89815 -- lr: 8.985806886701515e-06
+epoch: 0255 -- train loss: 0.85267 -- lr: 8.985806886701515e-06
+epoch: 0255 -- train loss: 0.85378 -- lr: 8.985806886701515e-06
+epoch: 0255 -- train loss: 0.85476 -- lr: 8.985806886701515e-06
+epoch: 0255 -- train loss: 0.85353 -- lr: 8.985806886701515e-06
+ 85%|████████▌ | 256/300 [8:46:11<1:27:58, 119.97s/it]epoch -- 0255 || train loss -- 0.85448 || val loss -- 0.84855 || lr -- 0.00000899 || val mean_dice -- 15.17766 -- saved
+epoch: 0256 -- train loss: 0.84050 -- lr: 8.705767687650254e-06
+epoch: 0256 -- train loss: 0.85900 -- lr: 8.705767687650254e-06
+epoch: 0256 -- train loss: 0.86215 -- lr: 8.705767687650254e-06
+epoch: 0256 -- train loss: 0.85723 -- lr: 8.705767687650254e-06
+epoch: 0256 -- train loss: 0.85641 -- lr: 8.705767687650254e-06
+ 86%|████████▌ | 257/300 [8:48:10<1:25:46, 119.69s/it]epoch -- 0256 || train loss -- 0.85516 || val loss -- 0.85400 || lr -- 0.00000871 || val mean_dice -- 14.54253
+epoch: 0257 -- train loss: 0.90334 -- lr: 8.430311697150245e-06
+epoch: 0257 -- train loss: 0.86274 -- lr: 8.430311697150245e-06
+epoch: 0257 -- train loss: 0.86041 -- lr: 8.430311697150245e-06
+epoch: 0257 -- train loss: 0.85628 -- lr: 8.430311697150245e-06
+epoch: 0257 -- train loss: 0.85634 -- lr: 8.430311697150245e-06
+ 86%|████████▌ | 258/300 [8:50:12<1:24:21, 120.52s/it]epoch -- 0257 || train loss -- 0.85819 || val loss -- 0.85210 || lr -- 0.00000843 || val mean_dice -- 14.76044
+epoch: 0258 -- train loss: 0.87733 -- lr: 8.159469122054924e-06
+epoch: 0258 -- train loss: 0.85745 -- lr: 8.159469122054924e-06
+epoch: 0258 -- train loss: 0.86407 -- lr: 8.159469122054924e-06
+epoch: 0258 -- train loss: 0.85821 -- lr: 8.159469122054924e-06
+epoch: 0258 -- train loss: 0.85816 -- lr: 8.159469122054924e-06
+ 86%|████████▋ | 259/300 [8:52:08<1:21:24, 119.13s/it]epoch -- 0258 || train loss -- 0.85800 || val loss -- 0.84859 || lr -- 0.00000816 || val mean_dice -- 15.16134
+epoch: 0259 -- train loss: 0.86089 -- lr: 7.893269663304796e-06
+epoch: 0259 -- train loss: 0.86026 -- lr: 7.893269663304796e-06
+epoch: 0259 -- train loss: 0.85961 -- lr: 7.893269663304796e-06
+epoch: 0259 -- train loss: 0.85624 -- lr: 7.893269663304796e-06
+epoch: 0259 -- train loss: 0.85560 -- lr: 7.893269663304796e-06
+ 87%|████████▋ | 260/300 [8:54:13<1:20:37, 120.93s/it]epoch -- 0259 || train loss -- 0.85650 || val loss -- 0.85101 || lr -- 0.00000789 || val mean_dice -- 14.90907
+epoch: 0260 -- train loss: 0.86004 -- lr: 7.631742512670296e-06
+epoch: 0260 -- train loss: 0.86389 -- lr: 7.631742512670296e-06
+epoch: 0260 -- train loss: 0.86531 -- lr: 7.631742512670296e-06
+epoch: 0260 -- train loss: 0.86135 -- lr: 7.631742512670296e-06
+epoch: 0260 -- train loss: 0.86093 -- lr: 7.631742512670296e-06
+ 87%|████████▋ | 261/300 [8:56:18<1:19:25, 122.19s/it]epoch -- 0260 || train loss -- 0.85889 || val loss -- 0.84884 || lr -- 0.00000763 || val mean_dice -- 15.17134
+epoch: 0261 -- train loss: 0.82027 -- lr: 7.374916349550616e-06
+epoch: 0261 -- train loss: 0.83458 -- lr: 7.374916349550616e-06
+epoch: 0261 -- train loss: 0.83288 -- lr: 7.374916349550616e-06
+epoch: 0261 -- train loss: 0.83500 -- lr: 7.374916349550616e-06
+epoch: 0261 -- train loss: 0.84130 -- lr: 7.374916349550616e-06
+ 87%|████████▋ | 262/300 [8:58:20<1:17:19, 122.08s/it]epoch -- 0261 || train loss -- 0.84405 || val loss -- 0.85448 || lr -- 0.00000737 || val mean_dice -- 14.64345
+epoch: 0262 -- train loss: 0.81954 -- lr: 7.122819337828753e-06
+epoch: 0262 -- train loss: 0.85125 -- lr: 7.122819337828753e-06
+epoch: 0262 -- train loss: 0.84174 -- lr: 7.122819337828753e-06
+epoch: 0262 -- train loss: 0.84729 -- lr: 7.122819337828753e-06
+epoch: 0262 -- train loss: 0.84783 -- lr: 7.122819337828753e-06
+ 88%|████████▊ | 263/300 [9:00:20<1:14:50, 121.37s/it]epoch -- 0262 || train loss -- 0.85112 || val loss -- 0.85270 || lr -- 0.00000712 || val mean_dice -- 14.75798
+epoch: 0263 -- train loss: 0.82668 -- lr: 6.875479122782888e-06
+epoch: 0263 -- train loss: 0.85465 -- lr: 6.875479122782888e-06
+epoch: 0263 -- train loss: 0.85604 -- lr: 6.875479122782888e-06
+epoch: 0263 -- train loss: 0.85921 -- lr: 6.875479122782888e-06
+epoch: 0263 -- train loss: 0.85701 -- lr: 6.875479122782888e-06
+ 88%|████████▊ | 264/300 [9:02:23<1:13:12, 122.03s/it]epoch -- 0263 || train loss -- 0.85801 || val loss -- 0.85348 || lr -- 0.00000688 || val mean_dice -- 14.64216
+epoch: 0264 -- train loss: 0.88354 -- lr: 6.632922828054871e-06
+epoch: 0264 -- train loss: 0.87316 -- lr: 6.632922828054871e-06
+epoch: 0264 -- train loss: 0.87239 -- lr: 6.632922828054871e-06
+epoch: 0264 -- train loss: 0.86660 -- lr: 6.632922828054871e-06
+epoch: 0264 -- train loss: 0.86232 -- lr: 6.632922828054871e-06
+ 88%|████████▊ | 265/300 [9:04:21<1:10:30, 120.86s/it]epoch -- 0264 || train loss -- 0.85974 || val loss -- 0.85112 || lr -- 0.00000663 || val mean_dice -- 14.91988
+epoch: 0265 -- train loss: 0.86273 -- lr: 6.395177052675795e-06
+epoch: 0265 -- train loss: 0.86688 -- lr: 6.395177052675795e-06
+epoch: 0265 -- train loss: 0.86706 -- lr: 6.395177052675795e-06
+epoch: 0265 -- train loss: 0.86634 -- lr: 6.395177052675795e-06
+epoch: 0265 -- train loss: 0.86901 -- lr: 6.395177052675795e-06
+ 89%|████████▊ | 266/300 [9:06:20<1:08:00, 120.02s/it]epoch -- 0265 || train loss -- 0.86676 || val loss -- 0.85446 || lr -- 0.00000640 || val mean_dice -- 14.50956
+epoch: 0266 -- train loss: 0.86159 -- lr: 6.162267868149073e-06
+epoch: 0266 -- train loss: 0.85397 -- lr: 6.162267868149073e-06
+epoch: 0266 -- train loss: 0.86097 -- lr: 6.162267868149073e-06
+epoch: 0266 -- train loss: 0.86199 -- lr: 6.162267868149073e-06
+epoch: 0266 -- train loss: 0.85713 -- lr: 6.162267868149073e-06
+ 89%|████████▉ | 267/300 [9:08:17<1:05:36, 119.29s/it]epoch -- 0266 || train loss -- 0.85598 || val loss -- 0.85270 || lr -- 0.00000616 || val mean_dice -- 14.76360
+epoch: 0267 -- train loss: 0.85329 -- lr: 5.934220815591421e-06
+epoch: 0267 -- train loss: 0.85196 -- lr: 5.934220815591421e-06
+epoch: 0267 -- train loss: 0.84962 -- lr: 5.934220815591421e-06
+epoch: 0267 -- train loss: 0.85656 -- lr: 5.934220815591421e-06
+epoch: 0267 -- train loss: 0.85508 -- lr: 5.934220815591421e-06
+ 89%|████████▉ | 268/300 [9:10:18<1:03:48, 119.63s/it]epoch -- 0267 || train loss -- 0.85401 || val loss -- 0.85422 || lr -- 0.00000593 || val mean_dice -- 14.57377
+epoch: 0268 -- train loss: 0.84650 -- lr: 5.711060902932042e-06
+epoch: 0268 -- train loss: 0.84010 -- lr: 5.711060902932042e-06
+epoch: 0268 -- train loss: 0.84819 -- lr: 5.711060902932042e-06
+epoch: 0268 -- train loss: 0.84921 -- lr: 5.711060902932042e-06
+epoch: 0268 -- train loss: 0.84953 -- lr: 5.711060902932042e-06
+ 90%|████████▉ | 269/300 [9:12:18<1:01:53, 119.81s/it]epoch -- 0268 || train loss -- 0.85150 || val loss -- 0.85239 || lr -- 0.00000571 || val mean_dice -- 14.81196
+epoch: 0269 -- train loss: 0.85171 -- lr: 5.492812602170108e-06
+epoch: 0269 -- train loss: 0.84648 -- lr: 5.492812602170108e-06
+epoch: 0269 -- train loss: 0.85040 -- lr: 5.492812602170108e-06
+epoch: 0269 -- train loss: 0.85740 -- lr: 5.492812602170108e-06
+epoch: 0269 -- train loss: 0.85904 -- lr: 5.492812602170108e-06
+ 90%|█████████ | 270/300 [9:14:19<1:00:07, 120.24s/it]epoch -- 0269 || train loss -- 0.86060 || val loss -- 0.85418 || lr -- 0.00000549 || val mean_dice -- 14.51719
+epoch: 0270 -- train loss: 0.85847 -- lr: 5.279499846691262e-06
+epoch: 0270 -- train loss: 0.85944 -- lr: 5.279499846691262e-06
+epoch: 0270 -- train loss: 0.84459 -- lr: 5.279499846691262e-06
+epoch: 0270 -- train loss: 0.85268 -- lr: 5.279499846691262e-06
+epoch: 0270 -- train loss: 0.85196 -- lr: 5.279499846691262e-06
+ 90%|█████████ | 271/300 [9:16:19<58:06, 120.21s/it]  epoch -- 0270 || train loss -- 0.85004 || val loss -- 0.85378 || lr -- 0.00000528 || val mean_dice -- 14.70725
+epoch: 0271 -- train loss: 0.85756 -- lr: 5.071146028642945e-06
+epoch: 0271 -- train loss: 0.86035 -- lr: 5.071146028642945e-06
+epoch: 0271 -- train loss: 0.85104 -- lr: 5.071146028642945e-06
+epoch: 0271 -- train loss: 0.85670 -- lr: 5.071146028642945e-06
+epoch: 0271 -- train loss: 0.86094 -- lr: 5.071146028642945e-06
+ 91%|█████████ | 272/300 [9:18:24<56:47, 121.71s/it]epoch -- 0271 || train loss -- 0.86158 || val loss -- 0.84905 || lr -- 0.00000507 || val mean_dice -- 15.04220
+epoch: 0272 -- train loss: 0.83483 -- lr: 4.867773996369219e-06
+epoch: 0272 -- train loss: 0.87706 -- lr: 4.867773996369219e-06
+epoch: 0272 -- train loss: 0.86875 -- lr: 4.867773996369219e-06
+epoch: 0272 -- train loss: 0.85800 -- lr: 4.867773996369219e-06
+epoch: 0272 -- train loss: 0.86058 -- lr: 4.867773996369219e-06
+ 91%|█████████ | 273/300 [9:20:37<56:16, 125.07s/it]epoch -- 0272 || train loss -- 0.85599 || val loss -- 0.85132 || lr -- 0.00000487 || val mean_dice -- 14.88784
+epoch: 0273 -- train loss: 0.92693 -- lr: 4.669406051905261e-06
+epoch: 0273 -- train loss: 0.86207 -- lr: 4.669406051905261e-06
+epoch: 0273 -- train loss: 0.85641 -- lr: 4.669406051905261e-06
+epoch: 0273 -- train loss: 0.86392 -- lr: 4.669406051905261e-06
+epoch: 0273 -- train loss: 0.86095 -- lr: 4.669406051905261e-06
+ 91%|█████████▏| 274/300 [9:22:39<53:42, 123.95s/it]epoch -- 0273 || train loss -- 0.85697 || val loss -- 0.85399 || lr -- 0.00000467 || val mean_dice -- 14.64362
+epoch: 0274 -- train loss: 0.83877 -- lr: 4.476063948531558e-06
+epoch: 0274 -- train loss: 0.84514 -- lr: 4.476063948531558e-06
+epoch: 0274 -- train loss: 0.84585 -- lr: 4.476063948531558e-06
+epoch: 0274 -- train loss: 0.84719 -- lr: 4.476063948531558e-06
+epoch: 0274 -- train loss: 0.84894 -- lr: 4.476063948531558e-06
+ 92%|█████████▏| 275/300 [9:24:41<51:30, 123.61s/it]epoch -- 0274 || train loss -- 0.84774 || val loss -- 0.85093 || lr -- 0.00000448 || val mean_dice -- 14.92413
+epoch: 0275 -- train loss: 0.87670 -- lr: 4.287768888388514e-06
+epoch: 0275 -- train loss: 0.85632 -- lr: 4.287768888388514e-06
+epoch: 0275 -- train loss: 0.85370 -- lr: 4.287768888388514e-06
+epoch: 0275 -- train loss: 0.85112 -- lr: 4.287768888388514e-06
+epoch: 0275 -- train loss: 0.85312 -- lr: 4.287768888388514e-06
+ 92%|█████████▏| 276/300 [9:26:50<50:02, 125.11s/it]epoch -- 0275 || train loss -- 0.85149 || val loss -- 0.85022 || lr -- 0.00000429 || val mean_dice -- 14.97794
+epoch: 0276 -- train loss: 0.75327 -- lr: 4.104541520151373e-06
+epoch: 0276 -- train loss: 0.84063 -- lr: 4.104541520151373e-06
+epoch: 0276 -- train loss: 0.84851 -- lr: 4.104541520151373e-06
+epoch: 0276 -- train loss: 0.84778 -- lr: 4.104541520151373e-06
+epoch: 0276 -- train loss: 0.84627 -- lr: 4.104541520151373e-06
+ 92%|█████████▏| 277/300 [9:28:46<46:54, 122.36s/it]epoch -- 0276 || train loss -- 0.84990 || val loss -- 0.85206 || lr -- 0.00000410 || val mean_dice -- 14.79255
+epoch: 0277 -- train loss: 0.88919 -- lr: 3.92640193676584e-06
+epoch: 0277 -- train loss: 0.85044 -- lr: 3.92640193676584e-06
+epoch: 0277 -- train loss: 0.84736 -- lr: 3.92640193676584e-06
+epoch: 0277 -- train loss: 0.84742 -- lr: 3.92640193676584e-06
+epoch: 0277 -- train loss: 0.84408 -- lr: 3.92640193676584e-06
+ 93%|█████████▎| 278/300 [9:30:47<44:42, 121.94s/it]epoch -- 0277 || train loss -- 0.84995 || val loss -- 0.84762 || lr -- 0.00000393 || val mean_dice -- 15.24444 -- saved
+epoch: 0278 -- train loss: 0.82531 -- lr: 3.753369673244691e-06
+epoch: 0278 -- train loss: 0.84477 -- lr: 3.753369673244691e-06
+epoch: 0278 -- train loss: 0.84854 -- lr: 3.753369673244691e-06
+epoch: 0278 -- train loss: 0.84780 -- lr: 3.753369673244691e-06
+epoch: 0278 -- train loss: 0.85084 -- lr: 3.753369673244691e-06
+ 93%|█████████▎| 279/300 [9:32:50<42:46, 122.20s/it]epoch -- 0278 || train loss -- 0.85180 || val loss -- 0.84939 || lr -- 0.00000375 || val mean_dice -- 15.07398
+epoch: 0279 -- train loss: 0.84342 -- lr: 3.5854637045255148e-06
+epoch: 0279 -- train loss: 0.86006 -- lr: 3.5854637045255148e-06
+epoch: 0279 -- train loss: 0.85836 -- lr: 3.5854637045255148e-06
+epoch: 0279 -- train loss: 0.85871 -- lr: 3.5854637045255148e-06
+epoch: 0279 -- train loss: 0.85984 -- lr: 3.5854637045255148e-06
+ 93%|█████████▎| 280/300 [9:34:46<40:07, 120.38s/it]epoch -- 0279 || train loss -- 0.85891 || val loss -- 0.85192 || lr -- 0.00000359 || val mean_dice -- 14.79997
+epoch: 0280 -- train loss: 0.87189 -- lr: 3.4227024433899e-06
+epoch: 0280 -- train loss: 0.85825 -- lr: 3.4227024433899e-06
+epoch: 0280 -- train loss: 0.86550 -- lr: 3.4227024433899e-06
+epoch: 0280 -- train loss: 0.85618 -- lr: 3.4227024433899e-06
+epoch: 0280 -- train loss: 0.85853 -- lr: 3.4227024433899e-06
+ 94%|█████████▎| 281/300 [9:36:50<38:27, 121.45s/it]epoch -- 0280 || train loss -- 0.85400 || val loss -- 0.84933 || lr -- 0.00000342 || val mean_dice -- 15.04091
+epoch: 0281 -- train loss: 0.78342 -- lr: 3.2651037384442977e-06
+epoch: 0281 -- train loss: 0.85494 -- lr: 3.2651037384442977e-06
+epoch: 0281 -- train loss: 0.86254 -- lr: 3.2651037384442977e-06
+epoch: 0281 -- train loss: 0.85865 -- lr: 3.2651037384442977e-06
+epoch: 0281 -- train loss: 0.85658 -- lr: 3.2651037384442977e-06
+ 94%|█████████▍| 282/300 [9:38:49<36:15, 120.86s/it]epoch -- 0281 || train loss -- 0.85664 || val loss -- 0.84715 || lr -- 0.00000327 || val mean_dice -- 15.29993 -- saved
+epoch: 0282 -- train loss: 0.90218 -- lr: 3.112684872162672e-06
+epoch: 0282 -- train loss: 0.86070 -- lr: 3.112684872162672e-06
+epoch: 0282 -- train loss: 0.85677 -- lr: 3.112684872162672e-06
+epoch: 0282 -- train loss: 0.85711 -- lr: 3.112684872162672e-06
+epoch: 0282 -- train loss: 0.85653 -- lr: 3.112684872162672e-06
+ 94%|█████████▍| 283/300 [9:40:50<34:16, 120.94s/it]epoch -- 0282 || train loss -- 0.85537 || val loss -- 0.85005 || lr -- 0.00000311 || val mean_dice -- 15.02837
+epoch: 0283 -- train loss: 0.83278 -- lr: 2.965462558991318e-06
+epoch: 0283 -- train loss: 0.86840 -- lr: 2.965462558991318e-06
+epoch: 0283 -- train loss: 0.85274 -- lr: 2.965462558991318e-06
+epoch: 0283 -- train loss: 0.85224 -- lr: 2.965462558991318e-06
+epoch: 0283 -- train loss: 0.85212 -- lr: 2.965462558991318e-06
+ 95%|█████████▍| 284/300 [9:42:49<32:04, 120.26s/it]epoch -- 0283 || train loss -- 0.85025 || val loss -- 0.84864 || lr -- 0.00000297 || val mean_dice -- 15.12796
+epoch: 0284 -- train loss: 0.84584 -- lr: 2.8234529435159238e-06
+epoch: 0284 -- train loss: 0.84959 -- lr: 2.8234529435159238e-06
+epoch: 0284 -- train loss: 0.84925 -- lr: 2.8234529435159238e-06
+epoch: 0284 -- train loss: 0.85275 -- lr: 2.8234529435159238e-06
+epoch: 0284 -- train loss: 0.85290 -- lr: 2.8234529435159238e-06
+ 95%|█████████▌| 285/300 [9:44:45<29:43, 118.92s/it]epoch -- 0284 || train loss -- 0.85211 || val loss -- 0.84997 || lr -- 0.00000282 || val mean_dice -- 15.03201
+epoch: 0285 -- train loss: 0.85277 -- lr: 2.6866715986911185e-06
+epoch: 0285 -- train loss: 0.85157 -- lr: 2.6866715986911185e-06
+epoch: 0285 -- train loss: 0.85781 -- lr: 2.6866715986911185e-06
+epoch: 0285 -- train loss: 0.85254 -- lr: 2.6866715986911185e-06
+epoch: 0285 -- train loss: 0.85488 -- lr: 2.6866715986911185e-06
+ 95%|█████████▌| 286/300 [9:46:47<27:56, 119.73s/it]epoch -- 0285 || train loss -- 0.85525 || val loss -- 0.84791 || lr -- 0.00000269 || val mean_dice -- 15.21879
+epoch: 0286 -- train loss: 0.80252 -- lr: 2.5551335241327618e-06
+epoch: 0286 -- train loss: 0.86084 -- lr: 2.5551335241327618e-06
+epoch: 0286 -- train loss: 0.85358 -- lr: 2.5551335241327618e-06
+epoch: 0286 -- train loss: 0.85942 -- lr: 2.5551335241327618e-06
+epoch: 0286 -- train loss: 0.85797 -- lr: 2.5551335241327618e-06
+ 96%|█████████▌| 287/300 [9:48:44<25:47, 119.04s/it]epoch -- 0286 || train loss -- 0.85452 || val loss -- 0.84847 || lr -- 0.00000256 || val mean_dice -- 15.20288
+epoch: 0287 -- train loss: 0.85119 -- lr: 2.4288531444730196e-06
+epoch: 0287 -- train loss: 0.85006 -- lr: 2.4288531444730196e-06
+epoch: 0287 -- train loss: 0.85004 -- lr: 2.4288531444730196e-06
+epoch: 0287 -- train loss: 0.84678 -- lr: 2.4288531444730196e-06
+epoch: 0287 -- train loss: 0.84602 -- lr: 2.4288531444730196e-06
+ 96%|█████████▌| 288/300 [9:50:45<23:55, 119.64s/it]epoch -- 0287 || train loss -- 0.84225 || val loss -- 0.84644 || lr -- 0.00000243 || val mean_dice -- 15.37973 -- saved
+epoch: 0288 -- train loss: 0.81729 -- lr: 2.3078443077785656e-06
+epoch: 0288 -- train loss: 0.84736 -- lr: 2.3078443077785656e-06
+epoch: 0288 -- train loss: 0.85311 -- lr: 2.3078443077785656e-06
+epoch: 0288 -- train loss: 0.84758 -- lr: 2.3078443077785656e-06
+epoch: 0288 -- train loss: 0.84733 -- lr: 2.3078443077785656e-06
+ 96%|█████████▋| 289/300 [9:52:44<21:52, 119.33s/it]epoch -- 0288 || train loss -- 0.84582 || val loss -- 0.85061 || lr -- 0.00000231 || val mean_dice -- 14.99911
+epoch: 0289 -- train loss: 0.86960 -- lr: 2.1921202840320077e-06
+epoch: 0289 -- train loss: 0.86454 -- lr: 2.1921202840320077e-06
+epoch: 0289 -- train loss: 0.86317 -- lr: 2.1921202840320077e-06
+epoch: 0289 -- train loss: 0.86476 -- lr: 2.1921202840320077e-06
+epoch: 0289 -- train loss: 0.85894 -- lr: 2.1921202840320077e-06
+ 97%|█████████▋| 290/300 [9:54:42<19:50, 119.01s/it]epoch -- 0289 || train loss -- 0.85489 || val loss -- 0.84829 || lr -- 0.00000219 || val mean_dice -- 15.17484
+epoch: 0290 -- train loss: 0.82861 -- lr: 2.0816937636766237e-06
+epoch: 0290 -- train loss: 0.85972 -- lr: 2.0816937636766237e-06
+epoch: 0290 -- train loss: 0.85854 -- lr: 2.0816937636766237e-06
+epoch: 0290 -- train loss: 0.85802 -- lr: 2.0816937636766237e-06
+epoch: 0290 -- train loss: 0.85784 -- lr: 2.0816937636766237e-06
+ 97%|█████████▋| 291/300 [9:56:47<18:07, 120.88s/it]epoch -- 0290 || train loss -- 0.85899 || val loss -- 0.84808 || lr -- 0.00000208 || val mean_dice -- 15.22514
+epoch: 0291 -- train loss: 0.86941 -- lr: 1.9765768562247735e-06
+epoch: 0291 -- train loss: 0.84641 -- lr: 1.9765768562247735e-06
+epoch: 0291 -- train loss: 0.85594 -- lr: 1.9765768562247735e-06
+epoch: 0291 -- train loss: 0.85433 -- lr: 1.9765768562247735e-06
+epoch: 0291 -- train loss: 0.85674 -- lr: 1.9765768562247735e-06
+ 97%|█████████▋| 292/300 [9:58:45<16:00, 120.08s/it]epoch -- 0291 || train loss -- 0.85523 || val loss -- 0.84833 || lr -- 0.00000198 || val mean_dice -- 15.14330
+epoch: 0292 -- train loss: 0.83850 -- lr: 1.8767810889299138e-06
+epoch: 0292 -- train loss: 0.84827 -- lr: 1.8767810889299138e-06
+epoch: 0292 -- train loss: 0.84971 -- lr: 1.8767810889299138e-06
+epoch: 0292 -- train loss: 0.85586 -- lr: 1.8767810889299138e-06
+epoch: 0292 -- train loss: 0.85340 -- lr: 1.8767810889299138e-06
+ 98%|█████████▊| 293/300 [10:00:46<14:02, 120.35s/it]epoch -- 0292 || train loss -- 0.85171 || val loss -- 0.84757 || lr -- 0.00000188 || val mean_dice -- 15.23906
+epoch: 0293 -- train loss: 0.82502 -- lr: 1.7823174055225268e-06
+epoch: 0293 -- train loss: 0.84122 -- lr: 1.7823174055225268e-06
+epoch: 0293 -- train loss: 0.85159 -- lr: 1.7823174055225268e-06
+epoch: 0293 -- train loss: 0.84850 -- lr: 1.7823174055225268e-06
+epoch: 0293 -- train loss: 0.85061 -- lr: 1.7823174055225268e-06
+ 98%|█████████▊| 294/300 [10:02:53<12:12, 122.14s/it]epoch -- 0293 || train loss -- 0.84616 || val loss -- 0.84685 || lr -- 0.00000178 || val mean_dice -- 15.32769
+epoch: 0294 -- train loss: 0.87627 -- lr: 1.6931961650100034e-06
+epoch: 0294 -- train loss: 0.86389 -- lr: 1.6931961650100034e-06
+epoch: 0294 -- train loss: 0.85837 -- lr: 1.6931961650100034e-06
+epoch: 0294 -- train loss: 0.86076 -- lr: 1.6931961650100034e-06
+epoch: 0294 -- train loss: 0.86198 -- lr: 1.6931961650100034e-06
+ 98%|█████████▊| 295/300 [10:04:53<10:08, 121.71s/it]epoch -- 0294 || train loss -- 0.86284 || val loss -- 0.85066 || lr -- 0.00000169 || val mean_dice -- 14.90898
+epoch: 0295 -- train loss: 0.83381 -- lr: 1.6094271405406859e-06
+epoch: 0295 -- train loss: 0.85890 -- lr: 1.6094271405406859e-06
+epoch: 0295 -- train loss: 0.86099 -- lr: 1.6094271405406859e-06
+epoch: 0295 -- train loss: 0.86327 -- lr: 1.6094271405406859e-06
+epoch: 0295 -- train loss: 0.86245 -- lr: 1.6094271405406859e-06
+ 99%|█████████▊| 296/300 [10:06:53<08:03, 120.98s/it]epoch -- 0295 || train loss -- 0.85841 || val loss -- 0.84994 || lr -- 0.00000161 || val mean_dice -- 15.02231
+epoch: 0296 -- train loss: 0.86162 -- lr: 1.5310195183320777e-06
+epoch: 0296 -- train loss: 0.84029 -- lr: 1.5310195183320777e-06
+epoch: 0296 -- train loss: 0.84241 -- lr: 1.5310195183320777e-06
+epoch: 0296 -- train loss: 0.84731 -- lr: 1.5310195183320777e-06
+epoch: 0296 -- train loss: 0.85335 -- lr: 1.5310195183320777e-06
+ 99%|█████████▉| 297/300 [10:08:48<05:58, 119.42s/it]epoch -- 0296 || train loss -- 0.85476 || val loss -- 0.85099 || lr -- 0.00000153 || val mean_dice -- 14.91672
+epoch: 0297 -- train loss: 0.84505 -- lr: 1.457981896663542e-06
+epoch: 0297 -- train loss: 0.83649 -- lr: 1.457981896663542e-06
+epoch: 0297 -- train loss: 0.84556 -- lr: 1.457981896663542e-06
+epoch: 0297 -- train loss: 0.84994 -- lr: 1.457981896663542e-06
+epoch: 0297 -- train loss: 0.84911 -- lr: 1.457981896663542e-06
+ 99%|█████████▉| 298/300 [10:10:56<04:03, 121.77s/it]epoch -- 0297 || train loss -- 0.84830 || val loss -- 0.84977 || lr -- 0.00000146 || val mean_dice -- 15.06414
+epoch: 0298 -- train loss: 0.83243 -- lr: 1.3903222849333507e-06
+epoch: 0298 -- train loss: 0.84644 -- lr: 1.3903222849333507e-06
+epoch: 0298 -- train loss: 0.84868 -- lr: 1.3903222849333507e-06
+epoch: 0298 -- train loss: 0.84516 -- lr: 1.3903222849333507e-06
+epoch: 0298 -- train loss: 0.85031 -- lr: 1.3903222849333507e-06
+100%|█████████▉| 299/300 [10:12:55<02:00, 120.99s/it]epoch -- 0298 || train loss -- 0.85155 || val loss -- 0.84941 || lr -- 0.00000139 || val mean_dice -- 15.06155
+epoch: 0299 -- train loss: 0.90920 -- lr: 1.328048102780376e-06
+epoch: 0299 -- train loss: 0.86532 -- lr: 1.328048102780376e-06
+epoch: 0299 -- train loss: 0.86307 -- lr: 1.328048102780376e-06
+epoch: 0299 -- train loss: 0.85943 -- lr: 1.328048102780376e-06
+epoch: 0299 -- train loss: 0.85845 -- lr: 1.328048102780376e-06
+100%|██████████| 300/300 [10:14:56<00:00, 120.99s/it]100%|██████████| 300/300 [10:14:56<00:00, 122.99s/it]
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:      epoch ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▆▇▇▇▇▇███
+wandb:  mean_dice ▅▃▁▃▃▁▃▅▄▅▅▅▆▆▆▆▇▆▆▇▇▇▇▇▆█▇▇▇▇▇▇▇███████
+wandb: train_loss ██▇▆▆▅▅▅▅▄▄▄▄▄▃▄▃▃▃▂▃▃▃▂▂▂▂▂▂▂▂▂▂▂▁▁▁▁▁▂
+wandb:   val_loss ▄▆█▆▆█▆▄▅▄▄▄▃▃▃▃▂▃▃▂▂▂▂▂▃▁▂▂▂▂▂▂▂▁▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:      epoch 299
+wandb:  mean_dice 15.00766
+wandb: train_loss 0.86082
+wandb:   val_loss 0.84988
+wandb: 
+wandb: You can sync this run to the cloud by running:
+wandb: wandb sync /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/wandb/offline-run-20260414_132733-6v54zeso
+wandb: Find logs at: ./wandb/offline-run-20260414_132733-6v54zeso/logs
+epoch -- 0299 || train loss -- 0.86082 || val loss -- 0.84988 || lr -- 0.00000133 || val mean_dice -- 15.00766
