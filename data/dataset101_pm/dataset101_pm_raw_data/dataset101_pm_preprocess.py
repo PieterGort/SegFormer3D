@@ -2,32 +2,41 @@ import argparse
 import json
 import os
 from multiprocessing import Pool
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import nibabel
 import numpy as np
 import torch
 from monai.data import MetaTensor
 from monai.transforms import EnsureType, Orientation, Spacing
-from sklearn.preprocessing import MinMaxScaler
 from tqdm import tqdm
 
 
-class ConvertToMultiChannelBasedOnLabelMap:
-    def __init__(self, label_values: Sequence[int]) -> None:
-        self.label_values = tuple(sorted(int(label_value) for label_value in label_values))
-
-    def __call__(self, img):
-        if img.ndim == 4 and img.shape[0] == 1:
-            img = img.squeeze(0)
-
-        result = [img == label_value for label_value in self.label_values]
-        if isinstance(img, torch.Tensor):
-            return torch.stack(result, dim=0)
-        return np.stack(result, axis=0)
+# Preprocessing format version.  Stored as meta.json inside the save_dir so the
+# launcher can detect stale output (e.g. the legacy one-hot+MinMax layout) and
+# re-run preprocessing automatically.
+PREPROCESS_VERSION = 2
 
 
 class Dataset101PMPreprocess:
+    """Preprocess Dataset101_PM (nnU-Net style CT) into fast-loading .pt tensors.
+
+    Output layout (v2):
+      save_dir/
+        <case>/<case>_modalities.pt   # float32 (C, W, H, D) image tensor
+        <case>/<case>_label.pt        # uint8  (1, W, H, D) integer label map
+        meta.json                     # preprocessing metadata + version marker
+
+    Key differences vs v1 (which produced the 21916679 / 21929592 runs):
+      * Labels are saved as an integer label map, NOT one-hot.  This lets
+        downstream augmentations use RandCropByPosNegLabeld (foreground-biased
+        sampling) and side-steps the v1 bug where center_crop padding left
+        regions with all-zero one-hot channels.
+      * Image normalization: HU-clip to [-175, 250] (safety, data is already
+        clipped upstream) + per-case z-score.  v1 used MinMaxScaler over the
+        full volume, which is brittle on CT when extremes sneak through.
+    """
+
     def __init__(
         self,
         dataset_root: str,
@@ -37,6 +46,7 @@ class Dataset101PMPreprocess:
         dataset_json: str = "dataset.json",
         target_shape: Tuple[int, int, int] = (192, 192, 256),
         target_spacing: Tuple[float, float, float] = (2.0, 2.0, 2.0),
+        hu_clip: Optional[Tuple[float, float]] = (-175.0, 250.0),
     ) -> None:
         self.dataset_root = os.path.abspath(dataset_root)
         self.image_dir = os.path.join(self.dataset_root, image_dir)
@@ -45,9 +55,10 @@ class Dataset101PMPreprocess:
         self.file_ending = self.dataset_meta.get("file_ending", ".nii.gz")
         self.channel_codes = self._get_channel_codes(self.dataset_meta)
         self.label_values = self._get_label_values(self.dataset_meta)
-        self.label_converter = ConvertToMultiChannelBasedOnLabelMap(self.label_values)
+        self.num_classes = len(self.label_values)
         self.target_shape = tuple(int(dim) for dim in target_shape)
         self.target_spacing = tuple(float(s) for s in target_spacing)
+        self.hu_clip = None if hu_clip is None else (float(hu_clip[0]), float(hu_clip[1]))
         self.save_dir = os.path.abspath(save_dir)
 
         assert os.path.exists(self.image_dir), f"Image directory not found: {self.image_dir}"
@@ -85,10 +96,21 @@ class Dataset101PMPreprocess:
         return [0, 1]
 
     def normalize(self, x: np.ndarray) -> np.ndarray:
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        normalized_1d_array = scaler.fit_transform(x.reshape(-1, x.shape[-1]))
-        normalized_data = normalized_1d_array.reshape(x.shape)
-        return normalized_data.astype(np.float32, copy=False)
+        """HU-clip (safety) + per-case z-score normalization.
+
+        The nnU-Net CT recipe clips to a dataset-specific HU window and then
+        applies z-score with per-case mean/std.  Dataset101_PM is already
+        clipped upstream to [-175, 250] HU, but we re-enforce the clip here to
+        be robust to accidental outliers.
+        """
+        x = x.astype(np.float32, copy=False)
+        if self.hu_clip is not None:
+            x = np.clip(x, self.hu_clip[0], self.hu_clip[1])
+        mean = float(x.mean())
+        std = float(x.std())
+        if std < 1e-6:
+            std = 1.0
+        return ((x - mean) / std).astype(np.float32, copy=False)
 
     @staticmethod
     def orient(x: MetaTensor) -> MetaTensor:
@@ -168,19 +190,21 @@ class Dataset101PMPreprocess:
         return self.detach_meta(data)
 
     def preprocess_label(self, data_fp: str) -> np.ndarray:
+        """Return the resampled label as an integer class-id map.
+
+        Shape: (1, D, H, W), dtype uint8.  We intentionally do NOT one-hot
+        encode here — the padding step in __getitem__ needs to distinguish
+        background (class 0) from "no class assigned", and downstream
+        augmentations (RandCropByPosNegLabeld) expect a label map anyway.
+        """
         data, affine = self.load_nifti(data_fp)
-        # Keep as float32 for MONAI transform compatibility; round to recover integer classes.
         data = np.rint(data).astype(np.float32, copy=False)
         data = data[np.newaxis, ...]  # (1, D, H, W)
         data = MetaTensor(x=data, affine=affine)
         data = self.orient(data)
-        # Resample the integer label map with nearest-neighbour before one-hot conversion so
-        # that class boundaries are not blurred by interpolation.
         data = self.resample(data, mode="nearest")
         data = self.detach_meta(data)          # (1, D, H, W) numpy float32
-        data = np.rint(data).astype(np.uint8, copy=False)  # restore integer class ids
-        data = self.label_converter(data)      # (1, D, H, W) → (C, D, H, W) one-hot
-        return data.astype(np.uint8, copy=False)  # uint8 to keep .pt files small
+        return np.rint(data).astype(np.uint8, copy=False)
 
     def __getitem__(self, idx: int):
         case_name = self.case_names[idx]
@@ -197,18 +221,22 @@ class Dataset101PMPreprocess:
         modalities = np.concatenate(modalities, axis=0, dtype=np.float32)
         modalities, label = self._crop_to_foreground(modalities, label)
         modalities = self._center_crop_or_pad(modalities)
+        # Label is padded with zeros which, in label-map form, correctly marks
+        # those voxels as background (class 0).
         label = self._center_crop_or_pad(label)
 
-        # swapaxes(1, 3): (C, D, H, W) → (C, W, H, D) — transverse plane, matching BraTS convention
+        # swapaxes(1, 3): (C, D, H, W) → (C, W, H, D) — transverse plane, matching BraTS convention.
         modalities = modalities.swapaxes(1, 3)
         label = label.swapaxes(1, 3)
         return modalities.astype(np.float32, copy=False), label.astype(np.uint8, copy=False), case_name
 
     def __call__(self) -> None:
         num_workers = self._resolve_num_workers()
-        print("started preprocessing Dataset101_PM...")
+        print("started preprocessing Dataset101_PM (v%d)..." % PREPROCESS_VERSION)
         print(f"using {num_workers} worker processes")
         print(f"target spacing: {self.target_spacing} mm  |  target shape: {self.target_shape}")
+        print(f"hu clip: {self.hu_clip}  |  label format: integer label map")
+        os.makedirs(self.save_dir, exist_ok=True)
         with Pool(processes=num_workers) as multi_p:
             for _ in tqdm(
                 multi_p.imap_unordered(self.process, range(self.__len__())),
@@ -216,7 +244,22 @@ class Dataset101PMPreprocess:
                 desc="preprocess",
             ):
                 pass
+        self._write_meta_json()
         print("finished preprocessing Dataset101_PM...")
+
+    def _write_meta_json(self) -> None:
+        meta = {
+            "preprocess_version": PREPROCESS_VERSION,
+            "label_format": "label_map",
+            "num_classes": self.num_classes,
+            "label_values": list(self.label_values),
+            "target_spacing": list(self.target_spacing),
+            "target_shape": list(self.target_shape),
+            "hu_clip": None if self.hu_clip is None else list(self.hu_clip),
+            "normalization": "hu_clip + per-case z-score",
+        }
+        with open(os.path.join(self.save_dir, "meta.json"), "w", encoding="utf-8") as outfile:
+            json.dump(meta, outfile, indent=2)
 
     def process(self, idx: int) -> str:
         os.makedirs(self.save_dir, exist_ok=True)
@@ -269,16 +312,31 @@ def build_argparser() -> argparse.ArgumentParser:
         metavar=("X", "Y", "Z"),
         help="Isotropic voxel spacing in mm to resample to before cropping.",
     )
+    parser.add_argument(
+        "--hu-clip",
+        type=float,
+        nargs=2,
+        default=(-175.0, 250.0),
+        metavar=("LOWER", "UPPER"),
+        help="HU clipping range applied before per-case z-score. Pass '--no-hu-clip' to disable.",
+    )
+    parser.add_argument(
+        "--no-hu-clip",
+        action="store_true",
+        help="Disable HU clipping (already-clipped data still passes through unchanged).",
+    )
     return parser
 
 
 if __name__ == "__main__":
     parser = build_argparser()
     args = parser.parse_args()
+    hu_clip: Optional[Tuple[float, float]] = None if args.no_hu_clip else tuple(args.hu_clip)
     preprocess = Dataset101PMPreprocess(
         dataset_root=args.dataset_root,
         save_dir=args.save_dir,
         target_shape=tuple(args.target_shape),
         target_spacing=tuple(args.target_spacing),
+        hu_clip=hu_clip,
     )
     preprocess()

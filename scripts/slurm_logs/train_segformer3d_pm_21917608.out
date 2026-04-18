@@ -1,45 +1,0 @@
-[info] python: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
-[info] exe: /gpfs/home6/pgort1/.conda/envs/segformer3d/bin/python
-[info] nibabel: 5.1.0
-[info] checkpoint dir: model_checkpoints/best_dice_checkpoint_21917608
-[info] config: /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/config_21917608.yaml
-/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/monai/utils/module.py:395: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  pkg = __import__(module)  # top level module
-/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/wandb/sdk/launch/builder/build.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
-  import pkg_resources
-wandb: Currently logged in as: pcgort. Use `wandb login --relogin` to force relogin
-wandb: wandb version 0.26.0 is available!  To upgrade, please run:
-wandb:  $ pip install wandb --upgrade
-wandb: Tracking run with wandb version 0.15.12
-wandb: Run data is saved locally in /gpfs/home6/pgort1/projects/SegFormer3D/experiments/dataset101_pm/default_experiment/wandb/run-20260416_102441-t4xhjf7f
-wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run segformer3d_dataset101_pm
-wandb: ⭐️ View project at https://wandb.ai/pcgort/segformer3d
-wandb: 🚀 View run at https://wandb.ai/pcgort/segformer3d/runs/t4xhjf7f
-wandb: logging graph, to disable use `wandb.watch(log_graph=False)`
--------------------------------------------------------
-[info]: Experiment Info
-[info] ----- Project: segformer3d
-[info] ----- Group: dataset101_pm
-[info] ----- Name: segformer3d_dataset101_pm
-[info] ----- Batch Size: 2
-[info] ----- Num Epochs: 800
-[info] ----- Loss: dice
-[info] ----- Optimizer: adamw
-[info] ----- Train Dataset Size: 49
-[info] ----- Test Dataset Size: 13
-[info] ----- Distributed Training: False
-[info] ----- Num Clases: 14
-[info] ----- EMA: False
-[info] ----- Load From Checkpoint: False
-[info] ----- Params: 4495150
--------------------------------------------------------
-  0%|          | 0/800 [00:00<?, ?it/s]
-[info] -- warming up learning rate 
-
-/home/pgort1/.conda/envs/segformer3d/lib/python3.11/site-packages/torch/nn/modules/conv.py:605: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at ../aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
-  return F.conv3d(
-epoch: 0000 -- train loss: 0.96946 -- lr: 1.6666666666666667e-06
-  0%|          | 1/800 [00:49<10:54:01, 49.11s/it]  0%|          | 2/800 [01:37<10:51:17, 48.97s/it]  0%|          | 3/800 [02:23<10:30:18, 47.45s/it]  0%|          | 4/800 [03:05<9:58:29, 45.11s/it]   1%|          | 5/800 [03:49<9:51:45, 44.66s/it]  1%|          | 6/800 [04:32<9:46:15, 44.30s/it]  1%|          | 7/800 [05:17<9:49:50, 44.63s/it]  1%|          | 8/800 [05:58<9:32:14, 43.35s/it]  1%|          | 9/800 [06:42<9:34:57, 43.61s/it]  1%|▏         | 10/800 [07:26<9:34:48, 43.66s/it]  1%|▏         | 11/800 [08:07<9:24:10, 42.90s/it]  2%|▏         | 12/800 [08:52<9:33:07, 43.64s/it]  2%|▏         | 13/800 [09:36<9:32:58, 43.68s/it]  2%|▏         | 14/800 [10:19<9:29:25, 43.47s/it]  2%|▏         | 15/800 [11:05<9:36:35, 44.07s/it]  2%|▏         | 16/800 [11:48<9:34:11, 43.94s/it]  2%|▏         | 17/800 [12:28<9:18:16, 42.78s/it]  2%|▏         | 18/800 [13:10<9:14:41, 42.56s/it]  2%|▏         | 19/800 [13:54<9:17:51, 42.86s/it]  2%|▎         | 20/800 [14:37<9:17:39, 42.90s/it]  3%|▎         | 21/800 [15:19<9:11:33, 42.48s/it]  3%|▎         | 22/800 [15:59<9:04:21, 41.98s/it]  3%|▎         | 23/800 [16:43<9:08:41, 42.37s/it]  3%|▎         | 24/800 [17:29<9:22:36, 43.50s/it]  3%|▎         | 25/800 [18:11<9:16:45, 43.10s/it]  3%|▎         | 26/800 [18:58<9:31:10, 44.28s/it]  3%|▎         | 27/800 [19:44<9:35:38, 44.68s/it]  4%|▎         | 28/800 [20:27<9:29:28, 44.26s/it]  4%|▎         | 29/800 [21:13<9:34:09, 44.68s/it]  4%|▍         | 30/800 [21:57<9:33:39, 44.70s/it]  4%|▍         | 31/800 [22:40<9:25:20, 44.11s/it]  4%|▍         | 32/800 [23:24<9:23:40, 44.04s/it]  4%|▍         | 33/800 [24:09<9:28:36, 44.48s/it]  4%|▍         | 34/800 [24:57<9:39:13, 45.37s/it]  4%|▍         | 35/800 [25:37<9:19:55, 43.92s/it]  4%|▍         | 36/800 [26:21<9:18:05, 43.83s/it]  5%|▍         | 37/800 [27:03<9:09:31, 43.21s/it]  5%|▍         | 38/800 [27:48<9:17:31, 43.90s/it]  5%|▍         | 39/800 [28:30<9:07:16, 43.15s/it]  5%|▌         | 40/800 [29:10<8:56:22, 42.35s/it]  5%|▌         | 41/800 [29:51<8:50:16, 41.92s/it]  5%|▌         | 42/800 [30:33<8:50:14, 41.97s/it]  5%|▌         | 43/800 [31:16<8:52:03, 42.17s/it]  6%|▌         | 44/800 [31:56<8:45:46, 41.73s/it]  6%|▌         | 45/800 [32:40<8:51:03, 42.20s/it]  6%|▌         | 46/800 [33:24<8:57:48, 42.80s/it]  6%|▌         | 47/800 [34:09<9:06:36, 43.55s/it]  6%|▌         | 48/800 [34:54<9:10:13, 43.90s/it]  6%|▌         | 49/800 [35:32<8:48:32, 42.23s/it]  6%|▋         | 50/800 [36:15<8:51:01, 42.48s/it]  6%|▋         | 51/800 [37:02<9:07:24, 43.85s/it]  6%|▋         | 52/800 [37:44<8:58:35, 43.20s/it]  7%|▋         | 53/800 [38:23<8:41:53, 41.92s/it]  7%|▋         | 54/800 [39:01<8:27:31, 40.82s/it]  7%|▋         | 55/800 [39:45<8:35:40, 41.53s/it]  7%|▋         | 56/800 [40:26<8:35:51, 41.60s/it]  7%|▋         | 57/800 [41:08<8:34:24, 41.54s/it]  7%|▋         | 58/800 [41:51<8:38:31, 41.93s/it]  7%|▋         | 59/800 [42:32<8:34:59, 41.70s/it]  8%|▊         | 60/800 [43:15<8:40:26, 42.20s/it]  8%|▊         | 61/800 [43:58<8:43:36, 42.51s/it]  8%|▊         | 62/800 [44:41<8:41:51, 42.43s/it]  8%|▊         | 63/800 [45:22<8:39:14, 42.27s/it]  8%|▊         | 64/800 [46:10<8:58:47, 43.92s/it]  8%|▊         | 65/800 [46:54<8:57:40, 43.89s/it]  8%|▊         | 66/800 [47:35<8:46:01, 43.00s/it]  8%|▊         | 67/800 [48:17<8:42:22, 42.76s/it]  8%|▊         | 68/800 [48:58<8:33:54, 42.12s/it]  9%|▊         | 69/800 [49:37<8:24:14, 41.39s/it]  9%|▉         | 70/800 [50:20<8:26:39, 41.64s/it]  9%|▉         | 71/800 [51:01<8:24:18, 41.51s/it]  9%|▉         | 72/800 [51:42<8:23:01, 41.46s/it]  9%|▉         | 73/800 [52:23<8:18:32, 41.14s/it]  9%|▉         | 74/800 [53:06<8:25:41, 41.79s/it]  9%|▉         | 75/800 [53:49<8:28:08, 42.05s/it] 10%|▉         | 76/800 [54:29<8:21:18, 41.54s/it] 10%|▉         | 77/800 [55:10<8:18:53, 41.40s/it] 10%|▉         | 78/800 [55:53<8:23:40, 41.86s/it] 10%|▉         | 79/800 [56:32<8:14:39, 41.16s/it] 10%|█         | 80/800 [57:17<8:26:30, 42.21s/it] 10%|█         | 81/800 [58:01<8:30:16, 42.58s/it] 10%|█         | 82/800 [58:43<8:27:33, 42.41s/it] 10%|█         | 83/800 [59:27<8:33:06, 42.94s/it] 10%|█         | 84/800 [1:00:10<8:32:43, 42.97s/it] 11%|█         | 85/800 [1:00:49<8:18:17, 41.82s/it] 11%|█         | 86/800 [1:01:33<8:27:07, 42.62s/it] 11%|█         | 87/800 [1:02:16<8:27:36, 42.72s/it][2026-04-16T11:27:06.515] error: *** JOB 21917608 ON gcn13 CANCELLED AT 2026-04-16T11:27:06 DUE to SIGNAL Terminated ***

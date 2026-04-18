@@ -104,6 +104,23 @@ class Segmentation_Trainer:
             "checkpoint_save_dir"
         ]
 
+        # Early stopping: halt training once val_dice has not improved by more
+        # than `min_delta` for `patience` validation epochs.  Disabled by
+        # default; enable in config["early_stopping"] to use.
+        early_stopping_cfg = self.config.get("early_stopping", {}) or {}
+        self.early_stopping_enabled = bool(early_stopping_cfg.get("enabled", False))
+        self.early_stopping_patience = int(early_stopping_cfg.get("patience", 100))
+        self.early_stopping_min_delta = float(
+            early_stopping_cfg.get("min_delta", 0.0)
+        )
+        # Don't trigger early stopping before min_epochs — gives warmup/early
+        # cosine phase room to work.
+        self.early_stopping_min_epochs = int(
+            early_stopping_cfg.get("min_epochs", self.warmup_epochs)
+        )
+        self._best_val_dice_for_es = 0.0
+        self._epochs_since_best_val_dice = 0
+
     def _load_checkpoint(self):
         raise NotImplementedError
 
@@ -252,6 +269,7 @@ class Segmentation_Trainer:
             self.epoch_train_loss = train_loss
 
             # run validation every val_every epochs (default: every epoch)
+            should_stop = False
             if epoch % self.val_every == 0:
                 val_loss = self._val_step(use_ema=False)
                 self.epoch_val_loss = val_loss
@@ -267,6 +285,10 @@ class Segmentation_Trainer:
 
                 # save and print
                 self._save_and_print()
+
+                # check early stopping on val_dice (must run AFTER _save_and_print
+                # so the best checkpoint is always persisted before we stop).
+                should_stop = self._should_early_stop()
             else:
                 # still log train loss on skipped val epochs so W&B curve is continuous
                 self.accelerator.log({
@@ -277,10 +299,13 @@ class Segmentation_Trainer:
 
             # update schduler
             self.scheduler.step()
-            
+
             # Clear CUDA cache periodically to avoid memory fragmentation
             if torch.cuda.is_available() and (epoch + 1) % 10 == 0:
                 torch.cuda.empty_cache()
+
+            if should_stop:
+                break
 
     def _update_scheduler(self) -> None:
         """_summary_"""
@@ -320,6 +345,47 @@ class Segmentation_Trainer:
         if self.calculate_metrics:
             if self.epoch_val_dice >= self.best_val_dice:
                 self.best_val_dice = self.epoch_val_dice
+
+    def _should_early_stop(self) -> bool:
+        """Return True when val_dice has stagnated for `patience` epochs.
+
+        Only active when `early_stopping.enabled` is True in the config and
+        `training_parameters.calculate_metrics` is True.  Uses `min_delta` to
+        filter noisy improvements and `min_epochs` to ignore the warmup phase.
+        """
+        if not self.early_stopping_enabled:
+            return False
+        if not self.calculate_metrics:
+            return False
+        if self.current_epoch < self.early_stopping_min_epochs:
+            # still record the best so far without counting stall epochs.
+            if self.epoch_val_dice > self._best_val_dice_for_es:
+                self._best_val_dice_for_es = self.epoch_val_dice
+            return False
+
+        improved = (
+            self.epoch_val_dice
+            >= self._best_val_dice_for_es + self.early_stopping_min_delta
+        )
+        if improved:
+            self._best_val_dice_for_es = self.epoch_val_dice
+            self._epochs_since_best_val_dice = 0
+            return False
+
+        self._epochs_since_best_val_dice += self.val_every
+        if self._epochs_since_best_val_dice >= self.early_stopping_patience:
+            self.accelerator.print(
+                colored(
+                    f"[info] -- early stopping triggered at epoch "
+                    f"{self.current_epoch} (no val_dice improvement > "
+                    f"{self.early_stopping_min_delta:.4f} for "
+                    f"{self.early_stopping_patience} epochs; "
+                    f"best val_dice = {self._best_val_dice_for_es:.5f})",
+                    color="red",
+                )
+            )
+            return True
+        return False
 
     def _log_metrics(self) -> None:
         log_data = {

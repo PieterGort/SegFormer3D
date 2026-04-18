@@ -217,12 +217,18 @@ experiments/**/outputs/
 experiments/**/results/
 experiments/**/model_checkpoints/
 
-# Specific experiment artifacts (keep configs)
+# Specific experiment artifacts
 experiments/**/best_*/
 experiments/**/last_*/
 experiments/**/*.pth
 experiments/**/*.pt
 experiments/**/*.ckpt
+
+# Per-job experiment config snapshots (e.g. config_<slurm_job_id>.yaml); not config.yaml
+experiments/**/config_*.yaml
+
+# Slurm stdout/stderr logs
+scripts/slurm_logs/
 
 
 # ============================================================================

@@ -34,6 +34,59 @@ def build_augmentations(
     """
     roi_size = _to_tuple3(roi_size)
 
+    if dataset_type == "dataset101_pm_seg":
+        # Dataset101_PM: CT multi-organ, preprocessor stores labels as integer
+        # class-id maps (shape (1, W, H, D)).  We apply nnU-Net-style foreground
+        # biased patch sampling and CT-appropriate intensity augmentations.
+        if train:
+            train_transform = [
+                # Focus patch sampling on labeled anatomy rather than CT background.
+                transforms.CropForegroundd(
+                    keys=["image", "label"],
+                    source_key="label",
+                    allow_smaller=True,
+                ),
+                # Ensure volume is at least roi_size so the crop below never fails.
+                transforms.SpatialPadd(
+                    keys=["image", "label"],
+                    spatial_size=roi_size,
+                ),
+                # 1:1 positive/negative patch mix (positive = non-background voxel).
+                transforms.RandCropByPosNegLabeld(
+                    keys=["image", "label"],
+                    label_key="label",
+                    spatial_size=roi_size,
+                    pos=1,
+                    neg=1,
+                    num_samples=num_samples,
+                    image_key="image",
+                    image_threshold=0,
+                ),
+                transforms.RandFlipd(keys=["image", "label"], prob=0.5, spatial_axis=0),
+                transforms.RandFlipd(keys=["image", "label"], prob=0.5, spatial_axis=1),
+                transforms.RandFlipd(keys=["image", "label"], prob=0.5, spatial_axis=2),
+                transforms.RandRotate90d(keys=["image", "label"], prob=0.5, max_k=3),
+                # Intensity augmentations (applied after per-case z-score upstream).
+                transforms.RandScaleIntensityd(keys=["image"], factors=0.10, prob=0.5),
+                transforms.RandShiftIntensityd(keys=["image"], offsets=0.10, prob=0.5),
+                transforms.RandGaussianNoised(keys=["image"], prob=0.2, mean=0.0, std=0.05),
+                transforms.RandAdjustContrastd(keys=["image"], prob=0.3, gamma=(0.7, 1.5)),
+                transforms.EnsureTyped(
+                    keys=["image", "label"],
+                    track_meta=False,
+                ),
+            ]
+            return transforms.Compose(train_transform)
+
+        # Validation keeps the full volume; sliding-window inference crops patches.
+        val_transform = [
+            transforms.EnsureTyped(
+                keys=["image", "label"],
+                track_meta=False,
+            ),
+        ]
+        return transforms.Compose(val_transform)
+
     if dataset_type == "nnunet_seg":
         if train:
             train_transform = [

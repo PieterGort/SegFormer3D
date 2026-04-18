@@ -6,7 +6,7 @@ wandb_parameters:
   group: dataset101_pm
   name: segformer3d_dataset101_pm
   resume: False
-  tags: ["dataset101_pm", "ct", "nnunet", "segmentation"]
+  tags: ["dataset101_pm", "ct", "nnunet", "segmentation", "v2", "diceCE", "kfold"]
 
 # model parameters
 model_name: segformer3d
@@ -24,49 +24,59 @@ model_parameters:
     decoder_dropout: 0.0
     decoder_head_embedding_dim: 256
 
-# loss function
+# loss function: DiceCE is more robust than pure Dice on imbalanced multi-class
+# CT (small organs dominate false negatives under pure Dice). Labels are stored
+# as integer class-id maps (shape (1, D, H, W)); to_onehot_y lets the loss
+# convert them on the fly.
+# Empirical (fair metric: to_onehot_y in loss, label_one_hot false in val): fold1
+# diceCE @ roi 128^3 peaked ~55.5% mean Dice around epoch 669 (job 21957589).
+# Pure-dice @ 128 with early stopping stopped much earlier — not a clean A/B.
+# The CE term helps imbalanced multi-class CT vs background-only Dice.
 loss_fn:
-  loss_type: "dice"
+  loss_type: "diceCE"
   loss_args:
-    to_onehot_y: False
+    to_onehot_y: True
     softmax: True
     sigmoid: False
     include_background: True
 
-# optimizer
+# optimizer — matches the repo's best BraTS recipe.
 optimizer:
   optimizer_type: "adamw"
   optimizer_args:
-    lr: 0.00005
+    lr: 0.0001
     weight_decay: 0.01
 
-# schedulers
+# schedulers — warmup + cosine annealing with warm restarts (repo best recipe).
 warmup_scheduler:
   enabled: True
-  warmup_epochs: 30
+  warmup_epochs: 20
 
 train_scheduler:
   scheduler_type: 'cosine_annealing_wr'
   scheduler_args:
-    t_0_epochs: 200
+    t_0_epochs: 400
     t_mult: 1
     min_lr: 0.000006
 
-# (Not fully implemented yet) exponential moving average
+# exponential moving average — disabled (repo's best BraTS run used EMA off).
 ema:
   enabled: False
   ema_decay: 0.999
   val_ema_every: 1
 
+# Sliding-window inference for validation (full volume is non-cubic;
+# EfficientSelfAttention needs cubic patches).
 sliding_window_inference:
   sw_batch_size: 4
-  roi: [128, 128, 128]
+  roi: [192, 192, 192]
   activation: "softmax"
   num_classes: 14
   include_background: True
-  label_one_hot: True
+  # Labels are label-maps (1, D, H, W) with integer class ids; let the metric
+  # one-hot them internally.
+  label_one_hot: False
 
-# gradient clipping (not implemented yet)
 clip_gradients:
   enabled: False
   clip_gradients_value: 0.1
@@ -79,39 +89,63 @@ training_parameters:
   load_optimizer: False
   print_every: 200
   calculate_metrics: True
-  val_every: 5
   grad_accumulate_steps: 1
+  # val_every: run full sliding-window validation once per epoch (small val set,
+  # cheap). Raise to 2+ if validation dominates wall-clock time.
+  val_every: 1
   checkpoint_save_dir: "model_checkpoints/best_dice_checkpoint"
   load_checkpoint:
     load_full_checkpoint: False
     load_model_only: False
     load_checkpoint_path: null
 
-# dataset args
+# Early stopping on val_dice. Kicks in only after min_epochs (past warmup) so
+# we don't bail during the LR ramp. The launcher should still pass num_epochs
+# so a fold that keeps improving runs to completion.
+# Empirical: fair diceCE fold1 improved through ~epoch 669 (job 21957589).
+# patience=200 / min_epochs=400 leaves room for late gains; disable early_stopping
+# if you want a guaranteed full 800-epoch run for every fold.
+early_stopping:
+  enabled: True
+  patience: 200
+  min_delta: 0.0005
+  min_epochs: 400
+
+# dataset args — use the v2 preprocessed dir (label-maps + per-case z-score).
+# fold_id is overridden by the launcher for each of the 5 folds.
 dataset_parameters:
-  dataset_type: "brats2017_seg"
+  dataset_type: "dataset101_pm_seg"
   train_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v2"
     train: True
-    fold_id: null
-    roi_size: [128, 128, 128]
-    num_samples: 6
+    fold_id: 1
+    # Training patch size: 192^3 experiment. 128^3 clearly beat 96^3 in the fair
+    # metric (fold1 diceCE: 55.5% @ 128 vs 46.1% @ 96 — jobs 21957589 / 21975248),
+    # so testing whether more context still helps. 192^3 is ~3.4x the voxels of
+    # 128^3 and divisible by the total patch stride (32).
+    # Memory budget: the roi 96 / num_samples 4 / batch 2 run (21975248) used
+    # only ~13% of A100 mem. 192^3 with num_samples 2 / batch 2 is 4 crops of
+    # 192^3 = ~4x the voxel load of that run, so expect ~50-60% mem. If OOM,
+    # drop batch to 1 first (keeps pos/neg sampling via num_samples 2).
+    roi_size: [192, 192, 192]
+    num_samples: 2
 
   val_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v2"
     train: False
-    fold_id: null
+    fold_id: 1
 
+  # 21975248 was GPU-util bound (~50%) -> data-loader limited. Pushing workers
+  # to 16 (SLURM reserves 18 CPUs). prefetch_factor is deliberately NOT set:
+  # prior runs showed it hurt throughput on this dataset.
   train_dataloader_args:
-    batch_size: 4
+    batch_size: 2
     shuffle: True
     num_workers: 16
     drop_last: True
-    prefetch_factor: 3
 
   val_dataloader_args:
     batch_size: 1
     shuffle: False
     num_workers: 6
     drop_last: False
-    prefetch_factor: 2

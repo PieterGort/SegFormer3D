@@ -36,6 +36,18 @@ def build_dataset(dataset_type: str, dataset_args: Dict):
             fold_id=dataset_args["fold_id"],
         )
         return dataset
+    elif dataset_type == "dataset101_pm_seg":
+        # Same .pt-based loader as brats2017_seg (it just reads tensors from disk);
+        # the augmentation pipeline is what differs for this dataset type.
+        from .brats2017_seg import Brats2017Task1Dataset
+
+        dataset = Brats2017Task1Dataset(
+            root_dir=dataset_args["root"],
+            is_train=dataset_args["train"],
+            transform=transform,
+            fold_id=dataset_args["fold_id"],
+        )
+        return dataset
     elif dataset_type == "nnunet_seg":
         from .nnunet_seg import NnUNetSegDataset
 
@@ -54,7 +66,8 @@ def build_dataset(dataset_type: str, dataset_args: Dict):
         return dataset
     else:
         raise ValueError(
-            "only brats2021, brats2017, and nnunet_seg segmentation are currently supported!"
+            "Unsupported dataset_type. Supported: "
+            "['brats2021_seg', 'brats2017_seg', 'dataset101_pm_seg', 'nnunet_seg']."
         )
 
 
@@ -73,18 +86,19 @@ def build_dataloader(
     Returns:
         DataLoader: _description_
     """
-    num_workers = dataloader_args["num_workers"]
-    dataloader = DataLoader(
+    kwargs = dict(
         dataset=dataset,
         batch_size=dataloader_args["batch_size"],
         shuffle=dataloader_args["shuffle"],
-        num_workers=num_workers,
+        num_workers=dataloader_args["num_workers"],
         drop_last=dataloader_args["drop_last"],
         pin_memory=True,
-        # Keep worker processes alive between epochs to avoid the ~1-2s
-        # spawn overhead at the start of every epoch (only meaningful when
-        # num_workers > 0).
-        persistent_workers=num_workers > 0,
-        prefetch_factor=dataloader_args.get("prefetch_factor", 2) if num_workers > 0 else None,
     )
-    return dataloader
+    # prefetch_factor / persistent_workers are optional; torch only accepts
+    # prefetch_factor when num_workers > 0.
+    if dataloader_args.get("num_workers", 0) > 0:
+        if "prefetch_factor" in dataloader_args:
+            kwargs["prefetch_factor"] = dataloader_args["prefetch_factor"]
+        if "persistent_workers" in dataloader_args:
+            kwargs["persistent_workers"] = dataloader_args["persistent_workers"]
+    return DataLoader(**kwargs)
