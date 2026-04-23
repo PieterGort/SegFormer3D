@@ -6,7 +6,7 @@ wandb_parameters:
   group: dataset101_pm
   name: segformer3d_dataset101_pm
   resume: False
-  tags: ["dataset101_pm", "ct", "nnunet", "segmentation", "v2", "diceCE", "kfold"]
+  tags: ["dataset101_pm", "ct", "nnunet", "segmentation", "v3", "ctnorm", "diceCE", "kfold", "lr1e-3", "no-restart"]
 
 # model parameters
 model_name: segformer3d
@@ -44,10 +44,21 @@ loss_fn:
 optimizer:
   optimizer_type: "adamw"
   optimizer_args:
-    lr: 0.0001
+    lr: 0.001
     weight_decay: 0.01
 
-# schedulers — warmup + cosine annealing with warm restarts (repo best recipe).
+# schedulers — warmup + single cosine cycle (no warm restart).
+# Empirical: warm restart (t_0_epochs 400) was strongly net-negative on fold1.
+# The lr=1e-3 runs (jobs 21980161 / 21981180) reached ~70-71% val_dice by ep 419,
+# crashed to <11% on the restart, and spent ~200 epochs recovering to gain only
+# +0.9 / +1.6 points. lr=1e-2 (job 21981017) never recovered post-restart.
+# Quick hack to disable restarts without adding a new scheduler: set t_0_epochs
+# to (num_epochs - warmup_epochs) so the first cosine cycle covers the entire
+# post-warmup training and no restart ever fires (with t_mult=1). Keep
+# scheduler_type='cosine_annealing_wr' for code-path compatibility.
+# All scientific-notation floats are written as plain decimals: PyYAML's
+# safe_load has parsed unquoted '1e-3' / '1.0e-04' inconsistently in past runs
+# (job 21980077 crashed; 21980161 used eta_min=1e-5 instead of 1e-4).
 warmup_scheduler:
   enabled: True
   warmup_epochs: 20
@@ -55,9 +66,11 @@ warmup_scheduler:
 train_scheduler:
   scheduler_type: 'cosine_annealing_wr'
   scheduler_args:
-    t_0_epochs: 400
+    # 800 - 20 = 780. With t_mult=1 the next restart would be at epoch 800,
+    # which is exactly num_epochs, so training ends before any restart fires.
+    t_0_epochs: 780
     t_mult: 1
-    min_lr: 0.000006
+    min_lr: 0.00001
 
 # exponential moving average — disabled (repo's best BraTS run used EMA off).
 ema:
@@ -111,12 +124,15 @@ early_stopping:
   min_delta: 0.0005
   min_epochs: 400
 
-# dataset args — use the v2 preprocessed dir (label-maps + per-case z-score).
+# dataset args — use the v3 preprocessed dir (label-maps + nnU-Net
+# CTNormalization: dataset-global percentile clip + global z-score). Same
+# 2 mm isotropic spacing and (192, 192, 256) center-crop-or-pad as v2, so
+# the v2 vs v3 delta isolates the normalization change.
 # fold_id is overridden by the launcher for each of the 5 folds.
 dataset_parameters:
   dataset_type: "dataset101_pm_seg"
   train_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v2"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v3_ctnorm"
     train: True
     fold_id: 1
     # Training patch size: 192^3 experiment. 128^3 clearly beat 96^3 in the fair
@@ -131,7 +147,7 @@ dataset_parameters:
     num_samples: 2
 
   val_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v2"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v3_ctnorm"
     train: False
     fold_id: 1
 

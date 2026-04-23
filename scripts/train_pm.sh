@@ -33,7 +33,11 @@ export WANDB_MODE="online"
 unset WANDB_API_KEY
 export SEGFORMER3D_HOME="/gpfs/home6/pgort1/projects/SegFormer3D"
 export PM_RAW_DATASET_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM"
-export PM_PREPROCESSED_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v2"
+# v3 preprocessing: same 2 mm isotropic spacing + center-crop-or-pad as v2,
+# but uses nnU-Net CTNormalization (dataset-global percentile clip + z-score)
+# instead of v2's per-case z-score + hard-coded [-175, 250] HU clip. This is
+# the "step B" change in our A/B/C preprocessing roadmap.
+export PM_PREPROCESSED_ROOT="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v3_ctnorm"
 export PM_PREPROCESS_SCRIPT="${SEGFORMER3D_HOME}/data/dataset101_pm/dataset101_pm_raw_data/dataset101_pm_preprocess.py"
 export PM_KFOLD_SCRIPT="${SEGFORMER3D_HOME}/data/dataset101_pm/dataset101_pm_raw_data/datameta_generator/create_train_val_kfold_csv.py"
 export EXPERIMENT_DIR="${SEGFORMER3D_HOME}/experiments/dataset101_pm/default_experiment"
@@ -69,14 +73,16 @@ fi
 echo "[info] python: ${ENV_PYTHON}"
 echo "[info] fold: ${FOLD}"
 echo "[info] job tag: ${JOB_TAG}"
-echo "[info] preprocessed root (v2): ${PM_PREPROCESSED_ROOT}"
+echo "[info] preprocessed root (v3 ctnorm): ${PM_PREPROCESSED_ROOT}"
 "${ENV_PYTHON}" -c "import sys, nibabel; print('[info] exe:', sys.executable); print('[info] nibabel:', nibabel.__version__)"
 
 mkdir -p "${PM_PREPROCESSED_ROOT}"
 
-# Preprocess once: v2 format produces meta.json as a version marker.
+# Preprocess once: v3 runs a foreground-stats pass first, then preprocesses.
+# meta.json is written after both passes complete, so its presence implies a
+# full v3 output directory (otherwise we re-run preprocessing from scratch).
 if [[ ! -f "${PM_PREPROCESSED_ROOT}/meta.json" ]]; then
-  echo "[info] preprocessing Dataset101_PM (v2) into ${PM_PREPROCESSED_ROOT}"
+  echo "[info] preprocessing Dataset101_PM (v3 ctnorm) into ${PM_PREPROCESSED_ROOT}"
   "${ENV_PYTHON}" "${PM_PREPROCESS_SCRIPT}" \
     --dataset-root "${PM_RAW_DATASET_ROOT}" \
     --save-dir "${PM_PREPROCESSED_ROOT}"

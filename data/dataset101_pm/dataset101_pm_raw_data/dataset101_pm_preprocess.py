@@ -15,26 +15,36 @@ from tqdm import tqdm
 # Preprocessing format version.  Stored as meta.json inside the save_dir so the
 # launcher can detect stale output (e.g. the legacy one-hot+MinMax layout) and
 # re-run preprocessing automatically.
-PREPROCESS_VERSION = 2
+PREPROCESS_VERSION = 3
 
 
 class Dataset101PMPreprocess:
     """Preprocess Dataset101_PM (nnU-Net style CT) into fast-loading .pt tensors.
 
-    Output layout (v2):
+    Output layout (v3):
       save_dir/
         <case>/<case>_modalities.pt   # float32 (C, W, H, D) image tensor
         <case>/<case>_label.pt        # uint8  (1, W, H, D) integer label map
+        foreground_stats.json         # per-channel foreground intensity stats
         meta.json                     # preprocessing metadata + version marker
 
-    Key differences vs v1 (which produced the 21916679 / 21929592 runs):
-      * Labels are saved as an integer label map, NOT one-hot.  This lets
-        downstream augmentations use RandCropByPosNegLabeld (foreground-biased
-        sampling) and side-steps the v1 bug where center_crop padding left
-        regions with all-zero one-hot channels.
-      * Image normalization: HU-clip to [-175, 250] (safety, data is already
-        clipped upstream) + per-case z-score.  v1 used MinMaxScaler over the
-        full volume, which is brittle on CT when extremes sneak through.
+    Key differences vs v2 (which produced the 21981180 / 21983799 lr-sweep runs):
+      * Image normalization switched to nnU-Net's CTNormalization:
+          1. Compute per-channel foreground intensity stats ONCE across the
+             whole dataset (label > 0 voxels) — clip percentiles (default
+             0.5 / 99.5), mean, std.
+          2. Clip each case's intensities to the global percentile window.
+          3. z-score with the global mean/std.
+        v2 used per-case z-score after a hard-coded HU clip to [-175, 250],
+        which (a) threw away ~70% of the raw HU range (dataset still has
+        min=-1024 / max=3071 per nnU-Net's analysis) and (b) let per-case
+        air/background ratio bias the per-case mean.  v3 gives every case the
+        same reference frame and preserves information outside the
+        soft-tissue window.
+
+    Resampling and final shape are unchanged from v2 (isotropic 2 mm,
+    center-crop-or-pad to target_shape) so v2 vs v3 is a clean A/B on
+    normalization only.
     """
 
     def __init__(
@@ -46,7 +56,8 @@ class Dataset101PMPreprocess:
         dataset_json: str = "dataset.json",
         target_shape: Tuple[int, int, int] = (192, 192, 256),
         target_spacing: Tuple[float, float, float] = (2.0, 2.0, 2.0),
-        hu_clip: Optional[Tuple[float, float]] = (-175.0, 250.0),
+        clip_percentiles: Tuple[float, float] = (0.5, 99.5),
+        num_foreground_samples_per_case: int = 10_000,
     ) -> None:
         self.dataset_root = os.path.abspath(dataset_root)
         self.image_dir = os.path.join(self.dataset_root, image_dir)
@@ -58,8 +69,13 @@ class Dataset101PMPreprocess:
         self.num_classes = len(self.label_values)
         self.target_shape = tuple(int(dim) for dim in target_shape)
         self.target_spacing = tuple(float(s) for s in target_spacing)
-        self.hu_clip = None if hu_clip is None else (float(hu_clip[0]), float(hu_clip[1]))
+        self.clip_percentiles = (float(clip_percentiles[0]), float(clip_percentiles[1]))
+        self.num_foreground_samples_per_case = int(num_foreground_samples_per_case)
         self.save_dir = os.path.abspath(save_dir)
+
+        # Populated by compute_intensity_stats() (or loaded from cache).
+        # Shape: {channel_code: {"clip_lower", "clip_upper", "mean", "std", ...}}.
+        self.intensity_stats: Optional[Dict[str, Dict[str, float]]] = None
 
         assert os.path.exists(self.image_dir), f"Image directory not found: {self.image_dir}"
         assert os.path.exists(self.label_dir), f"Label directory not found: {self.label_dir}"
@@ -95,22 +111,30 @@ class Dataset101PMPreprocess:
             return sorted(int(label_value) for label_value in labels.values())
         return [0, 1]
 
-    def normalize(self, x: np.ndarray) -> np.ndarray:
-        """HU-clip (safety) + per-case z-score normalization.
+    def normalize(self, x: np.ndarray, channel_code: str) -> np.ndarray:
+        """nnU-Net-style CTNormalization using dataset-global foreground stats.
 
-        The nnU-Net CT recipe clips to a dataset-specific HU window and then
-        applies z-score with per-case mean/std.  Dataset101_PM is already
-        clipped upstream to [-175, 250] HU, but we re-enforce the clip here to
-        be robust to accidental outliers.
+        Pipeline (per channel):
+          1. Clip to the dataset's foreground percentile window
+             [clip_lower, clip_upper] — same clip for every case.
+          2. Standardize with the dataset-global foreground mean/std
+             (computed on unclipped foreground voxels, matching nnU-Net).
+
+        Using global (not per-case) stats gives every case the same reference
+        frame, so the model doesn't have to compensate for per-case variation
+        in background/air ratios.
         """
+        if self.intensity_stats is None or channel_code not in self.intensity_stats:
+            raise RuntimeError(
+                "Intensity stats are not available. "
+                "Call compute_intensity_stats() before preprocessing."
+            )
+        stats = self.intensity_stats[channel_code]
         x = x.astype(np.float32, copy=False)
-        if self.hu_clip is not None:
-            x = np.clip(x, self.hu_clip[0], self.hu_clip[1])
-        mean = float(x.mean())
-        std = float(x.std())
-        if std < 1e-6:
-            std = 1.0
-        return ((x - mean) / std).astype(np.float32, copy=False)
+        x = np.clip(x, stats["clip_lower"], stats["clip_upper"])
+        std = max(float(stats["std"]), 1e-6)
+        x = (x - float(stats["mean"])) / std
+        return x.astype(np.float32, copy=False)
 
     @staticmethod
     def orient(x: MetaTensor) -> MetaTensor:
@@ -180,9 +204,9 @@ class Dataset101PMPreprocess:
         output[(slice(None),) + tuple(dst_slices)] = array[(slice(None),) + tuple(src_slices)]
         return output
 
-    def preprocess_modality(self, data_fp: str) -> np.ndarray:
+    def preprocess_modality(self, data_fp: str, channel_code: str) -> np.ndarray:
         data, affine = self.load_nifti(data_fp)
-        data = self.normalize(x=data)
+        data = self.normalize(x=data, channel_code=channel_code)
         data = data[np.newaxis, ...]
         data = MetaTensor(x=data, affine=affine)
         data = self.orient(data)
@@ -212,7 +236,7 @@ class Dataset101PMPreprocess:
         modalities = []
         for channel_code in self.channel_codes:
             modality_fp = self.get_modality_fp(case_name, "imagesTr", channel_code)
-            modality = self.preprocess_modality(modality_fp)
+            modality = self.preprocess_modality(modality_fp, channel_code)
             modalities.append(modality)
 
         label_fp = self.get_modality_fp(case_name, "labelsTr", None)
@@ -230,13 +254,134 @@ class Dataset101PMPreprocess:
         label = label.swapaxes(1, 3)
         return modalities.astype(np.float32, copy=False), label.astype(np.uint8, copy=False), case_name
 
+    # ------------------------------------------------------------------
+    # Pass 1: foreground intensity stats (nnU-Net CTNormalization inputs).
+    # ------------------------------------------------------------------
+    def _sample_case_foreground_intensities(
+        self, idx: int
+    ) -> Dict[str, np.ndarray]:
+        """Sample foreground-voxel intensities for one case, per channel.
+
+        Foreground = any voxel with label > 0. For each channel we sample up
+        to ``num_foreground_samples_per_case`` raw (unclipped, untransformed)
+        intensities using a deterministic per-case RNG.
+        """
+        case_name = self.case_names[idx]
+        label_fp = self.get_modality_fp(case_name, "labelsTr", None)
+        label = nibabel.load(label_fp).get_fdata()
+        foreground_mask = label > 0
+        rng = np.random.default_rng(seed=42 + idx)
+
+        samples: Dict[str, np.ndarray] = {}
+        for channel_code in self.channel_codes:
+            if not np.any(foreground_mask):
+                samples[channel_code] = np.zeros(0, dtype=np.float32)
+                continue
+            image_fp = self.get_modality_fp(case_name, "imagesTr", channel_code)
+            image = nibabel.load(image_fp).get_fdata().astype(np.float32, copy=False)
+            foreground_values = image[foreground_mask]
+            if foreground_values.size > self.num_foreground_samples_per_case:
+                sub_idx = rng.choice(
+                    foreground_values.size,
+                    size=self.num_foreground_samples_per_case,
+                    replace=False,
+                )
+                foreground_values = foreground_values[sub_idx]
+            samples[channel_code] = foreground_values.astype(np.float32, copy=False)
+        return samples
+
+    def compute_intensity_stats(
+        self, force: bool = False
+    ) -> Dict[str, Dict[str, float]]:
+        """Compute or load cached dataset-global foreground intensity stats.
+
+        Runs Pass 1 over all cases in parallel, samples foreground voxel
+        intensities (label > 0), and aggregates per-channel clip percentiles
+        + mean/std. Writes the result to ``save_dir/foreground_stats.json``
+        so repeat runs can reuse it.
+        """
+        os.makedirs(self.save_dir, exist_ok=True)
+        stats_cache_path = os.path.join(self.save_dir, "foreground_stats.json")
+
+        if os.path.exists(stats_cache_path) and not force:
+            with open(stats_cache_path, "r", encoding="utf-8") as infile:
+                self.intensity_stats = json.load(infile)
+            print(f"[info] loaded cached foreground intensity stats from {stats_cache_path}")
+            return self.intensity_stats
+
+        num_workers = self._resolve_num_workers()
+        num_cases = len(self)
+        print(
+            f"[info] computing foreground intensity stats: {num_cases} cases, "
+            f"up to {self.num_foreground_samples_per_case} samples per case per channel, "
+            f"{num_workers} workers"
+        )
+
+        per_case_samples: List[Dict[str, np.ndarray]] = []
+        with Pool(processes=num_workers) as pool:
+            for sample_dict in tqdm(
+                pool.imap_unordered(
+                    self._sample_case_foreground_intensities, range(num_cases)
+                ),
+                total=num_cases,
+                desc="foreground-stats",
+            ):
+                per_case_samples.append(sample_dict)
+
+        p_low, p_high = self.clip_percentiles
+        stats: Dict[str, Dict[str, float]] = {}
+        for channel_code in self.channel_codes:
+            pooled = np.concatenate(
+                [d[channel_code] for d in per_case_samples if d[channel_code].size > 0]
+            ) if any(d[channel_code].size > 0 for d in per_case_samples) else np.zeros(0, dtype=np.float32)
+            if pooled.size == 0:
+                raise RuntimeError(
+                    f"No foreground voxels found for channel {channel_code}. "
+                    "Every case has an all-background label?"
+                )
+            stats[channel_code] = {
+                "clip_lower": float(np.percentile(pooled, p_low)),
+                "clip_upper": float(np.percentile(pooled, p_high)),
+                "mean": float(pooled.mean()),
+                "std": float(max(pooled.std(), 1e-6)),
+                "min": float(pooled.min()),
+                "max": float(pooled.max()),
+                "median": float(np.median(pooled)),
+                "clip_percentiles": [float(p_low), float(p_high)],
+                "num_foreground_voxels_sampled": int(pooled.size),
+                "num_cases_with_foreground": int(
+                    sum(1 for d in per_case_samples if d[channel_code].size > 0)
+                ),
+            }
+            print(
+                f"[info] channel {channel_code}: "
+                f"clip=[{stats[channel_code]['clip_lower']:.2f}, {stats[channel_code]['clip_upper']:.2f}]  "
+                f"mean={stats[channel_code]['mean']:.2f}  "
+                f"std={stats[channel_code]['std']:.2f}  "
+                f"(n={pooled.size})"
+            )
+
+        with open(stats_cache_path, "w", encoding="utf-8") as outfile:
+            json.dump(stats, outfile, indent=2)
+        print(f"[info] wrote foreground intensity stats to {stats_cache_path}")
+
+        self.intensity_stats = stats
+        return stats
+
     def __call__(self) -> None:
+        os.makedirs(self.save_dir, exist_ok=True)
+        if self.intensity_stats is None:
+            self.compute_intensity_stats()
+
         num_workers = self._resolve_num_workers()
         print("started preprocessing Dataset101_PM (v%d)..." % PREPROCESS_VERSION)
         print(f"using {num_workers} worker processes")
         print(f"target spacing: {self.target_spacing} mm  |  target shape: {self.target_shape}")
-        print(f"hu clip: {self.hu_clip}  |  label format: integer label map")
-        os.makedirs(self.save_dir, exist_ok=True)
+        print(
+            f"normalization: nnU-Net CTNormalization "
+            f"(clip percentiles {self.clip_percentiles}, dataset-global z-score)  |  "
+            f"label format: integer label map"
+        )
         with Pool(processes=num_workers) as multi_p:
             for _ in tqdm(
                 multi_p.imap_unordered(self.process, range(self.__len__())),
@@ -255,8 +400,9 @@ class Dataset101PMPreprocess:
             "label_values": list(self.label_values),
             "target_spacing": list(self.target_spacing),
             "target_shape": list(self.target_shape),
-            "hu_clip": None if self.hu_clip is None else list(self.hu_clip),
-            "normalization": "hu_clip + per-case z-score",
+            "normalization": "nnUNet_CTNormalization (percentile clip + global z-score)",
+            "clip_percentiles": list(self.clip_percentiles),
+            "intensity_stats": self.intensity_stats,
         }
         with open(os.path.join(self.save_dir, "meta.json"), "w", encoding="utf-8") as outfile:
             json.dump(meta, outfile, indent=2)
@@ -313,17 +459,26 @@ def build_argparser() -> argparse.ArgumentParser:
         help="Isotropic voxel spacing in mm to resample to before cropping.",
     )
     parser.add_argument(
-        "--hu-clip",
+        "--clip-percentiles",
         type=float,
         nargs=2,
-        default=(-175.0, 250.0),
-        metavar=("LOWER", "UPPER"),
-        help="HU clipping range applied before per-case z-score. Pass '--no-hu-clip' to disable.",
+        default=(0.5, 99.5),
+        metavar=("LOW", "HIGH"),
+        help=(
+            "Foreground-voxel percentiles used for per-channel HU clipping. "
+            "Default matches nnU-Net's CTNormalization (0.5 / 99.5)."
+        ),
     )
     parser.add_argument(
-        "--no-hu-clip",
+        "--num-foreground-samples-per-case",
+        type=int,
+        default=10_000,
+        help="Max foreground voxels sampled per case per channel when computing stats.",
+    )
+    parser.add_argument(
+        "--force-recompute-stats",
         action="store_true",
-        help="Disable HU clipping (already-clipped data still passes through unchanged).",
+        help="Recompute foreground intensity stats even if foreground_stats.json exists.",
     )
     return parser
 
@@ -331,12 +486,13 @@ def build_argparser() -> argparse.ArgumentParser:
 if __name__ == "__main__":
     parser = build_argparser()
     args = parser.parse_args()
-    hu_clip: Optional[Tuple[float, float]] = None if args.no_hu_clip else tuple(args.hu_clip)
     preprocess = Dataset101PMPreprocess(
         dataset_root=args.dataset_root,
         save_dir=args.save_dir,
         target_shape=tuple(args.target_shape),
         target_spacing=tuple(args.target_spacing),
-        hu_clip=hu_clip,
+        clip_percentiles=tuple(args.clip_percentiles),
+        num_foreground_samples_per_case=args.num_foreground_samples_per_case,
     )
+    preprocess.compute_intensity_stats(force=args.force_recompute_stats)
     preprocess()
