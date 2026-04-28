@@ -15,36 +15,51 @@ from tqdm import tqdm
 # Preprocessing format version.  Stored as meta.json inside the save_dir so the
 # launcher can detect stale output (e.g. the legacy one-hot+MinMax layout) and
 # re-run preprocessing automatically.
-PREPROCESS_VERSION = 3
+PREPROCESS_VERSION = 4
 
 
 class Dataset101PMPreprocess:
     """Preprocess Dataset101_PM (nnU-Net style CT) into fast-loading .pt tensors.
 
-    Output layout (v3):
+    Output layout (v4):
       save_dir/
         <case>/<case>_modalities.pt   # float32 (C, W, H, D) image tensor
         <case>/<case>_label.pt        # uint8  (1, W, H, D) integer label map
         foreground_stats.json         # per-channel foreground intensity stats
         meta.json                     # preprocessing metadata + version marker
 
-    Key differences vs v2 (which produced the 21981180 / 21983799 lr-sweep runs):
-      * Image normalization switched to nnU-Net's CTNormalization:
-          1. Compute per-channel foreground intensity stats ONCE across the
-             whole dataset (label > 0 voxels) — clip percentiles (default
-             0.5 / 99.5), mean, std.
-          2. Clip each case's intensities to the global percentile window.
-          3. z-score with the global mean/std.
-        v2 used per-case z-score after a hard-coded HU clip to [-175, 250],
-        which (a) threw away ~70% of the raw HU range (dataset still has
-        min=-1024 / max=3071 per nnU-Net's analysis) and (b) let per-case
-        air/background ratio bias the per-case mean.  v3 gives every case the
-        same reference frame and preserves information outside the
-        soft-tissue window.
+    Pipeline (per case):
+      1. Load NIfTI image + label.
+      2. CTNormalization (from v3): dataset-global percentile clip + z-score
+         using foreground-voxel stats computed once across the dataset.
+      3. Reorient to RAS (axis order: R, A, S).
+      4. Resample to anisotropic target_spacing (defaults to
+         (1.73, 1.73, 1.09) mm — matches nnU-Net's 3d_lowres ~2.4x downsample
+         factor for Dataset101_PM, where the S axis is the fine
+         ~0.45 mm acquisition axis).
+      5. Crop to the non-air bounding box of the image (small, cheap trim
+         of the resampling padding region).
+      6. Save at native resampled shape — NO fixed target_shape cropping
+         anymore.  Training-time augmentation (CropForegroundd ->
+         SpatialPadd -> RandCropByPosNegLabeld) handles cubic patch
+         sampling, and sliding-window inference handles arbitrary shapes
+         at validation time.
 
-    Resampling and final shape are unchanged from v2 (isotropic 2 mm,
-    center-crop-or-pad to target_shape) so v2 vs v3 is a clean A/B on
-    normalization only.
+    Differences vs v3 (the 22164320 ctnorm run):
+      * Anisotropic target spacing (1.73, 1.73, 1.09) mm instead of
+        isotropic (2.0, 2.0, 2.0) mm — preserves the native ~0.45 mm
+        S-axis resolution while downsampling by ~2.4x everywhere.
+      * Per-case shape is no longer forced to (192, 192, 256).  Each
+        case is saved at its native resampled shape (after RAS resample
+        and foreground crop).  Eliminates information loss from
+        center-cropping larger cases and wasted compute on zero-padded
+        smaller ones.
+
+    Note on axis mapping: with RAS-oriented Dataset101_PM (raw axcodes
+    ('L', 'P', 'S'), raw spacing ~(0.68, 0.68, 0.45)), axis 0/1 (R/A) are
+    the "coarse" in-plane axes and axis 2 (S) is the fine through-slice
+    axis.  target_spacing is applied in the RAS axis order, so the middle
+    value is NOT the finest here (unlike nnU-Net's transposed layout).
     """
 
     def __init__(
@@ -54,8 +69,7 @@ class Dataset101PMPreprocess:
         image_dir: str = "imagesTr",
         label_dir: str = "labelsTr",
         dataset_json: str = "dataset.json",
-        target_shape: Tuple[int, int, int] = (192, 192, 256),
-        target_spacing: Tuple[float, float, float] = (2.0, 2.0, 2.0),
+        target_spacing: Tuple[float, float, float] = (1.73, 1.73, 1.09),
         clip_percentiles: Tuple[float, float] = (0.5, 99.5),
         num_foreground_samples_per_case: int = 10_000,
     ) -> None:
@@ -67,7 +81,6 @@ class Dataset101PMPreprocess:
         self.channel_codes = self._get_channel_codes(self.dataset_meta)
         self.label_values = self._get_label_values(self.dataset_meta)
         self.num_classes = len(self.label_values)
-        self.target_shape = tuple(int(dim) for dim in target_shape)
         self.target_spacing = tuple(float(s) for s in target_spacing)
         self.clip_percentiles = (float(clip_percentiles[0]), float(clip_percentiles[1]))
         self.num_foreground_samples_per_case = int(num_foreground_samples_per_case)
@@ -185,25 +198,6 @@ class Dataset101PMPreprocess:
             label[(slice(None),) + spatial_slices],
         )
 
-    def _center_crop_or_pad(self, array: np.ndarray) -> np.ndarray:
-        output = np.zeros((array.shape[0],) + self.target_shape, dtype=array.dtype)
-
-        src_slices = []
-        dst_slices = []
-        for axis, target_dim in enumerate(self.target_shape, start=1):
-            current_dim = array.shape[axis]
-            if current_dim >= target_dim:
-                start = (current_dim - target_dim) // 2
-                src_slices.append(slice(start, start + target_dim))
-                dst_slices.append(slice(0, target_dim))
-            else:
-                pad_before = (target_dim - current_dim) // 2
-                src_slices.append(slice(0, current_dim))
-                dst_slices.append(slice(pad_before, pad_before + current_dim))
-
-        output[(slice(None),) + tuple(dst_slices)] = array[(slice(None),) + tuple(src_slices)]
-        return output
-
     def preprocess_modality(self, data_fp: str, channel_code: str) -> np.ndarray:
         data, affine = self.load_nifti(data_fp)
         data = self.normalize(x=data, channel_code=channel_code)
@@ -243,13 +237,15 @@ class Dataset101PMPreprocess:
         label = self.preprocess_label(label_fp)
 
         modalities = np.concatenate(modalities, axis=0, dtype=np.float32)
+        # Trim the air/zero bounding box around the body.  Cases keep their
+        # native resampled shape otherwise — no center-crop or pad to a
+        # fixed target_shape.
         modalities, label = self._crop_to_foreground(modalities, label)
-        modalities = self._center_crop_or_pad(modalities)
-        # Label is padded with zeros which, in label-map form, correctly marks
-        # those voxels as background (class 0).
-        label = self._center_crop_or_pad(label)
 
-        # swapaxes(1, 3): (C, D, H, W) → (C, W, H, D) — transverse plane, matching BraTS convention.
+        # swapaxes(1, 3): (C, R, A, S) → (C, S, A, R) — matches BraTS storage
+        # convention.  Training augmentations are axis-symmetric cubic crops
+        # so the storage order is incidental, but keeping it consistent with
+        # earlier versions lets downstream code stay identical.
         modalities = modalities.swapaxes(1, 3)
         label = label.swapaxes(1, 3)
         return modalities.astype(np.float32, copy=False), label.astype(np.uint8, copy=False), case_name
@@ -376,45 +372,75 @@ class Dataset101PMPreprocess:
         num_workers = self._resolve_num_workers()
         print("started preprocessing Dataset101_PM (v%d)..." % PREPROCESS_VERSION)
         print(f"using {num_workers} worker processes")
-        print(f"target spacing: {self.target_spacing} mm  |  target shape: {self.target_shape}")
+        print(
+            f"target spacing (RAS axis order R, A, S): {self.target_spacing} mm  |  "
+            f"native shapes preserved (no fixed target_shape)"
+        )
         print(
             f"normalization: nnU-Net CTNormalization "
             f"(clip percentiles {self.clip_percentiles}, dataset-global z-score)  |  "
             f"label format: integer label map"
         )
+        native_shapes: List[List[int]] = []
         with Pool(processes=num_workers) as multi_p:
-            for _ in tqdm(
+            for shape in tqdm(
                 multi_p.imap_unordered(self.process, range(self.__len__())),
                 total=self.__len__(),
                 desc="preprocess",
             ):
-                pass
-        self._write_meta_json()
+                native_shapes.append(list(shape))
+
+        self._native_shapes = native_shapes
+        self._report_native_shape_stats(native_shapes)
+        self._write_meta_json(native_shapes)
         print("finished preprocessing Dataset101_PM...")
 
-    def _write_meta_json(self) -> None:
+    @staticmethod
+    def _report_native_shape_stats(native_shapes: List[List[int]]) -> None:
+        if not native_shapes:
+            return
+        arr = np.asarray(native_shapes, dtype=np.int64)  # (N, 4) = (C, W, H, D) for swapped tensors
+        # arr[:, 0] is channel count, skip it for spatial stats.
+        spatial = arr[:, 1:]
+        print(
+            "[info] native saved spatial shapes (C, W, H, D) — min/median/max per axis:\n"
+            f"       W: {spatial[:, 0].min()} / {int(np.median(spatial[:, 0]))} / {spatial[:, 0].max()}\n"
+            f"       H: {spatial[:, 1].min()} / {int(np.median(spatial[:, 1]))} / {spatial[:, 1].max()}\n"
+            f"       D: {spatial[:, 2].min()} / {int(np.median(spatial[:, 2]))} / {spatial[:, 2].max()}"
+        )
+
+    def _write_meta_json(self, native_shapes: Optional[List[List[int]]] = None) -> None:
         meta = {
             "preprocess_version": PREPROCESS_VERSION,
             "label_format": "label_map",
             "num_classes": self.num_classes,
             "label_values": list(self.label_values),
             "target_spacing": list(self.target_spacing),
-            "target_shape": list(self.target_shape),
+            "target_spacing_axis_order": "RAS (R, A, S)",
+            "fixed_target_shape": False,
             "normalization": "nnUNet_CTNormalization (percentile clip + global z-score)",
             "clip_percentiles": list(self.clip_percentiles),
             "intensity_stats": self.intensity_stats,
         }
+        if native_shapes:
+            arr = np.asarray(native_shapes, dtype=np.int64)
+            meta["native_shape_stats"] = {
+                "storage_order": "C, W, H, D",
+                "min_spatial": arr[:, 1:].min(axis=0).tolist(),
+                "median_spatial": np.median(arr[:, 1:], axis=0).astype(int).tolist(),
+                "max_spatial": arr[:, 1:].max(axis=0).tolist(),
+            }
         with open(os.path.join(self.save_dir, "meta.json"), "w", encoding="utf-8") as outfile:
             json.dump(meta, outfile, indent=2)
 
-    def process(self, idx: int) -> str:
+    def process(self, idx: int) -> Tuple[int, ...]:
         os.makedirs(self.save_dir, exist_ok=True)
         modalities, label, case_name = self.__getitem__(idx)
         data_save_path = os.path.join(self.save_dir, case_name)
         os.makedirs(data_save_path, exist_ok=True)
         torch.save(torch.from_numpy(modalities), os.path.join(data_save_path, f"{case_name}_modalities.pt"))
         torch.save(torch.from_numpy(label), os.path.join(data_save_path, f"{case_name}_label.pt"))
-        return case_name
+        return tuple(modalities.shape)
 
     @staticmethod
     def _resolve_num_workers() -> int:
@@ -439,24 +465,21 @@ def build_argparser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--save-dir",
         type=str,
-        default="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm",
+        default="/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_v4_anis_native",
         help="Directory where preprocessed case folders will be saved.",
-    )
-    parser.add_argument(
-        "--target-shape",
-        type=int,
-        nargs=3,
-        default=(192, 192, 256),
-        metavar=("D", "H", "W"),
-        help="Final spatial shape saved for each case (before axis swap).",
     )
     parser.add_argument(
         "--target-spacing",
         type=float,
         nargs=3,
-        default=(2.0, 2.0, 2.0),
-        metavar=("X", "Y", "Z"),
-        help="Isotropic voxel spacing in mm to resample to before cropping.",
+        default=(1.73, 1.73, 1.09),
+        metavar=("R", "A", "S"),
+        help=(
+            "Anisotropic voxel spacing in mm to resample to, applied in the "
+            "RAS axis order (R, A, S).  Default (1.73, 1.73, 1.09) matches "
+            "nnU-Net 3d_lowres's ~2.4x downsample for Dataset101_PM, where "
+            "the S axis has the fine ~0.45 mm native spacing."
+        ),
     )
     parser.add_argument(
         "--clip-percentiles",
@@ -489,7 +512,6 @@ if __name__ == "__main__":
     preprocess = Dataset101PMPreprocess(
         dataset_root=args.dataset_root,
         save_dir=args.save_dir,
-        target_shape=tuple(args.target_shape),
         target_spacing=tuple(args.target_spacing),
         clip_percentiles=tuple(args.clip_percentiles),
         num_foreground_samples_per_case=args.num_foreground_samples_per_case,

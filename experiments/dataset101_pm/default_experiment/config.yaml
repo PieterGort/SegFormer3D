@@ -6,7 +6,7 @@ wandb_parameters:
   group: dataset101_pm
   name: segformer3d_dataset101_pm
   resume: False
-  tags: ["dataset101_pm", "ct", "nnunet", "segmentation", "v3", "ctnorm", "diceCE", "kfold", "lr1e-3", "no-restart"]
+  tags: ["dataset101_pm", "ct", "nnunet", "segmentation", "v4", "anisotropic", "ctnorm", "native-shape", "diceCE", "kfold", "lr1e-3", "no-restart"]
 
 # model parameters
 model_name: segformer3d
@@ -124,30 +124,34 @@ early_stopping:
   min_delta: 0.0005
   min_epochs: 400
 
-# dataset args — use the v3 preprocessed dir (label-maps + nnU-Net
-# CTNormalization: dataset-global percentile clip + global z-score). Same
-# 2 mm isotropic spacing and (192, 192, 256) center-crop-or-pad as v2, so
-# the v2 vs v3 delta isolates the normalization change.
+# dataset args — use the v4 preprocessed dir (label-maps + nnU-Net
+# CTNormalization + anisotropic (1.73, 1.73, 1.09) mm spacing in RAS axis
+# order + native resampled shape preserved per case).  This stacks all
+# three A/B/C preprocessing improvements on top of the v3 baseline:
+#   A) anisotropy matching nnU-Net 3d_lowres (~2.4x downsample on each axis,
+#      keeps the fine ~0.45 mm S-axis resolution).
+#   B) CTNormalization (percentile clip + global z-score) — unchanged from v3.
+#   C) no fixed (192, 192, 256) center-crop/pad — variable shapes handled by
+#      SpatialPadd + RandCropByPosNegLabeld at train time and sliding-window
+#      inference at val time.
 # fold_id is overridden by the launcher for each of the 5 folds.
 dataset_parameters:
   dataset_type: "dataset101_pm_seg"
   train_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v3_ctnorm"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_v4_anis_native"
     train: True
     fold_id: 1
-    # Training patch size: 192^3 experiment. 128^3 clearly beat 96^3 in the fair
-    # metric (fold1 diceCE: 55.5% @ 128 vs 46.1% @ 96 — jobs 21957589 / 21975248),
-    # so testing whether more context still helps. 192^3 is ~3.4x the voxels of
-    # 128^3 and divisible by the total patch stride (32).
-    # Memory budget: the roi 96 / num_samples 4 / batch 2 run (21975248) used
-    # only ~13% of A100 mem. 192^3 with num_samples 2 / batch 2 is 4 crops of
-    # 192^3 = ~4x the voxel load of that run, so expect ~50-60% mem. If OOM,
-    # drop batch to 1 first (keeps pos/neg sampling via num_samples 2).
+    # Training patch size stays at 192^3 to keep the v3 -> v4 comparison on
+    # patch size clean. With anisotropic spacing the physical FoV is
+    # R: 192 * 1.73 = 332 mm, A: 192 * 1.73 = 332 mm, S: 192 * 1.09 = 209 mm.
+    # Median resampled case shape after v4 is ~(170, 130, 330) (R, A, S in
+    # RAS axis order); cases smaller than 192 on an axis get zero-padded by
+    # SpatialPadd before RandCropByPosNegLabeld.
     roi_size: [192, 192, 192]
     num_samples: 2
 
   val_dataset_args:
-    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_2mm_v3_ctnorm"
+    root: "/gpfs/work2/0/prjs1518/projects/SegFormer3D/Dataset101_PM_preprocessed_v4_anis_native"
     train: False
     fold_id: 1
 
